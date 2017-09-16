@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base href="https://roamnia-drsounds.c9users.io/app/testapp">
+        <title></title>
+        <script src="/js/vendor/require.js" data-main="/js/api.js"></script>
+    </head>
+    <body>
+        <h3>Hash</h3>
+        <div id="section">Test</div>
+        <h3>Arguments</h3>
+        <div id="arguments">Arguments</div>
+        <script>
+            window.addEventListener('message', (e) => {
+                if (e.data.hash) {
+                    document.querySelector('#section').innerHTML = e.data.hash;
+                }
+                if (e.data.arguments) {
+                    document.querySelector('#arguments').innerHTML = e.data.arguments.join(',');
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+{
+    "AcceptsUri": "bungalow:app:test",
+    "BundleIdentifier": "testapp",
+    "DefaultTabs": [
+        {
+            "id": "overview",
+            "name": "Overview"
+        },
+        {
+            "id": "test",
+            "name": "Test"
+        }
+    ]
+}

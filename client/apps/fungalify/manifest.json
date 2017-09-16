@@ -1,0 +1,8 @@
+{
+    "AcceptsUri": "bungalow:app:fungalify",
+    "BundleIdentifier": "testapp",
+    "DefaultTabs": [{
+        "id": "overview",
+        "name": "Fungalify"
+    }]
+}

@@ -1,0 +1,359 @@
+:root {
+    --header-height: 30pt;
+    --footer-height: 30pt;
+    --sidebar-width: 268pt;
+}
+@import url('roamnia.css');
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+body,html {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 0pt !important;
+    font-family: "Tahoma";
+    font-size: 11pt;
+    cursor: default !important;    
+ -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+sp-header{
+    display: block;
+}
+sp-appheader {
+    padding-left: 80pt !important;
+}
+sp-menuitem ul li {
+    margin: 0pt;
+    display: block;
+    padding-top: 0pt;
+    padding-bottom: 0pt;
+}
+.highlight {
+    color: var(--brand-primary);
+}
+h1, h2, h3, h4 {
+    margin: 0pt;
+    margin-bottom: 3pt;
+}
+sp-image {
+    background-size: cover;
+    display: block;
+    border-radius: 5pt;
+}
+sp-toolbar {
+    display: flex;
+    flex-direction: row;
+    padding-left: 3pt;
+}
+sp-chrome {
+    left: 0pt;
+    top: 0pt;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    position: fixed;
+}
+main, sp-chrome, sp-appheader, sp-appfooter {
+    display: flex;
+    justify-content: space-between;
+}
+sp-appheader {
+    flex: 0 0 var(--header-height);
+    display: flex;
+    flex-direction: row;
+}
+sp-appfooter {
+    flex: 0 0 var(--footer-height);
+    display: flex;
+    flex-direction: row;
+}
+main {
+    flex: 10;
+    flex-direction: row;
+}
+
+input {
+}
+
+sp-infobar {
+    display: none;
+    flex: 0 0 auto;
+    height: auto;
+}
+
+sp-divider {
+    padding: 16pt;
+    padding-top: 12pt;
+    padding-bottom: 12pt;
+    display: block;
+    width: 100%;
+}
+td {
+    padding-left: 3pt;
+}
+sp-link, a {
+    cursor: pointer !important;
+}
+sp-toolbar button {
+}
+sp-menuitem {
+    display: block;
+    width: 100%;
+}
+sp-header table td, sp-album table td, sp-playlist table td, sp-toptracks td {
+    padding-left: 16pt;
+}
+.sp-track-unavailable, .sp-track-unavailable sp-link {
+    color: #aa7777;
+}
+sp-sidebar {
+    
+    width: var(--sidebar-width);
+}
+sp-rightsidebar {
+    display: block;
+    width: var(--sidebar-width);
+}
+sp-searchform {
+}
+sp-menuitem {
+    box-sizing: border-box;
+    width: var(--sidebar-width);
+}
+sp-main {
+    
+}
+sp-viewstack {
+    flex-grow: 2;
+    display: flex;
+}
+
+
+sp-viewstack, sp-view, .sp-view {
+}
+
+sp-album table, sp-playlist table, sp-toptracks table {
+    margin-top: 1pt;
+    margin-bottom: 1pt;
+}
+
+sp-main {
+    display: flex;
+    flex-direction: column;
+    flex: 10;
+    
+}
+.sp-view {
+    width: 100%;
+    flex: 12;    
+    overflow: scroll;    
+}
+sp-view {
+    
+}
+
+sp-toolbar {
+    display: block;
+    width: 100%;
+    padding: 6pt;
+}
+sp-tabcontent {
+    display: block;
+}
+sp-header > .container     , sp-album, sp-playlist {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10pt;
+    padding-right: -20pt;
+}
+sp-header > div:first-child, sp-album > div, sp-playlist > div:first-child {
+    padding-right: 12pt;
+}
+sp-header table td {
+}
+
+sp-tabbar {
+    display: flex;
+    flex: 0 0 auto;
+    padding: 3pt;
+    justify-content: center;
+ align-items: flex-start;
+}
+sp-tabbar sp-tab {
+    padding-left: 10pt;
+    padding-right: 10pt;
+}
+sp-main {
+    flex-grow: 2;
+}
+sp-tabbar {
+}
+td, sp-menu * {
+       white-space: -moz-pre-wrap; /* Firefox */
+white-space: -o-pre-wrap; /* Opera */
+white-space: pre-wrap; /* Chrome */
+word-wrap: break-word; /* IE */
+overflow-x: none;
+overflow: hidden;
+}
+sp-menuitem, sp-sidebarmenu > label {
+    padding: 3pt 13pt;
+ 
+}
+sp-sidebarmenu {
+     flex: 2;   
+    overflow: scroll;
+}
+sp-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+sp-nowplaying {
+    flex: 0 0 var(--sidebar-width);
+    height: var(--sidebar-width);
+    background-size: cover;
+}
+sp-themeeditor {
+    display: block;
+    position: relative;
+}
+sp-viewstack {
+}
+sp-themeeditor * {
+    display: inline-block;
+}
+sp-themeeditor select {
+
+   transform: translate(0pt, -50%);
+}
+sp-searchform {
+    display: block;
+}
+sp-sidebarmenu label {
+
+}
+sp-nowplaying {
+    cursor: pointer;
+}
+sp-sidebarmenu sp-searchform {
+   padding: 13pt 11pt;
+}
+sp-sidebarmenu {
+}
+
+sp-appheader button, sp-appfooter button {
+  
+    min-width: 28pt;
+}
+button:focus {
+    outline: none;
+}
+sp-appheader button, sp-appfooter button {
+    border: none;
+     background: none;
+     color: white;
+}
+
+
+
+
+@-webkit-keyframes MOVE-BG {
+	from {
+		-webkit-transform: translateX(0);
+	}
+	to { 
+		-webkit-transform: translateX(46px);
+	}
+}
+
+@keyframes MOVE-BG {
+	from {
+		transform: translateX(0);
+	}
+	to { 
+		transform: translateX(46px);
+	}
+}
+
+
+.loading {
+	height: auto;
+    text-align: center;
+    color: #4c3f2e;	
+    position: relative;
+    overflow: hidden;
+	padding: 1rem;
+	margin: 3%;
+	font-style: italic;
+}
+table {
+    
+}
+td, th {
+}
+
+.loading-bg {
+    position: absolute;
+    left: -46px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+	
+  background: -webkit-repeating-linear-gradient(
+    145deg,
+    transparent 1px,
+    rgba(0, 0, 0, .01) 2px,
+    rgba(0, 0, 0, .01) 11px,
+    transparent 12px,
+    transparent 20px
+  );
+  background: repeating-linear-gradient(
+    -55deg,
+    transparent 1px,
+    rgba(0, 0, 0, .01) 2px,
+    rgba(0, 0, 0, .01) 11px,
+    transparent 12px,
+    transparent 20px
+	);
+    
+    -webkit-animation-name: MOVE-BG;
+	-webkit-animation-duration: .6s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+	
+    animation-name: MOVE-BG;
+	animation-duration: .6s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+
+
+sp-playlist {
+    margin-top: 30pt;
+    margin-bottom: 30pt;
+}
+.sp-invalid-link {
+    opacity: 0.7 !important;
+    cursor: default !important;    
+    pointer-events: none;
+}
+.sp-invalid-link:hover {
+    opacity: 0.6 !important;
+    text-decoration: none;
+}
+sp-apptoolbar {
+    display: none;
+}

@@ -1,0 +1,18 @@
+[submodule "client/themes/bungalow"]
+	path = client/themes/bungalow
+	url = git@github.com:Buddhalow/bungalow-theme
+[submodule "client/js/plugins/spotify"]
+	path = client/js/plugins/spotify
+	url = git@github.com:Buddhalow/bungalow-spotify-plugin
+[submodule "services/bungalow-spotify-service"]
+	path = services/bungalow-spotify-service
+	url = git@github.com:Buddhalow/bungalow-spotify-service
+[submodule "services/spotify"]
+	path = services/spotify
+	url = git@github.com:Buddhalow/bungalow-spotify-service
+[submodule "client/themes/obama-2009"]
+	path = client/themes/obama-2009
+	url = git@github.com:Buddhalow/bungalow-spotify09-theme
+[submodule "client/themes/obama-2010"]
+	path = client/themes/obama-2010
+	url = git@github.com:Buddhalow/bungalow-spotify10-theme

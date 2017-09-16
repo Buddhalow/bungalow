@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" ng-app>
+  <head>
+    <title>Roamnia</title>
+    <base href="https://roamnia-drsounds.c9users.io/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/montserrat.css"> 
+    <link rel="stylesheet" href="/css/font-awesome.css"> 
+    <link rel="stylesheet" href="/css/bootstrap-grid.css"> 
+    <link rel="stylesheet" href="/css/bungalow.css"> 
+    <link rel="stylesheet" href="/css/roamnia.css"> 
+    <link rel="stylesheet" href="/css/gohu-font.css"> 
+    <script src="js/vendor/chart.js"></script>
+    <script src="js/vendor/moment.js" charset="UTF-8"></script>
+    <script src="js/vendor/numeral.js" charset="UTF-8"></script>
+    <script src="js/vendor/vibrant.js"></script>
+    <script src="js/vendor/slick.min.js"></script>
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/numeral.js"></script>
+    <script src="js/vendor/idb.js"></script>
+    <script src="js/vendor/i18n.js"></script>
+    <script src="js/vendor/sprintf.js"></script>
+    <script src="js/vendor/underscore.js"></script>
+    <script src="js/vendor/parse.js"></script>
+    <script src="js/vendor/require.js" data-main="js/main.js"></script>
+    <style>
+      body {
+        padding-top: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <template type="text/template" id="playlistTemplate">
+     
+        <div style="flex: 0 0 <%=width%>">
+            <sp-image width="<%=width%>" height="<%=height%>" src="<%=obj.images[0].url%>"></sp-image> 
+        </div>
+        <div style="flex: 2">
+           <h3><%=title%>  <%= strReleaseDate != '' ? ' <span><%=('+  strReleaseDate + ')' : '' %></h3>
+            
+            <%=(obj.description ? '<p>' + obj.description + '</p>' : '') %>
+            <div class="contents">
+              
+            </div>
+            <% /*obj.copyrights.map((c) => { %>
+                <span style="opacity: 0.5">'<%= c.type %>  <%=c.text%></span>
+           <% });*/ %>
+        
+        </div>
+    </template>
+    <template type="text/template" id="feedTemplate">
+      
+        <div style="flex: 0 0 128pt">
+          <sp-image></sp-image>
+        </div>
+        <div class="flex: 1">
+          <h3><%=_e(e.subject.id)%></h3>
+          <p> has done <%= _e(e.predicate.name) %> <%= e.object instanceof Object ? _('on') + ' ' + _e(e.object.name) : '' %></p>
+          <p><%= moment(e.time).format()%></p>
+        </div>
+
+    </template>
+    <template type="text/template" id="headerTemplate">
+      <div class="container">
+        <% if (!!object.image_url) { %>
+      <div style="flex: 0 0 <%=width%> ; margin-right: 12pt">
+        <sp-image width="<%=width%>" height="<%=height%>" src="<%=object.image_url %>"></sp-image>
+      </div>
+      <% } %>
+      <div style="" class="header-description">
+        <div style="">
+           <small style=""><%=_(object.type) %></small>
+          <h1> <%= _e(title) %>
+          <span style="float: right"><%= strFollowers %></span>
+          </h1>
+           <sp-toolbar></sp-toolbar>      
+        <p style="opacity: 0.5"><%= (object.description ? object.description : '') %></p>
+        </div>
+       
+      </div>
+      </div>
+    </template>
+    <div class="body-root splatter"></div>
+    <div class="body"></div>
+  </body>
+</html>

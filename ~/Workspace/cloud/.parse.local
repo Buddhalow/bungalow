@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Leros": {
+      "applicationId": "yvZbizRiIpJ3O1Q6Va0urSMkeg6AMRwzx0Sk6Sqo"
+    },
+    "_default": {
+      "link": "Leros"
+    }
+  }
+}
