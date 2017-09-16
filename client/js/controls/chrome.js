@@ -8,7 +8,6 @@ define(
         'controls/chrome',
         'controls/divider',
         'controls/gondole',
-        'controls/header',
         'controls/image',
         'controls/infobar',
         'controls/link',
@@ -17,7 +16,6 @@ define(
         'controls/menuitem',
         'controls/nowplaying',
         'controls/popularity',
-        'controls/resource',
         'controls/searchform',
         'controls/sidebar',
         'controls/sidebarmenu',
@@ -32,7 +30,6 @@ define(
         'controls/toolbar',
         'controls/view',
         'controls/viewstack',
-        'store',
         'events'
     ],
     function (
@@ -44,7 +41,6 @@ define(
         SPChromeElement,
         SPDividerElement,
         SPGondoleElement,
-        SPHeaderElement,
         SPImageElement,
         SPInfoBarElement,
         SPLinkElement,
@@ -53,7 +49,6 @@ define(
         SPMenuItemElement,
         SPNowPlayingElement,
         SPPopularityElement,
-        SPResourceElement,
         SPSearchFormElement,
         SPSidebarElement,
         SPSidebarMenuElement,
@@ -68,7 +63,6 @@ define(
         SPToolbarElement,
         SPViewElement,
         SPViewStackElement,
-        Store,
         EventEmitter
     ) {
 	return class SPChromeElement extends HTMLElement {

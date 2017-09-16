@@ -47,7 +47,7 @@ define(['controls/tab'], function (SPTabElement) {
 	    get title() {
 	        return this.titleBar.innerHTML;
 	    }
-	    set title(val) {
+	    set title(value) {
 	        this.titleBar.innerHTML = value;
 	    }
 	    setState(state) {

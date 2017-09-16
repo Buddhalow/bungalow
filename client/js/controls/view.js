@@ -17,6 +17,7 @@ define(function () {
             })
             this.scrollTop = (this.scrollY);
             if (this.header) {
+                if (this.header.vibrant instanceof Function)
                 this.header.vibrant();
             }
         }

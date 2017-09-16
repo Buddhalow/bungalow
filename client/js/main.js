@@ -190,8 +190,7 @@ const VERIFIED_PROFILES = ['drsounds', 'alexanderforselius', 'daniel', 'spotify'
 
 var store = null;
 requirejs(
-    [
-        'store',    
+    [  
         'events',
         'controls/hook',
         'controls/about',
@@ -238,8 +237,6 @@ requirejs(
         'controls/app'
     ],
   function (
-    Store,
-    
     EventEmitter,
     SPHookElement,
     SPAboutElement,
@@ -287,7 +284,6 @@ requirejs(
     SPAppViewStackViewElement
 ) {
     
-    store = new Store();
     document.registerElement('sp-viewstack', SPViewStackElement);
     document.registerElement('sp-hook', SPHookElement);
     document.registerElement('sp-datetime', SPDateTimeElement);

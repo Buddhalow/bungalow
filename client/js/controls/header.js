@@ -1,5 +1,5 @@
-define(['controls/resource'], function (SPResourceElement) {
-	return class SPHeaderElement extends SPResourceElement {
+define([], function () {
+	return class SPHeaderElement extends HTMLElement {
         createdCallback() {
             this.created = true;
             this.classList.add('header');

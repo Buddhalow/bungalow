@@ -1,5 +1,5 @@
-define(['controls/resource'], function (SPResourceElement) {
-	return class SPAboutElement extends SPResourceElement {
+define([], function () {
+	return class SPAboutElement extends HTMLElement {
         attachedCallback() {
             
         }

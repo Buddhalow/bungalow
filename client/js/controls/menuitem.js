@@ -4,12 +4,7 @@ define(['controls/link'], function (SPLinkElement) {
             super.createdCallback();
         }
         async attributeChangedCallback(attrName, oldVal, newVal) {
-            if (attrName == 'uri') {
-                let data = await store.request('GET', newVal);
-                if (data != null) {
-                    this.setState(data);
-                }
-            }
+           
         }
         setState(object) {
             this.state = object;

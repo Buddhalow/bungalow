@@ -1,5 +1,5 @@
-define(['controls/resource'], function (SPResourceElement) {
-    return class SPCarouselElement extends SPResourceElement {
+define([], function (t) {
+    return class SPCarouselElement extends HTMLElement {
         attachedCallback() {
             this.style.position = 'relative';
         }
