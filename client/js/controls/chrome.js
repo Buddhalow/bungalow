@@ -100,8 +100,19 @@ define(
             if (!hue) return 0;
             return hue;
         }
-        
-         applyTheme(theme, flavor='light') {
+        login(service) {
+            localStorage.setItem('logging_into', service);
+            return new Promise((resolve, reject) => {
+                var loginWindow = window.open('/api/' + service + '/login');
+                var t = setInterval(() => {
+                    if (!loginWindow) {
+                        clearInterval(t);
+                        resolve(true);
+                    }
+                });
+            });
+        }
+        applyTheme(theme, flavor='light') {
             let link = document.querySelector('link[id="theme"]');
             if (!link) {
                 link = document.createElement('link');

@@ -75,7 +75,7 @@ services.map(function (service) {
     console.log(service.id);
     console.log(service);
     var router = require(__dirname + path.sep + 'services' + path.sep + service.id + path.sep + service.id + '.js');
-    app.use(service.id, router);
+    app.use('/' + service.id, router);
 })
 
 

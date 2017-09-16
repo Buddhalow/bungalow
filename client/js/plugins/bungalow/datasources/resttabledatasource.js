@@ -2,7 +2,7 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
     return class SPRestTableDataSource extends SPTableDataSource {
         constructor(resource, fields) {
             super();
-            this.fields = ['id', 'name'];
+            this.fields = ['id', 'name', 'login'];
             this.limit = 28;
             this.offset = 0;
             this.resource = resource;

@@ -12,7 +12,22 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
             td.innerHTML = '&nbsp';
             if (!row) return td;
              let columnId = this.table.dataSource.getColumnAt(columnIndex);
+            
+            if (columnId === 'login') {
+                let btn = document.createElement('btn');
+                btn.classList.add('btn');
+                btn.innerHTML = _e('Log in');
+                btn.setAttribute('data-service', row.id);
+                btn.addEventListener('click', (e) => {
+                    document.querySelector('sp-chrome').login(row.id);
+                })
+                td.appendChild(btn);
+            }
+            
             let obj = row[columnId];
+            
+            
+            
             if (obj instanceof Date) {
                     let time = obj;
                     if (!time) {
