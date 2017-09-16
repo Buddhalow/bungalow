@@ -287,7 +287,8 @@ define(function () {
                 
             }
             
-            if (this.header) {
+            let thead = this.querySelector('thead');
+            if (thead.style.display != 'none') {
             if (this.table.tfoot) {
                 this.table.removeChild(this.table.tfoot);
             }
@@ -306,11 +307,14 @@ define(function () {
             this.adjustZebra();
         }
         adjustZebra() {
-            if (!this.header) return;
+            if (!this.table.tfoot) return;
             let thBounds = {top: 0, height: 0};
             let th = this.querySelector('th');
+            let thead = this.querySelector('thead');
+            if (thead.style.display === 'none') return;
             if (th) thBounds = th.getBoundingClientRect();
             let view = this.getParentElementByClass("sp-view");
+            if (!view) return;
             let bounds = view.getBoundingClientRect();
             let lastTd = this.querySelector('tr:last-child td');
             let height = bounds.bottom - thBounds.height;
@@ -325,11 +329,15 @@ define(function () {
                 let numRows = this.getElementsByTagName("tr").length;   
                 if ((numRows % 2) != 0) 
                     this.table.tfoot.tr.td.style.backgroundPosition = '0pt ' + lastTd.getBoundingClientRect().height + 'px';
+         
             }
         }
         attachedCallback() {
             
+            let thead = this.querySelector('thead');
+            if (thead.style.display != 'none') {
             this.adjustZebra();
+            }
         }
     }
 

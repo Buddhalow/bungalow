@@ -357,3 +357,16 @@ sp-playlist {
 sp-apptoolbar {
     display: none;
 }
+sp-hook {
+    width: 100%;
+    display: block;
+}
+sp-trackcontrols {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+sp-sidebarmenu label {
+    margin-top: 12pt;
+    display: block;
+}

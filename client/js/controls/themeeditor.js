@@ -16,7 +16,7 @@ define(function () {
                 this.appendChild(this.saturationChooser);
                 this.appendChild(this.label);
                 this.saturationChooser.setAttribute('max', 360);
-                this.saturationChooser.value = store.saturation;
+                this.saturationChooser.value = GlobalChromeElement.saturation;
                 this.styleselect = document.createElement('select');
                 
                 this.appendChild(this.styleselect);
@@ -54,12 +54,12 @@ define(function () {
         }
         hueSlider(e) {
             let value = e.target.value;
-            store.hue = value;
+            GlobalChromeElement.hue = value;
 
         }
         saturationSlider(e) {
             let value = e.target.value;
-            store.saturation = value;
+            GlobalChromeElement.saturation = value;
 
         }
     }
