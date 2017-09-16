@@ -1,22 +1,16 @@
+# Bungalow
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+An open source HTML5-frontend frame that is very extensible. It is based on
+HTML5 web components and is split in four distinct parts:
 
+* Plugins: Plugins can hook into various parts of the app (and other apps too).
+* Services: Back-end service in Node, discovered as node modules in service folder.
+* Themes: Themes can be installed into the app into the  client/themes folder which then can be discovered by the app
 
-Welcome to your Node.js project on Cloud9 IDE!
+The goal is to create a framework like CakePHP but for pure front-end work.
 
-This chat example showcases how to use `socket.io` with a static `express` server.
+It was built internal apps within Buddhalow company but we also want to share it.
 
-## Running the server
+Work in progress
 
-1) Open `server.js` and start the app by clicking on the "Run" button in the top menu.
-
-2) Alternatively you can launch the app from the Terminal:
-
-    $ node server.js
-
-Once the server is running, open the project in the shape of 'https://projectname-username.c9users.io/'. As you enter your name, watch the Users list (on the left) update. Once you press Enter or Send, the message is shared with all connected clients.
+License: MIT
