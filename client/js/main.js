@@ -132,7 +132,14 @@ window.addEventListener('hashchange', onHashChanged);
 
 
 
-
+Object.prototype.serialize = function(obj) {
+  var str = [];
+  for(var p in obj)
+    if (this.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(this[p]));
+    }
+  return str.join("&");
+}
 
 String.prototype.toQuerystring = function () {
     var args = this.substring(0).split('&');

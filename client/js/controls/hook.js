@@ -4,14 +4,7 @@ define([], function () {
      * plugins to hook into these and place custom components into other components
      **/
     return class SPHookElement extends HTMLElement {
-        attachedCallback() {
-            window.addEventListener('hook', (e) => {
-                this.render();  
-            });
-            this.render();
-            let e = new CustomEvent('hook_' + this.id);
-            document.dispatchEvent(e);
-        }
+      
         get chrome() {
             return document.querySelector('sp-chrome');
         }
@@ -20,6 +13,12 @@ define([], function () {
         }
         get id() {
             return this.getAttribute('data-hook-id');
+        }
+        setState(state) {
+            let e = new CustomEvent('hook_' + this.id);
+            e.data = state;
+            
+            document.dispatchEvent(e);
         }
         render() {
         }

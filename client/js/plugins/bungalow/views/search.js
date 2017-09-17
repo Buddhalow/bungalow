@@ -1,56 +1,32 @@
 define(['controls/view'], function (SPViewElement) {
     return class SPSearchViewElement extends SPViewElement {
-        attachedCallback() {
-            super.attachedCallback();
-            if (!this.created) {
-                this.classList.add('sp-view');
+        createdCallback() {
+            super.createdCallback();
+            this.classList.add('sp-view')
                 //this.innerHTML = "<div style='padding: 13pt'><h3>Search results for '<span id='q'>'</span>";
-                this.header = document.createElement('sp-header');
-
-                this.trackcontext = document.createElement('sp-trackcontext');
-                this.appendChild(this.trackcontext);
-                this.trackcontext.setAttribute('headers', 'true');
-                this.trackcontext.header = (this.header);
-                this.trackcontext.view = (this);
-                this.created = true;
-            }
-
+            this.hook = document.createElement('sp-hook');
+            this.hook.setAttribute('data-hook-id', 'searchview');
+            this.appendChild(this.hook);
         }
         activate() {
-            let uri = ''
-            if (!this.hasAttribute('uri'))
-                return;
-            uri = this.getAttribute('uri');
-            let query = this.getAttribute('uri').substr('bungalow:search:'.length);
-
-            this.header.tabBar.setState({
-                id: query,
-                uri: this.getAttribute('uri'),
-                name: query,
-                type: 'search'
-            })
+         
+            GlobalTabBar.setState({
+                objects: [
+                    {
+                        id: 'search',
+                        name: _e('Search')
+                    }    
+                ]
+            });
         }
         acceptsUri(uri) {
             return /^bungalow:search:(.*)$/.test(uri);
         }
-        navigate() {
-
-        }
-        async attributeChangedCallback(attrName, oldVal, newVal) {
-            if (!newVal) return;
+        attributeChangedCallback(attrName, oldVal, newVal) {
             if (attrName === 'uri') {
-                let query = newVal.substr('bungalow:search:'.length);
-                this.trackcontext.query = query;
-                this.trackcontext.setAttribute('uri', 'bungalow:search');
-                this.header.setState({
-                    name: query,
-                    id: query,
-                    description: "Search results for '" + query + "'",
-                    uri: 'bungalow:search: ' + query,
-                    type: 'search',
-                    images: [{
-                        url: ''
-                    }]
+                this.hook.setState({
+                    uri: newVal,
+                    q: newVal.substr('bungalow:search:'.length).split(/\:/g)[0]
                 });
             }
         }
