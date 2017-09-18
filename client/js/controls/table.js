@@ -252,18 +252,9 @@ define(function () {
                         })
     
                     }
-                    if (tr2.created) {
-                        tr2.style.display = 'none';
-                        this.table.tbody.insertBefore(tr2, this.table.tbody.children[i + offset]);
-                        tr2.created = false;
-                    }
     
                 }
                 offset += numberOfChildren;
-                if (numberOfChildren > 0 && numberOfChildren % 2 == 1) {
-                    let trf = document.createElement('tr');
-                    this.table.tbody.appendChild(trf);
-                }
                 
                 if (i == this.dataSource.getNumberOfRows() - 1 && !!this.header) {
                     let rect = tr.getBoundingClientRect();
