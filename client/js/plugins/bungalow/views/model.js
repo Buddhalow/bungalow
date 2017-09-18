@@ -77,6 +77,16 @@ define(
                                 }
                             }]
                         });
+                        GlobalTabBar.setState({
+                            objects: [{
+                                id: 'overview',
+                                name: _e(this.label)
+                            }],
+                            add: {
+                                uri: 'bungalow:' + self.model.toLocaleLowerCase() + ':add'
+                            }
+                        }); 
+                        this.created = true;
                         this.listView =  document.createElement('sp-table');
                         this.section.appendChild(this.header);
                         if (this.content instanceof Node)

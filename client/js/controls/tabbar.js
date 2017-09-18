@@ -89,7 +89,56 @@ define(['controls/tab'], function (SPTabElement) {
 	        } else {
 	                this.setAttribute('hidden', true);
 	        }
-	    
+	    	this.spacer = document.createElement('div');
+	    	this.appendChild(this.spacer);
+	    	this.spacer.style.flex = '5';
+	    	if (!!state && !!state.object) {
+	    		this.objectLink = document.createElement('div');
+	    		this.objectLink.style.display = 'inline-block';
+	    		this.objectLink.style.paddingRight = '3pt';
+	    		let extended = false;
+	    		for (let k of ['artist', 'album', 'artists', 'user', 'owner', 'playlist']) {
+		    		if (k in state.object && !!state.object[k]) {
+		    			let objs = state.object[k];
+		    			if (objs instanceof Array) {
+		    				
+		    			} else {
+		    				objs = [objs];
+		    			}
+		    			this.objectLink.innerHTML += objs.map((obj) => '<sp-link uri="' + obj.uri + '">' + obj.name + '</sp-link>').join(', ');
+		    			this.objectLink.innerHTML += '<span style="padding-left: 5pt; padding-right: 5pt">&raquo;</span>';
+		    			this.objectLink.innerHTML += '<sp-link uri="' + state.object.uri + '">' + state.object.name + '</sp-link>';
+		    			extended = true;
+		    		} 
+	    		}
+	    		if (!extended) {
+	    			this.objectLink.innerHTML += '<sp-link uri="' + state.object.uri + '">' + state.object.name + '</sp-link>'
+	    		}
+	    		this.appendChild(this.objectLink);	
+	    	}
+	    	
+	    	if (!!state && !!state.add) {
+	    		this.addTab = document.createElement('sp-tab');
+	    		this.appendChild(this.addTab);
+	    		this.addTab.style.cssFloat = 'right';
+	    		this.addTab.innerHTML = _e('Add ') + ' ';
+	    		this.addTab.addEventListener('click', (e) => {
+	    			let dialog = document.createElement('sp-modal');
+    				dialog.label = _e('Add ') + ' ' + this.model;
+	                document.body.appendChild(dialog);
+                	dialog.show();
+	                dialog.navigate(state.add.uri);
+	    		})
+	    		
+	    	} else {
+	    		try {
+	    		if (!!this.addTab) {
+	    			this.addTab.parentNode.removeChild(this.addTab);
+	    		}
+	    		} catch (e) {
+	    			
+	    		}
+	    	}
 	        
 	        this.rightTitleBar = document.createElement('div');
 	        this.rightTitleBar.innerHTML = '&nbsp;';
