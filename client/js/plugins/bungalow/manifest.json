@@ -1,4 +1,5 @@
 {
     "id": "bungalow",
-    "name": "Core plugin"
+    "name": "Bungalow core framework",
+    "type": "plugin"
 }

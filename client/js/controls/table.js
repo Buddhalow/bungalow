@@ -288,19 +288,19 @@ define(function () {
             }
             
             let thead = this.querySelector('thead');
-            if (thead.style.display != 'none') {
-            if (this.table.tfoot) {
-                this.table.removeChild(this.table.tfoot);
-            }
-            this.table.tfoot = document.createElement('tfoot');
-            this.table.tfoot.tr = document.createElement('tr');
-            this.table.tfoot.tr.td = document.createElement('td');
-            this.table.tfoot.tr.td.setAttribute('colspan', (this.dataSource.numberOfColumnHeaders + 2));
-            this.table.tfoot.tr.td.classList.add('zebra');
-            this.table.appendChild(this.table.tfoot);
-            this.table.tfoot.appendChild(this.table.tfoot.tr);
-            this.table.tfoot.tr.appendChild(this.table.tfoot.tr.td);
-            this.adjustZebra();
+            if (!thead.hasAttribute('hidden')) {
+                if (this.table.tfoot) {
+                    this.table.removeChild(this.table.tfoot);
+                }
+                this.table.tfoot = document.createElement('tfoot');
+                this.table.tfoot.tr = document.createElement('tr');
+                this.table.tfoot.tr.td = document.createElement('td');
+                this.table.tfoot.tr.td.setAttribute('colspan', (this.dataSource.numberOfColumnHeaders + 2));
+                this.table.tfoot.tr.td.classList.add('zebra');
+                this.table.appendChild(this.table.tfoot);
+                this.table.tfoot.appendChild(this.table.tfoot.tr);
+                this.table.tfoot.tr.appendChild(this.table.tfoot.tr.td);
+                this.adjustZebra();
             }
         }
         resize() {
@@ -311,31 +311,34 @@ define(function () {
             let thBounds = {top: 0, height: 0};
             let th = this.querySelector('th');
             let thead = this.querySelector('thead');
-            if (thead.style.display === 'none') return;
+            if (thead.hasAttribute('hidden')) return;
             if (th) thBounds = th.getBoundingClientRect();
             let view = this.getParentElementByClass("sp-view");
             if (!view) return;
-            let bounds = view.getBoundingClientRect();
-            let lastTd = this.querySelector('tr:last-child td');
-            let height = bounds.bottom - thBounds.height;
-            if (!!lastTd) {
-                let lastBounds = lastTd.getBoundingClientRect();
-                
-                height -= lastBounds.top + lastBounds.height;
-            }
-            if (this.table.tfoot != null)
-            {
-                this.table.tfoot.tr.td.style.height = (height) + 'px';
-                let numRows = this.getElementsByTagName("tr").length;   
-                if ((numRows % 2) != 0) 
-                    this.table.tfoot.tr.td.style.backgroundPosition = '0pt ' + lastTd.getBoundingClientRect().height + 'px';
-         
+            try {
+                let bounds = view.getBoundingClientRect();
+                let lastTd = this.querySelector('tr:last-child td');
+                let height = bounds.bottom - thBounds.height;
+                if (!!lastTd) {
+                    let lastBounds = lastTd.getBoundingClientRect();
+                    
+                    height -= lastBounds.top + lastBounds.height;
+                }
+                if (this.table.tfoot != null)
+                {
+                    this.table.tfoot.tr.td.style.height = (height) + 'px';
+                    let numRows = this.getElementsByTagName("tr").length;   
+                    if ((numRows % 2) != 0) 
+                        this.table.tfoot.tr.td.style.backgroundPosition = '0pt ' + lastTd.getBoundingClientRect().height + 'px';
+             
+                }
+            } catch (e) {
             }
         }
         attachedCallback() {
             
             let thead = this.querySelector('thead');
-            if (thead.style.display != 'none') {
+            if (thead.hasAttribute('hidden')) {
             this.adjustZebra();
             }
         }

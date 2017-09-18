@@ -1,3 +1,20 @@
+Parse.initialize("yvZbizRiIpJ3O1Q6Va0urSMkeg6AMRwzx0Sk6Sqo", "yaBh9ill6i0ktvvTb7WDPmoSg8QSxoGCFZ0yuYQY");
+Parse.serverURL = 'https://parseapi.back4app.com/'
+Parse.liveQueryServerURL = 'wss://leros.back4app.io';
+
+
+moment.locale('se');
+Parse.User.logIn('drsounds', '123', {
+    success: () => {
+        resolve(user);
+
+    }, 
+    error: () => {
+        reject();
+    }
+})  
+moment.locale('set');
+
 Array.prototype.insert = function ( index, item ) {
     this.splice( index, 0, item );
 };
@@ -22,8 +39,12 @@ HTMLElement.prototype.getParentElementByTagName = function (tagName) {
 
 HTMLElement.prototype.getParentElementByClass = function (tagName) {
     let elm = this;
-    while (elm && !elm.classList.contains(tagName)) {
+    try {
+    while (!!elm && !elm.classList.contains(tagName)) {
         elm = elm.parentNode;
+    }
+    } catch (e) {
+        
     }
     return elm;
 }
@@ -132,11 +153,11 @@ window.addEventListener('hashchange', onHashChanged);
 
 
 
-Object.prototype.serialize = function(obj) {
+let serializeObject = function(obj) {
   var str = [];
   for(var p in obj)
     if (this.hasOwnProperty(p)) {
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(this[p]));
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
     }
   return str.join("&");
 }

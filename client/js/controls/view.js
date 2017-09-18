@@ -28,6 +28,7 @@ define(function () {
         }
         createdCallback() {
             this.classList.add('sp-view');
+            debugger;
         }
         navigate(uri) {
             

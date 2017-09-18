@@ -37,6 +37,10 @@ define([
                 {
                     name: _e('Settings'),
                     uri: 'bungalow:config'
+                },
+                {
+                    name: _e('Services'),
+                    uri: 'bungalow:service'
                 }
             ]
         );

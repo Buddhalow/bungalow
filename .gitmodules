@@ -19,3 +19,6 @@
 [submodule "client/js/plugins/bungalow-roamnia-plugin"]
 	path = client/js/plugins/bungalow-roamnia-plugin
 	url = git@bitbucket.org:drsounds/bungalow-roamnia-plugin
+[submodule "client/js/plugins/parse"]
+	path = client/js/plugins/parse
+	url = git@github.com:Buddhalow/bungalow-plugin-parse
