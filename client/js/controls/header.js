@@ -36,6 +36,12 @@ define([], function () {
             });
             this.checkBounds();
             this.parentNode.appendChild(this.tabBar);
+            if (localStorage.getItem('showHeaders') != 'true') {
+                this.style = 'display: none !important';
+            } else {
+                
+                this.style = 'display: block !important';
+            }
         }
         setState(object) {
             let size = getComputedStyle(document.body).getPropertyValue("--image-size");

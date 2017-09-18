@@ -370,3 +370,5 @@ sp-sidebarmenu label {
     margin-top: 12pt;
     display: block;
 }
+  td {
+   white-space: nowrap;;}

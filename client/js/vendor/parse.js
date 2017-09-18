@@ -1881,19 +1881,15 @@ var ParseACL = function () {
         for (var userId in arg1) {
           var accessList = arg1[userId];
           if (typeof userId !== 'string') {
-            debugger;
             throw new TypeError('Tried to create an ACL with an invalid user id.');
-            debugger;
           }
           this.permissionsById[userId] = {};
           for (var permission in accessList) {
             var allowed = accessList[permission];
             if (permission !== 'read' && permission !== 'write') {
-            debugger;
               throw new TypeError('Tried to create an ACL with an invalid permission type.');
             }
             if (typeof allowed !== 'boolean') {
-            debugger;
               throw new TypeError('Tried to create an ACL with an invalid permission value.');
             }
             this.permissionsById[userId][permission] = allowed;

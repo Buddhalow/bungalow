@@ -154,7 +154,7 @@ define(function () {
             console.log(bounds.top, viewBounds.top);
             if (view.scrollTop > headerHeight ) {
                 view.style.display = 'block';
-                let transform = 'translateY(' + ((view.scrollTop - headerHeight) - 1) + 'px)';
+                let transform = 'translateY(' + ((view.scrollTop - headerHeight) ) + 'px)';
                 this.table.thead.style.transform = transform; 
             } else {
                 this.table.thead.style.transform = 'translateY(0px)';
@@ -169,6 +169,22 @@ define(function () {
         clear() {
             this.table.tbody.innerHTML = '';
         }
+        get selectedRows() {
+            return [this.table.querySelector('.sp-track-selected')];
+        }
+        refresh() {
+            this.dataSource.refresh();
+        }
+        attributeChangedCallback(attrName, oldVal, newVal) {
+            if (attrName == 'headers') {
+                if (!newVal) {
+                    if (this.table.tfoot != null) {
+                        this.table.removeChild(this.table.tfoot);
+                        this.table.tfoot = null;
+                    }
+                }
+            }
+        }
         render() {
             this.clear();
             if (this._designer == null) throw "No designer set";
@@ -178,6 +194,23 @@ define(function () {
             this.table.thead.innerHTML = '';
             this.table.thead.tr = this.designer.getHeaderRow(); 
             this.table.thead.appendChild(this.table.thead.tr);
+            if (this.dataSource.canReorderRows || this.dataSource.canAddRows) {
+                $(this, 'td').on('dragover', false);
+                 $(this, 'td').on('drop', async (ex) => {
+                     if (this.dropping) return;
+                     this.dropping = true;
+                     let e = ex.originalEvent;
+                    $('tr').removeClass('sp-dragover');
+                     if (this.dataSource.canReorderRows || this.dataSource.canAddRows) {
+                        if (e.dataTransfer.effectAllowed == 'move') {
+                            await this.dataSource.reorderRows(this.selectedIndicies, this.insertPosition);
+                            this.dropping = false;
+                            this.refresh();
+                        }
+                    }   
+                    
+                });
+            }
             let offset = 0;
             if (this.dataSource.removedRows instanceof Array)
                 for (let row of this.dataSource.removedRows) {
@@ -189,10 +222,37 @@ define(function () {
                 let tr = this.designer.getRowElement(row);
                 tr.setAttribute('draggable', true);
                 tr.addEventListener('dragstart', (e) => {
-                        let text = row.uri;
-                        
-                        event.dataTransfer.setData("Text",text);
+                    
+                  
+                    this.selectedIndicies = this.selectedRows.map(
+                        (tr) => parseInt(tr.getAttribute('data-position'))   
+                    );
+                    this.selectedUris = this.selectedRows.map(
+                        (tr) => tr.getAttribute('data-uri')    
+                    );
+                    let text = this.selectedUris.join("\n");
+                    event.dataTransfer.setData("text/plain",text);
+                    if (this.dataSource.canReorderRows) {
+                        e.dataTransfer.effectAllowed = 'move';
+                        this.activity = 'reorder';
+                    }
                 })
+                if (this.dataSource.canReorderRows || this.dataSource.canAddRows) {
+                    tr.addEventListener('dragenter', (e) => {
+                        if (e.dataTransfer.effectAllowed == 'move') {
+                            $('tr').removeClass('sp-dragover');
+                            $(tr).addClass('sp-dragover');
+                            this.insertPosition = $(tr).attr('data-position');
+                        }
+                    })
+                    tr.addEventListener('dragleave', (e) => {
+                        if (e.dataTransfer.effectAllowed in ['move', 'insert']) {
+                            $('tr').removeClass('sp-dragover');
+                            $(tr).addClass('sp-dragover');
+                        }
+                    })
+                   
+                }
                 tr.addEventListener('dblclick', (e) => {
                      if (this.delegate != null) {
                         let ptr = e.target.getParentElementByTagName('TR');
@@ -292,6 +352,10 @@ define(function () {
                 this.table.tfoot.appendChild(this.table.tfoot.tr);
                 this.table.tfoot.tr.appendChild(this.table.tfoot.tr.td);
                 this.adjustZebra();
+            } else {
+                if (this.table.tfoot) {
+                    this.table.removeChild(this.table.tfoot);
+                }
             }
         }
         resize() {
