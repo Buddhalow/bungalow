@@ -3,13 +3,16 @@ define(function () {
 
         createdCallback() {
             this.form = document.createElement('form');
-            this.form.innerHTML = '<a id="btnBack" class="fa fa-arrow-left" onclick="history.back()"><a class="fa fa-arrow-right" onclick="history.forward()"></button>';
+            this.form.innerHTML = '<span class="btn-group"><button id="btnBack" class="fa fa-arrow-left" onclick="window.goBack()"></button><button class="fa fa-arrow-right"  id="btnForward" onclick="window.goForward()"></button></span>';
 
             this.form.setAttribute('action', '/');
             this.form.setAttribute('method', 'GET');
             this.form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 let query = this.form.searchTextBox.value;
+                 if (query.indexOf('bungalow:') != 0 && query.indexOf('spotify:') != 0) {
+                    query = 'bungalow:search:' + query;
+                }
                 GlobalViewStack.navigate(query);
                 return false;
             });

@@ -44,11 +44,14 @@ define([], function () {
             }
         }
         setState(object) {
+            if (object == null) return;
             let size = getComputedStyle(document.body).getPropertyValue("--image-size");
             let width = size;
             let height = size;  
             let titleElement = document.createElement('sp-title');
             titleElement.setState(object);
+            
+            if (object.images instanceof Array )
             object.image_url = object.images && object.images.length > 0 && object.images[0].url ? object.images[0].url : '';
             let strFollowers = '';
             if ('followers' in object) {

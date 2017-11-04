@@ -22,19 +22,22 @@ define(['controls/tabbar'], function (SPTabBarElement) {
         createdCallback() {
             this.views = {};
             this.registeredViews = [];
+            this.history = [];
+            this.future = [];
         }    
         attachedCallback() {
             this.views = {};
             if (this.parentNode && this.parentNode.tagName == 'SP-MAIN') {
-            let path = window.location.pathname.substr(1);
-            let uri = 'bungalow:' + path.split('/').join(':');
-            this.navigate(uri, true);
-        
-            window.addEventListener('popstate', (event) => {
                 let path = window.location.pathname.substr(1);
                 let uri = 'bungalow:' + path.split('/').join(':');
                 this.navigate(uri, true);
-            });
+            
+                window.addEventListener('popstate', (event) => {
+                    let path = window.location.pathname.substr(1);
+                    let uri = 'bungalow:' + path.split('/').join(':');
+                    this.navigate(uri, true);
+                
+                });
             }
             
         }
@@ -80,15 +83,22 @@ define(['controls/tabbar'], function (SPTabBarElement) {
                 newUri == 'bungalow:internal:start';
             }
                 
-            if (newUri.indexOf('bungalow:') != 0) {
-                newUri = 'bungalow:search:' + uri;
-                uri = newUri;
-            }
+           
             if (window.GlobalViewStack.currentView != null && newUri === window.GlobalViewStack.currentView.getAttribute('uri') && window.GlobalViewStack === this)
                 return;
             let view = null;
-            let externalViews = GlobalViewStack.registeredViews.filter((v) => v.regex.test(newUri));
-            if (/^bungalow:app:(.*)$/g.test(newUri)) {
+            console.log(newUri);
+            console.log(window.GlobalViewStack.registeredViews);
+            let externalViews = window.GlobalViewStack.registeredViews.filter((v) => {
+                
+                console.log(v.regex);
+                console.log(newUri);
+                let result = v.regex.test(newUri);
+                console.log(result);
+                return result;
+            });
+            console.log(externalViews);
+            if (/^bungalow:app:(.*)$/.test(newUri)) {
                 view = document.querySelector('sp-appviewstackview');
                 if (!view) {
                     view = document.createElement('sp-appviewstackview');
@@ -102,10 +112,10 @@ define(['controls/tabbar'], function (SPTabBarElement) {
                 view = document.createElement(externalViews[0].tag);
                 this.addView(newUri, view);
             } else {
+                alert("The link could not be found");
                 
             }
             if (!view) {
-                // alert("The link could not be found");
                 return;
             }
             
@@ -117,11 +127,18 @@ define(['controls/tabbar'], function (SPTabBarElement) {
             this.uri = uri;
             
             if (!dontPush) {
-                history.pushState(uri, uri, '/' + url);
+                history.pushState({
+                    uri: uri,
+                    position: window.navPosition,
+                    count: window.navPosition
+                }, uri, '/' + url);
+            } else {
+                
             }
                 
             
         }
+        
         addView(uri, view) {
             
             this.views[uri] = view;

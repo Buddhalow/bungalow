@@ -14,13 +14,14 @@ define(function () {
             this.canvas = document.createElement('canvas');
             this.appendChild(this.canvas);
             this.node = this.canvas;
-            this.BAR_WIDTH = 2 * 3;
+            this.BAR_WIDTH = 2 * 4;
             this.BAR_HEIGHT = 2 * 109;
             this.SPACE = 8;
             this.popularity = 0.0;
             this.height = 7;
             this.width = 3;
             this.style.pointerEvents = 'none';
+            this.style.position = 'relative';
             this.node.style.width = '60pt';
             this.node.style.height = '7pt';
             this.style.padding = '0pt';
@@ -32,23 +33,23 @@ define(function () {
             }
         }
         setState(value) {
-            value = value / 100;
+            value = value / 100
             this.style.backgroundColor = 'transparent';
             var ctx = this.node.getContext('2d');
             // draw dark bars
             ctx.fillStyle = this.style.backgroundColor;
             ctx.fillRect(0, 0, this.node.width, this.node.height);
-            let fillStyle = rgbToRgba(window.getComputedStyle(this).getPropertyValue('color') || "rgb(255, 255, 255)", 0.5);
+            let fillStyle = rgbToRgba(window.getComputedStyle(this).getPropertyValue('color') || "rgb(255, 255, 255)", 0.2);
             ctx.fillStyle = fillStyle;
             var totalPigs = 0
             for (var i = 0; i < this.node.width; i+= this.BAR_WIDTH + this.SPACE) {
                 ctx.fillRect(i, 0, this.BAR_WIDTH, this.BAR_HEIGHT);
                 totalPigs++;
             }
-            ctx.fillStyle = window.getComputedStyle(this.parentNode).color;
+            ctx.fillStyle = rgbToRgba(window.getComputedStyle(this).getPropertyValue('color') || "rgb(255, 255, 255)", 0.6);
             var lightPigs = value * totalPigs;
             var left = 0;
-            for (var i = 0; i < lightPigs; i++) {
+            for (var i = 0; i < lightPigs -1; i++) {
                 ctx.fillRect(left, 0, this.BAR_WIDTH, this.BAR_HEIGHT);
                 left += this.BAR_WIDTH + this.SPACE;
             }

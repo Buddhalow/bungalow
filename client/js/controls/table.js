@@ -61,6 +61,7 @@ define(function () {
         }
         createdCallback() {
             window.addEventListener('resize', this._onResize.bind(this));
+            
             this._dataSource = null;
             this._designer = null;
             this._selectedIndicies = [];
@@ -77,8 +78,20 @@ define(function () {
             this.emptyLabel.classList.add('sp-empty');
             this.emptyLabel.setAttribute('hidden', true);
             this.appendChild(this.emptyLabel);
+            this.table.setAttribute('tabindex', '0');
+            document.body.addEventListener('keydown', (event) => {
+                if (event.which == "17")
+                    this.cntrlIsPressed = true;
+                else if (event.which == 65 && this.cntrlIsPressed) {
+                    // Cntrl+  A
+                    this.selectAllRows();
+                }
+            });
             
         }   
+        selectAllRows() {
+            $(this, 'tr').addClass('sp-track-selected');
+        }
         attachedCallback() {
     
                 this.parentNode.classList.add('table-background');
@@ -185,6 +198,9 @@ define(function () {
                 }
             }
         }
+        isRowWithIndexSelected(index) {
+            return this.selectedIndicies.filter(tr => tr.getAttribute('data-index')).length > 0;
+        }
         render() {
             this.clear();
             if (this._designer == null) throw "No designer set";
@@ -203,9 +219,16 @@ define(function () {
                     $('tr').removeClass('sp-dragover');
                      if (this.dataSource.canReorderRows || this.dataSource.canAddRows) {
                         if (e.dataTransfer.effectAllowed == 'move') {
+                            
                             await this.dataSource.reorderRows(this.selectedIndicies, this.insertPosition);
                             this.dropping = false;
-                            this.refresh();
+                        //    this.refresh();
+                        this.selectedRows.map(tr => {
+                            this.table.tbody.removeChild(tr);
+                        });
+                        this.selectedTrs.map(tr => {
+                            this.table.tbody.insertBefore(tr, this.table.tbody.childNodes[this.insertPosition]) 
+                        });
                         }
                     }   
                     
@@ -223,7 +246,7 @@ define(function () {
                 tr.setAttribute('draggable', true);
                 tr.addEventListener('dragstart', (e) => {
                     
-                  
+                    this.selectedTrs = this.selectedRows;
                     this.selectedIndicies = this.selectedRows.map(
                         (tr) => parseInt(tr.getAttribute('data-position'))   
                     );
@@ -234,6 +257,7 @@ define(function () {
                     event.dataTransfer.setData("text/plain",text);
                     if (this.dataSource.canReorderRows) {
                         e.dataTransfer.effectAllowed = 'move';
+                        
                         this.activity = 'reorder';
                     }
                 })
@@ -278,7 +302,17 @@ define(function () {
                     tr.appendChild(td);
                     tr.dataset.index = i;
                     td.addEventListener('mousedown', (e) => {
-                        this.selectedIndicies = [e.target.parentNode.dataset.index];
+                        let selectedIndicies = this.selectedIndicies || [];
+                        let selectedIndex = e.target.parentNode.dataset.index;
+                        if (this.cntrlIsPressed) {
+                            if (this.isRowWithIndexSelected(selectedIndex)) {
+                                this.selectedIndicies.splice(this.selectedIndicies.indexOf(selectedIndex), 1);
+                            } else {
+                                this.selectedIndicies.push(selectedIndex);
+                            }
+                        } else {
+                            this.selectedIndicies = [e.target.parentNode.dataset.index];
+                        }
                     })
                 }
                 let numberOfChildren = this.dataSource.getNumberOfChildren(row);
@@ -341,7 +375,11 @@ define(function () {
             let thead = this.querySelector('thead');
             if (!thead.hasAttribute('hidden')) {
                 if (this.table.tfoot) {
-                    this.table.removeChild(this.table.tfoot);
+                    try {
+                        this.table.removeChild(this.table.tfoot);
+                    } catch (e) {
+                        
+                    }
                 }
                 this.table.tfoot = document.createElement('tfoot');
                 this.table.tfoot.tr = document.createElement('tr');

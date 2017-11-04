@@ -2,6 +2,7 @@ define(['controls/link'], function (SPLinkElement) {
     return class SPMenuItemElement extends SPLinkElement {
         createdCallback() {
             super.createdCallback();
+            this.subitems = [];
         }
         async attributeChangedCallback(attrName, oldVal, newVal) {
            
@@ -13,23 +14,70 @@ define(['controls/link'], function (SPLinkElement) {
         render() {
             if (this.state != null) {
                 let item = this.state;
-                this.innerHTML += '<span>' + _(item.name) + '</span>';
+                this.innerHTML += '<i class="fa fa-' + (item.icon || 'home') + '" style="margin-right: 5pt"></i>';
+                this.innerHTML += '<span>' + _e(item.name) + '</span>';
                 if ('owner' in item) {
-                    menuItem.innerHTML = '<span style="opacity: 0.5"> by ' + item.owner.name + '</span>';
+                    this.innerHTML += '<span style="opacity: 0.5"> by ' + '<sp-link uri="' + item.owner.uri + '">' + item.owner.name + '</sp-link>' + '</span>';
                 }
                 if ('user' in item) {
-                    menuItem.innerHTML = '<span style="opacity: 0.5"> by ' + item.user.id + '</span>';
+                    this.innerHTML += '<span style="opacity: 0.5"> by ' + '<sp-link uri="' + item.user.uri + '">' + item.user.name + '</sp-link>' + '</span>';
                 }
                 if ('artists' in item) {
-                    menuItem.innerHTML = '<span style="opacity: 0.5"> by ' + item.artists.map((a) => a.name).join(', ') + '</span>';
+                    this.innerHTML += '<span style="opacity: 0.5"> by ' + item.artists.map((a) => '<sp-link uri="' + a.uri + '">' + a.name + '</sp-link>').join(', ') + '</span>';
+                }
+                if ('authors' in item) {
+                    this.innerHTML += '<span style="opacity: 0.5"> by ' + item.authors.map((a) => '<sp-link uri="' + a.uri + '">' + a.name + '</sp-link>').join(', ') + '</span>';
                 }
                 if ('for' in item) {
-                    menuItem.innerHTML = '<span style="opacity: 0.5"> by ' + item['for'].name + '</span>';
+                    this.innerHTML += '<span style="opacity: 0.5"> by ' + '<sp-link uri="' + item['for'].uri + '">' + item['for'].name + '</sp-link>' + '</span>';
                 }
+                
                 this.ul = document.createElement('ul');
                 this.appendChild(this.ul);
                 this.ul.style.display = 'none';
                 this.setAttribute('uri', this.state.uri);
+                if ('rows' in item) {
+                    this.expander = document.createElement('sp-expander');
+                    this.expander.setAttribute('data-uri', item.uri);
+                    this.appendChild(this.expander);
+                }
+                if (item.rows != null) {
+                    for (let j = 0; j < this.parentNode._dataSource.getNumberOfRows(item); j++) {
+                        let subMenuItem = document.createElement('sp-menuitem');
+                        subMenuItem.setAttribute('data-parent-uri', item.uri);
+                        subMenuItem.style.paddingLeft = '20pt';
+                        let subItem = this.parentNode._dataSource.getRowAt(j, item);
+                        subMenuItem.setState(subItem);
+                        this.subitems.push(subMenuItem);
+                    }
+                }
+            }
+        }
+        get open() {
+            return this.getAttribute('open') == 'true';
+        }
+        set open(val) {
+            this.setAttribute('open', val ? 'true' : 'false');
+        }
+        attributeChangedCallback(attrName, oldVal, newVal) {
+            if (attrName === 'open') {
+                if (newVal == 'true') {
+                    this.showChildren();
+                } else {
+                    this.hideChildren();
+                }
+            }
+        }
+        showChildren() {
+            let prevItem = this;
+            for (let subItem of this.subitems) {
+                insertAfter(subItem, prevItem);
+                prevItem = subItem;
+            }
+        }
+        hideChildren() {
+            for (let subitem of this.subitems) {
+                this.parentNode.removeChild(subitem);
             }
         }
         addChild(item) {
@@ -40,3 +88,7 @@ define(['controls/link'], function (SPLinkElement) {
         }
     }
 })
+
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}

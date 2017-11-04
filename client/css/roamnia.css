@@ -80,3 +80,31 @@ sp-result a:hover {
   background-color:  var(--brand-primary);
   color: white;
 }
+sp-manager sp-image {
+  margin-right: 12pt;
+}
+.old {
+  opacity: 0.5;
+}
+sp-searchform button {
+  padding: 5pt;
+  padding-left: 3pt;
+  padding-right: 3pt;
+}
+.btn-group > button {
+  border-radius: 0pt;
+}
+.btn-group > button:first-child {
+  margin-right: 0pt;
+  border-radius: 6pt 0pt 0pt 6pt;
+}
+.btn-group > button:last-child {
+  margin-left: 0pt;
+  border-radius: 0pt 6pt 6pt 0pt;
+}
+sp-manager {
+  display: block;
+  padding: 12pt;
+  padding-top: 12pt !important;
+  padding-bottom: 12pt !important;
+}

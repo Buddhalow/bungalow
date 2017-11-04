@@ -101,6 +101,7 @@ define(
                 var t = setInterval(() => {
                     if (!loginWindow) {
                         clearInterval(t);
+                        
                         resolve(true);
                     }
                 });
@@ -167,7 +168,6 @@ define(
             this.appendChild(this.main);
             this.sidebar = document.createElement('sp-sidebar');
             this.main.appendChild(this.sidebar); 
-            this.sidebar.style.width = '100pt';
             this.mainView = document.createElement('sp-main');
             this.main.appendChild(this.mainView);
             this.rightSidebar = document.createElement('sp-feedview');

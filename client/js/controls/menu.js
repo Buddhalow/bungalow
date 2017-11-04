@@ -34,14 +34,7 @@ define(function () {
                     menuItem.innerHTML = '<i class="fa fa-circle new"></i>';
                 }*/
                 menuItem.setState(item);
-                if (item.rows != null) {
-                    for (let j = 0; j < this._dataSource.getNumberOfRows(item); j++) {
-                        let subMenuItem = document.createElement('sp-menuitem');
-                        let subItem = this._dataSource.getRowAt(j, item);
-                        subMenuItem.setState(subItem);
-                        menuItem.addChild(subMenuItem);
-                    }
-                }
+                
             
             }
         }

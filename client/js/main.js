@@ -221,6 +221,7 @@ requirejs(
     [  
         'events',
         'controls/hook',
+        'controls/expander',
         'controls/about',
         'controls/datetime',
         'controls/toolbutton',
@@ -267,6 +268,7 @@ requirejs(
   function (
     EventEmitter,
     SPHookElement,
+    SPExpanderElement,
     SPAboutElement,
     SPDateTimeElement,
     SPToolButtonElement,
@@ -311,9 +313,10 @@ requirejs(
     SPAppElement,
     SPAppViewStackViewElement
 ) {
-    
+    localStorage.setItem("showHeaders", true);
     document.registerElement('sp-viewstack', SPViewStackElement);
     document.registerElement('sp-hook', SPHookElement);
+    document.registerElement('sp-expander', SPExpanderElement);
     document.registerElement('sp-datetime', SPDateTimeElement);
     document.registerElement('sp-toolbutton', SPToolButtonElement);
     document.registerElement('sp-apptoolbar', SPAppToolbarElement);
@@ -373,4 +376,4 @@ requirejs(
      });
     })();
         
-});
+});1

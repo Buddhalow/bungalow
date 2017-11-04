@@ -8,37 +8,13 @@ define(['controls/datasource'], function (SPDataSource) {
             return this.table.getAttribute('uri');
         }
         async getObjectById(id) {
-            return await new Promise((resolve, reject) => {
-                fetch(this.endpoint + '/' + id).then(r => r.json()).then((result) => {
-                    resolve(result);
-                }, (err) => {
-                    fail(err);
-                });
-            });
+            return await this.resource.getById(id);
         }
-        async del(id) {
-            return await new Promise((resolve, reject) => {
-                   fetch(
-                        this.endpoint + '/' + id,
-                        {
-                            method: 'DELETE'
-                        }
-                    ).then(r => r.json()).then((result) => {
-                        resolve(result);
-                    }, (err) => {
-                        fail(err);
-                    });
-            });
+        
+        fetchNext() {
+            
         }
-        async find(q) {
-           return await new Promise((resolve, reject) => {
-                fetch(this.endpoint + '?q=' + q).then(r => r.json()).then((result) => {
-                    resolve(result);
-                }, (err) => {
-                    fail(err);
-                });
-            });
-        }
+        
         get model() {
             return this._model;
         }
@@ -51,34 +27,14 @@ define(['controls/datasource'], function (SPDataSource) {
         getFieldByIndex(index) {
             return Object.values(this.fields)[index];
         }
+        async del(id) {
+            return await this.resource.del(id);
+        }
+        async find(q) {
+           return await this.resource.find(q);
+        }
         async saveOrUpdate(data) {
-            return new Promise((resolve, fail) => {
-                if (!!data.id) {
-                    fetch(
-                        this.endpoint + '/' + data.id,
-                        {
-                            method: 'PUT'
-                        }
-                    ).then(r => r.json()).then((result) => {
-                        resolve(result);
-                    }, (err) => {
-                        fail(err);
-                    });
-                    return;
-                } else {
-                    fetch(
-                        this.endpoint + '/' + data.id,
-                        {
-                            method: 'PUT',
-                            body: JSON.stringify(data)
-                        }
-                    ).then(r => r.json()).then((result) => {
-                        resolve(result);
-                    }, (err) => {
-                        fail(err);
-                    });
-                }
-            });
+            return await this.resource.saveOrUpdate(data);
         }
         
     }

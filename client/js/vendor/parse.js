@@ -4143,7 +4143,6 @@ var ParseObject = function () {
       var method = this.id ? 'PUT' : 'POST';
       
       var body = this._getSaveJSON();
-      debugger;
       var path = 'classes/' + this.className;
       if (this.id) {
         

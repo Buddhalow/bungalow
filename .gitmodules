@@ -22,3 +22,9 @@
 [submodule "client/js/plugins/parse"]
 	path = client/js/plugins/parse
 	url = git@github.com:Buddhalow/bungalow-plugin-parse
+[submodule "client/themes/wmp-10"]
+	path = client/themes/wmp-10
+	url = git@github.com:Buddhalow/wmp-10.git
+[submodule "client/themes/wmp-9"]
+	path = client/themes/wmp-9
+	url = git@github.com:Buddhalow/wmp-9.git

@@ -259,11 +259,6 @@ sp-appheader button, sp-appfooter button {
 button:focus {
     outline: none;
 }
-sp-appheader button, sp-appfooter button {
-    border: none;
-     background: none;
-     color: white;
-}
 
 
 
