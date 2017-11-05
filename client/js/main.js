@@ -3,6 +3,10 @@ Parse.serverURL = 'https://parseapi.back4app.com/'
 Parse.liveQueryServerURL = 'wss://leros.back4app.io';
 
 
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
 moment.locale('se');
 Parse.User.logIn('drsounds', '123', {
     success: () => {

@@ -28,3 +28,9 @@
 [submodule "client/themes/wmp-9"]
 	path = client/themes/wmp-9
 	url = git@github.com:Buddhalow/wmp-9.git
+[submodule "client/themes/obama-12"]
+	path = client/themes/obama-12
+	url = git@github.com:Buddhalow/bungalow-spotify12-theme.git
+[submodule "client/themes/obama-2012"]
+	path = client/themes/obama-2012
+	url = git@github.com:Buddhalow/bungalow-spotify12-theme.git

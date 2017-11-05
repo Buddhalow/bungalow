@@ -7,6 +7,7 @@ define([], function () {
            
             this.tabBar = document.createElement('sp-tabbar');
             this.tabBar.classList.add('sp-2014');
+            this.tabBar.classList.add('sp-2013');
             this.created = true;
             let innerHTML = _.unescape(document.querySelector('#headerTemplate').innerHTML);
             let template = _.template(innerHTML);
@@ -35,7 +36,8 @@ define([], function () {
                 this.checkBounds();
             });
             this.checkBounds();
-            this.parentNode.appendChild(this.tabBar);
+            insertAfter(this.tabBar, this);
+            
             if (localStorage.getItem('showHeaders') != 'true') {
                 this.style = 'display: none !important';
             } else {

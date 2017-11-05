@@ -3,6 +3,7 @@ define(function () {
         async  createdCallback() {
 
                 this.tabBar = document.createElement('sp-tabbar');
+                this.tabBar.classList.add('sp-2009')
                 this.tabBar.innerHTML = '&nbsp;';
                 this.appendChild(this.tabBar);
             this.menu = document.createElement('sp-sidebarmenu');
