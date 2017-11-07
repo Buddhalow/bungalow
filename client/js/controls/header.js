@@ -57,7 +57,7 @@ define([], function () {
             object.image_url = object.images && object.images.length > 0 && object.images[0].url ? object.images[0].url : '';
             let strFollowers = '';
             if ('followers' in object) {
-                strFollowers = '? followers'; //numeral(object.followers.total).format('0,0') + ' followers';
+                strFollowers = numeral(object.followers.total).format('0,0') + ' followers';
             }
             let innerHTML = _.unescape(document.querySelector('#headerTemplate').innerHTML);
             let template = _.template(innerHTML);

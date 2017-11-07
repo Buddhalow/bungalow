@@ -65,21 +65,34 @@
     <template type="text/template" id="headerTemplate">
       <div class="container">
         <% if (!!object.image_url) { %>
-      <div style="flex: 0 0 <%=width%> ; margin-right: 12pt">
-        <sp-image width="<%=width%>" height="<%=height%>" src="<%=object.image_url %>"></sp-image>
-      </div>
-      <% } %>
-      <div style="" class="header-description">
-        <div style="">
-           <small style=""><%=_(object.type) %></small>
-          <h1> <%= _e(title) %>
-          <span style="float: right"><%= strFollowers %></span>
-          </h1>
-           <sp-toolbar></sp-toolbar>      
-        <p style="opacity: 0.5"><%= (object.description ? object.description : '') %></p>
+        <div style="flex: 0 0 <%=width%> ; margin-right: 12pt">
+          <sp-image width="<%=width%>" height="<%=height%>" src="<%=object.image_url %>"></sp-image>
         </div>
-       
-      </div>
+        <% } %>
+        <div style="flex: 2" class="header-description">
+          <div style="">
+             <small style=""><%=_(object.type) %></small>
+            <h1> <%= _e(title) %>
+            </h1>
+             <sp-toolbar></sp-toolbar>      
+            <p style="opacity: 0.5"><%= (object.description ? object.description : '') %></p>
+        
+          </div>
+        </div>
+        <div style="flex: 0 0 30">
+          <div style="float: right; text-align: right">
+            <% if ('followers' in object) { %>
+          <b><%= numeral(object.followers.total).format('0,0') %></b><br>
+          <span><%=_e('Followers')%></span>
+          <% } %>
+          <% if ('following' in object && 'followers' in object) { %><hr><% } %>
+           <% if ('following' in object) { %>
+          <b><%= numeral(object.following.total).format('0,0') %></b><br>
+          <span><%=_e('Following')%></span>
+          <% } %>
+          </div>
+        </div>
+          
       </div>
     </template>
     <div class="body-root splatter"></div>

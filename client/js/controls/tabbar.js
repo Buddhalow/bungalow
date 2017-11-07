@@ -1,33 +1,37 @@
 define(['controls/tab'], function (SPTabElement) {
 	return class SPTabBarElement extends HTMLElement {
 	    createdCallback() {
-	        if (!this.created) {
-	            this.titleBar = document.createElement('div');
-	            this.appendChild(this.titleBar);
-	            this.created = true;
-	            this.addEventListener('scroll', this._onScroll.bind(this));
-	            
-
-	        }
-
+            this.titleBar = document.createElement('div');
+            this.appendChild(this.titleBar);
+            this.created = true;
 	    }
-	    
+	    attachedCallback() {
+	    	
+            $(this.parentNode).scroll(this._onScroll.bind(this));
+	    }
 	    _onScroll(e) {
 	        let view = this.parentNode;
 	        let viewBounds = view.getBoundingClientRect();
 	        let bounds = this.getBoundingClientRect();
 	        let tabBar = window.GlobalTabBar.getBoundingClientRect();
 	        let headerHeight = 0;
+	        this.headers = this.parentNode.getElementsByTagName('sp-header');
+	        if (this.headers.length > 0) {
+	        	this.header = this.headers[0];
+	        }
 	        if (this.header) {  
-	            headerHeight = this.header.getBoundingClientRect().height;;
-	        } 
-	        console.log(bounds.top, viewBounds.top);
+	            headerHeight = this.header.getBoundingClientRect().height;
+	        } else {
+	        	headerHeight = 0;
+	        }
+	    	
 	        if (view.scrollTop > headerHeight ) {
+	        	
 	            view.style.display = 'block';
 	            let transform = 'translateY(' + ( view.scrollTop - headerHeight) + 'px)';
-	            this.thead.style.transform = transform; 
+	            this.style.transform = transform; 
 	        } else {
-	            this.thead.style.transform = 'translateY(0px)';
+	            this.style.transform = 'translateY(0px)';
 	        }
 	        let gondole = this.querySelector('sp-gondole');
 	        if (gondole && gondole.getBoundingClientRect().top < viewBounds.top + viewBounds.height) {

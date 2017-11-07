@@ -143,9 +143,9 @@ const onHashChanged =  (e) => {
     }
     for (let tabView of view.querySelectorAll('sp-tabcontent')) {
         if (tabView.getAttribute('data-tab-id') == tabId) {
-            tabView.removeAttribute('hidden');
+            tabView.style.display = 'block';
         } else {
-            tabView.setAttribute('hidden', true);
+            tabView.style.display = 'none';
         }
     }
     if (GlobalViewStack && GlobalViewStack.currentView) {
