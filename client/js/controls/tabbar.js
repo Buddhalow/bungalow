@@ -60,6 +60,7 @@ define(['controls/tab'], function (SPTabElement) {
 	        this.titleBar.style.visibility = 'hidden';
 	        this.titleBar.style.paddingRight = '113pt';
 	        this.titleBar.style.paddingTop = '-12px';
+	        this.innerHTML = '<div class="sp-2012"></div>';
 	        //this.appendChild(this.titleBar);
 	        if (state.object instanceof Object) {
 	            if (state.object.images && state.object.images.length > 0) {
@@ -98,8 +99,8 @@ define(['controls/tab'], function (SPTabElement) {
 	    	this.spacer.style.flex = '5';
 	    	if (!!state && !!state.object) {
 	    		this.objectLink = document.createElement('div');
-	    		this.objectLink.style.display = 'inline-block';
 	    		this.objectLink.style.paddingRight = '3pt';
+	    		this.objectLink.classList.add('sp-2009');
 	    		let extended = false;
 	    		for (let k of ['artist', 'album', 'artists', 'user', 'owner', 'playlist']) {
 		    		if (k in state.object && !!state.object[k]) {
@@ -144,9 +145,9 @@ define(['controls/tab'], function (SPTabElement) {
 	    		}
 	    	}
 	        
-	        this.rightTitleBar = document.createElement('div');
-	        this.rightTitleBar.innerHTML = '&nbsp;';
-	        this.appendChild(this.rightTitleBar);
+	        var spacing = document.createElement('div');
+	        spacing.classList.add('sp-2012');
+	        this.appendChild(spacing);
 	    }
 	}
 })
