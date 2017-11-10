@@ -108,3 +108,6 @@ sp-manager {
   padding-top: 12pt !important;
   padding-bottom: 12pt !important;
 }
+table {
+  table-layout: fixed;
+}

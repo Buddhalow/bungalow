@@ -33,10 +33,14 @@ define(function () {
         get dataSource() {
             return this._dataSource;
         }
+        
         set dataSource(value) {
             this._dataSource = value;
             this._dataSource.table = this;
             this._dataSource.onchange = (e) => {
+                let evt = new CustomEvent('change');
+          
+                this.dispatchEvent(evt);
                 this.render();
                 let firstRow = this.querySelector('tr');
                /* if (firstRow) {
@@ -395,6 +399,10 @@ define(function () {
                     this.table.removeChild(this.table.tfoot);
                 }
             }
+            
+            let evt = new CustomEvent('rendered');
+          
+            this.dispatchEvent(evt);
         }
         resize() {
             this.adjustZebra();
