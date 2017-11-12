@@ -48,20 +48,12 @@ define([
     document.addEventListener('viewstackloaded', () => {
     
         GlobalViewStack.registeredViews.push({
-            tag: 'sp-startview',
-            regex: /^bungalow:(start|(internal:start))?$/g
-        });
-        GlobalViewStack.registeredViews.push({
             tag: 'sp-configview',
             regex: /^bungalow:config?$/g
         });
         GlobalViewStack.registeredViews.push({
             tag: 'sp-appviewstackview',
             regex: /^bungalow:app:(.*)?$/g
-        });
-        GlobalViewStack.registeredViews.push({
-            tag: 'sp-searchview',
-            regex: /^bungalow:search:(.*)?$/g
         });
         GlobalViewStack.registeredViews.push({
             tag: 'sp-serviceview',

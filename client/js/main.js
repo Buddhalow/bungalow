@@ -123,7 +123,6 @@ const onHashChanged =  (e) => {
             tabId = 'overview'
         };;
     } catch (e) {
-
     }
     let view = GlobalViewStack.currentView;
     let foundTab = false;
@@ -160,7 +159,7 @@ window.addEventListener('hashchange', onHashChanged);
 let serializeObject = function(obj) {
   var str = [];
   for(var p in obj)
-    if (this.hasOwnProperty(p)) {
+    if (p in obj) {
       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
     }
   return str.join("&");

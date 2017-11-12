@@ -67,7 +67,7 @@ define(['controls/tabbar'], function (SPTabBarElement) {
                     item.classList.add('active');
                 }
                 
-            }
+            }   
             
             
             if (uri.indexOf('spotify:') === 0) {

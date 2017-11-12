@@ -6,10 +6,10 @@ define(['controls/view'], function (SPViewElement) {
         navigate() {
 
         }
-        attachedCallback() {
-            this.classList.add('container');
+        createdCallback() {
+            this.classList.add('sp-view');
             this.startHook = document.createElement('sp-hook');
-            this.startHook.setAttribute('data-hook-id', 'start_view');
+            this.startHook.setAttribute('data-hook-id', 'startview');
             this.appendChild(this.startHook);            
         }
     }

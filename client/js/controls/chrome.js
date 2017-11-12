@@ -66,6 +66,7 @@ define(
         EventEmitter
     ) {
 	return class SPChromeElement extends HTMLElement {
+	 
 	    get stylesheet() {
             let stylesheet = localStorage.getItem('stylesheet');
             if (!stylesheet) {
@@ -177,7 +178,25 @@ define(
             this.appFooter = document.createElement('sp-appfooter');
             this.appendChild(this.appFooter);
              this.apply();
-            
+            setInterval(this.checkConnectivity.bind(this), 1000);
+            window.chrome = this;
+        }
+        checkConnectivity() {
+	        this.onLine = navigator.onLine;
+	        
+        }
+        get onLine() {
+            return this._onLine;
+        }
+        set onLine(val) {
+            this._onLine = val;
+            if (!this.onLine) {
+                alert('You are offline');
+	            this.classList.add('offline');
+	        } else {
+	            $('sp-infobar').hide();
+	            this.classList.remove('offline');
+	        }
         }
         alert(obj) {
             this.infoBar.show();

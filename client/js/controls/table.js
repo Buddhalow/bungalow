@@ -388,7 +388,7 @@ define(function () {
                 this.table.tfoot = document.createElement('tfoot');
                 this.table.tfoot.tr = document.createElement('tr');
                 this.table.tfoot.tr.td = document.createElement('td');
-                this.table.tfoot.tr.td.setAttribute('colspan', (this.dataSource.numberOfColumnHeaders + 2));
+                this.table.tfoot.tr.td.setAttribute('colspan', (this.dataSource.numberOfColumnHeaders));
                 this.table.tfoot.tr.td.classList.add('zebra');
                 this.table.appendChild(this.table.tfoot);
                 this.table.tfoot.appendChild(this.table.tfoot.tr);

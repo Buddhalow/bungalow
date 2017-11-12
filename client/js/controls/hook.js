@@ -15,9 +15,14 @@ define([], function () {
             return this.getAttribute('data-hook-id');
         }
         setState(state) {
-            let e = new CustomEvent('hook_' + this.id);
+            this.innerHTML = '';
+            let e = new CustomEvent('hook_' + this.getAttribute('data-hook-id'));
             e.data = state;
-            
+            document.dispatchEvent(e);
+        }
+        attachedCallback() {
+            this.innerHTML = '';
+            let e = new CustomEvent('hook_' + this.getAttribute('data-hook-id'));
             document.dispatchEvent(e);
         }
         render() {

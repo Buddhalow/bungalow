@@ -110,4 +110,15 @@ sp-manager {
 }
 table {
   table-layout: fixed;
+  width: 100%;
+}
+sp-hook {
+  width: 100%;
+}
+sp-item {
+  text-align: center;
+  display: inline-block;
+  margin-right: 13pt;
+  margin-bottom: 13pt;
+  margin-top: 13pt;
 }
