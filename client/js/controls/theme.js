@@ -11,11 +11,14 @@ define(function () {
             this[id + 'Input'].setAttribute('id', id);
         }
         get theme() {
+            let flavor = this.flavorselect.options[this.flavorselect.selectedIndex].value;
+            let stylesheet = this.styleselect.options[this.styleselect.selectedIndex].value;
             return {
                 saturation: this.saturationChooser.value,
                 hue: this.colorChooser.value,
                 colors: [this.primaryColorInput.value, this.secondaryColorInput.value, this.tertiaryColorInput.value],
-                stylesheet: this.styleselect.options[this.styleselect.selectedIndex].value
+                stylesheet: stylesheet,
+                flavor: flavor
             };
         }
         set theme(value) {
