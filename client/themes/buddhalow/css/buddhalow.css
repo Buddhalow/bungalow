@@ -1,0 +1,28 @@
+:root {
+    --primary-color: rgba(28, 28, 107, 1);
+    --secondary-color: rgba(255, 255, 100, 1);
+    --foreground-color: black;
+    --image-size: 128pt;
+}
+button {
+    border-radius: 12pt;
+    padding-left: 16pt;
+    padding-right: 16pt;
+    border: 1pt solid var(--foreground-color);
+    background: transparent;
+    color: var(--foreground-color);
+
+    opacity: 0.9;
+}
+button:active {
+    opacity: .7    ;
+}
+button:hover {
+    opacity: 1;
+}
+sp-appheader {
+    display: none;
+}
+sp-header {
+    background-image: linear-gradient(90deg, var(--vibrant-color) 0%, transparent 100%);
+}

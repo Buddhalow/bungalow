@@ -1,0 +1,9 @@
+body {
+    background-color: var(--primary-color);
+    color: white;
+    --foreground-color: white;
+}
+.sp-tab-active {
+    font-weight: bold;
+    border-bottom: 1pt solid var(--secondary-color);
+}

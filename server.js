@@ -8,6 +8,12 @@ var app = express();
 var bodyParser = require('body-parser');
   app.use(bodyParser());
 var busy = require('busy');
+
+
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+  // application specific logging, throwing an error, or other logic here
+});
 app.timeout = 1000;
 app.use(cookieParser());
 app.use(cookieSession({
@@ -20,7 +26,7 @@ app.use(cookieSession({
 
 var path = require('path');
 
-
+/*
 // middleware which blocks requests when we're too busy
 app.use(function(req, res, next) {
     if (busyCheck.blocked) {
@@ -28,7 +34,7 @@ app.use(function(req, res, next) {
     } else {
         next();
     }
-});
+});*/
 app.use('/api', api.server);
 
 var busyCheck = busy(function(amount) {

@@ -116,7 +116,7 @@ define([], function () {
             this.vibrant();
         }
         vibrant() {
-            if (localStorage.getItem('stylesheet') != 'maestro') return;
+            if (GlobalChromeElement.isVibrant) return;
             let object = this.object;
             if (!this.object) return;
             
@@ -129,9 +129,12 @@ define([], function () {
                 
                     var vibrant = new Vibrant(img);
                     let color = vibrant.swatches()['Vibrant'];
+                    let mutedColor = vibrand.swatches()['Muted'];
                     let bg = 'rgba(' + color.rgb[0] + ',' + color.rgb[1] + ',' + color.rgb[2] + ', 0.05)';
+                    let muted  = 'rgba(' + mutedColor.rgb[0] + ',' + mutedColor.rgb[1] + ',' + mutedColor.rgb[2] + ', 0.05)';
                     this.parentNode.style.backgroundColor = bg;
                     window.GlobalTabBar.style.backgroundColor = bg;
+                    document.documentElement.style.setProperty('--vibrand-color', bg);
                     
                 
                 }

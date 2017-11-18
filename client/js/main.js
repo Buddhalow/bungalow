@@ -254,7 +254,7 @@ requirejs(
         'controls/table',
         'controls/tabledatasource',
         'controls/tabledesigner',
-        'controls/themeeditor',
+        'controls/theme',
         'controls/title',
         'controls/toolbar',
         'controls/view',
@@ -301,7 +301,7 @@ requirejs(
     SPTableElement,
     SPTableDataSource,
     SPTableDesigner,
-    SPThemeEditorElement,
+    SPThemeElement,
     SPTitleElement,
     SPToolbarElement,
     SPViewElement,
@@ -349,7 +349,7 @@ requirejs(
     document.registerElement('sp-tabbar', SPTabBarElement);
     document.registerElement('sp-tabcontent', SPTabContentElement);
     document.registerElement('sp-table', SPTableElement);
-    document.registerElement('sp-themeeditor', SPThemeEditorElement);
+    document.registerElement('sp-theme', SPThemeElement);
     document.registerElement('sp-title', SPTitleElement);
     document.registerElement('sp-toolbar', SPToolbarElement);
     document.registerElement('sp-formfield', SPFormFieldElement);

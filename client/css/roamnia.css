@@ -118,7 +118,44 @@ sp-hook {
 sp-item {
   text-align: center;
   display: inline-block;
-  margin-right: 13pt;
-  margin-bottom: 13pt;
-  margin-top: 13pt;
+  padding: 3pt;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+sp-flow {
+  display: block;
+}
+sp-image {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.1s;
+  
+}
+sp-image:hover {
+  transform: scale(1.1);
+}
+sp-image:active {
+  transform: scale(0.99);
+  filter: brightness(0.7);
+}
+sp-image > div {
+  position: absolute;
+  padding: 3pt;
+  height: auto;
+  left: 0pt;
+  bottom:0pt;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .5);
+}
+sp-item {
+  display: inline-block;
+}
+sp-item {
+  padding-top: 12pt;
+  width: auto;
+  padding-left: 12pt;
+  display: inline-block;
+}
+sp-item sp-link {
 }

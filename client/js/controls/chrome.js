@@ -66,49 +66,41 @@ define(
         EventEmitter
     ) {
 	return class SPChromeElement extends HTMLElement {
-	 
-	    get stylesheet() {
-            let stylesheet = localStorage.getItem('stylesheet');
-            if (!stylesheet) {
-                stylesheet = 'bungalow';
+	    
+	    get theme() {
+	        return this._theme;
+	    }
+	    set theme(value) {
+	        this._theme = value;
+	        this.applyTheme(value);
+	        
+	    }
+	    saveTheme(value) {
+	        localStorage.setItem('theme', JSON.stringify(value));
+	    }
+	    loadTheme() {
+	        let theme = JSON.parse(localStorage.getItem('theme'));
+	        if (theme != null) {
+	            return theme;
+	        }
+	        return {
+                stylesheet: 'obama-2009',
+                saturation: 100,
+                flavor: 'dark',
+                hue: 100,
+                colors: ['#0077ff', '#ff8800', '#00ff00']
             }
-            
-            return stylesheet;
-        }
-        set stylesheet(value) {
-            this.applyTheme(value, this.flavor);
-            localStorage.setItem('stylesheet', value);
-        }
-        get flavor() {
-            let flavor = localStorage.getItem('flavor');
-            if (!flavor) {
-                flavor = 'light';
-            }
-            return flavor;
-        }
-        set flavor(value) {
-            this.applyTheme(this.stylesheet, value);
-            localStorage.setItem('flavor', value);
-        }
-        get hue() {
-            let hue = localStorage.getItem('hue');
-            if (!hue) return 0;
-            return hue;
-        }
-        login(service) {
-            localStorage.setItem('logging_into', service);
-            return new Promise((resolve, reject) => {
-                var loginWindow = window.open('/api/' + service + '/login');
-                var t = setInterval(() => {
-                    if (!loginWindow) {
-                        clearInterval(t);
-                        
-                        resolve(true);
-                    }
-                });
-            });
-        }
-        applyTheme(theme, flavor='light') {
+	    }
+	    applyTheme(value) {
+	        
+	        document.documentElement.style.setProperty('--primary-saturation', value.saturation);
+            document.documentElement.style.setProperty('--primary-hue', value.hue);
+            document.documentElement.style.setProperty('--primary-color', value.colors[0]);
+            document.documentElement.style.setProperty('--secondary-color', value.colors[1]);
+            document.documentElement.style.setProperty('--tertiary-color', value.colors[2]);
+            this.applyStylesheet(value.stylesheet, value.flavor);
+	    }
+	    applyStylesheet(theme, flavor='light') {
             let link = document.querySelector('link[id="theme"]');
             if (!link) {
                 link = document.createElement('link');
@@ -126,38 +118,24 @@ define(
             link2.setAttribute('href', '/themes/' + theme + '/css/' + flavor + '.css');
             link.setAttribute('href', '/themes/' + theme + '/css/' + theme + '.css');
         }
-        
-        apply() {
-            this.stylesheet = this.stylesheet;
-            this.saturation = this.saturation;
-            this.hue = this.hue;
-            this.flavor = this.flavor;
+	    
+        login(service) {
+            localStorage.setItem('logging_into', service);
+            return new Promise((resolve, reject) => {
+                var loginWindow = window.open('/api/' + service + '/login');
+                var t = setInterval(() => {
+                    if (!loginWindow) {
+                        clearInterval(t);
+                        
+                        resolve(true);
+                    }
+                });
+            });
         }
-        
-        /**
-         * Sets app global hue
-         **/
-        set saturation(value) {
-            document.documentElement.style.setProperty('--primary-saturation', value + '%');
-            localStorage.setItem('saturation', value);
-        }
-    
-        get saturation() {
-            let saturation = localStorage.getItem('saturation');
-            if (!saturation) return 0;
-            return saturation;
-        }
-    
-    
-        /**
-         * Sets app global hue
-         **/
-        set hue(value) {
-            document.documentElement.style.setProperty('--primary-hue', value + 'deg');
-            localStorage.setItem('hue', value);
-        }
+       
         createdCallback() {
             window.GlobalChromeElement = this;
+            this.theme = this.loadTheme();
             this.hooks = [];
             this.appHeader = document.createElement('sp-appheader');
             this.appendChild(this.appHeader);
@@ -177,9 +155,8 @@ define(
             this.main.appendChild(this.rightSidebar);
             this.appFooter = document.createElement('sp-appfooter');
             this.appendChild(this.appFooter);
-             this.apply();
             setInterval(this.checkConnectivity.bind(this), 1000);
-            window.chrome = this;
+            window.chrome = this; 
         }
         checkConnectivity() {
 	        this.onLine = navigator.onLine;
@@ -191,10 +168,8 @@ define(
         set onLine(val) {
             this._onLine = val;
             if (!this.onLine) {
-                alert('You are offline');
-	            this.classList.add('offline');
+                this.classList.add('offline');
 	        } else {
-	            $('sp-infobar').hide();
 	            this.classList.remove('offline');
 	        }
         }
