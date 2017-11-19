@@ -395,8 +395,12 @@ define(function () {
                 this.table.tfoot.tr.appendChild(this.table.tfoot.tr.td);
                 this.adjustZebra();
             } else {
+                try {
                 if (this.table.tfoot) {
                     this.table.removeChild(this.table.tfoot);
+                }
+                } catch (e) {
+                    
                 }
             }
             

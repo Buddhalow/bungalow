@@ -63,13 +63,15 @@
 
     </template>
     <template type="text/template" id="headerTemplate">
-      <div class="container">
-        <% if (!!object.image_url) { %>
-        <div style="flex: 0 0 <%=width%> ; margin-right: 12pt">
-          <sp-image width="<%=width%>" height="<%=height%>" src="<%=object.image_url %>"></sp-image>
-        </div>
-        <% } %>
-        <div style="flex: 2" class="header-description">
+     
+       <div class="bg-image" style="position: absolute; top: 0pt"></div>
+     
+      
+      </div>
+      <div class="container" style="width: 100%">
+        <div class="col-md-12" style="text-align: center">
+           <sp-image class="header-image" style="display: inline-block" width="<%=width%>" height="<%=height%>" src="<%=object.image_url %>"></sp-image>
+     
           <div style="">
              <small style=""><%=_(object.type) %></small>
             <h1> <%= _e(title) %>

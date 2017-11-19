@@ -12,7 +12,12 @@ define([], function () {
             let innerHTML = _.unescape(document.querySelector('#headerTemplate').innerHTML);
             let template = _.template(innerHTML);
             this.innerHTML = '';
+           
         
+        }
+        attachedCallback() {
+            
+            this.vibrant();
         }
         checkBounds() {
             let headerBounds = this.getBoundingClientRect();
@@ -114,9 +119,14 @@ define([], function () {
                 ]
             });
             this.vibrant();
+            document.documentElement.style.setProperty('--model-image-url', 'transparent');
+            document.documentElement.style.setProperty('--model-header-background', 'transparent');
+            if (object.images instanceof Array && object.images.length > 0) {
+                document.documentElement.style.setProperty('--model-image-url', 'url("' + object.images[0].url + '")');
+                document.documentElement.style.setProperty('--model-header-image', 'url("' + object.images[0].url + '")');
+            } 
         }
         vibrant() {
-            if (GlobalChromeElement.isVibrant) return;
             let object = this.object;
             if (!this.object) return;
             
@@ -129,13 +139,28 @@ define([], function () {
                 
                     var vibrant = new Vibrant(img);
                     let color = vibrant.swatches()['Vibrant'];
-                    let mutedColor = vibrand.swatches()['Muted'];
+                    let mutedColor = vibrant.swatches()['Muted'];
+                    let lightVibrant = vibrant.swatches()['DarkVibrant'];
                     let bg = 'rgba(' + color.rgb[0] + ',' + color.rgb[1] + ',' + color.rgb[2] + ', 0.05)';
-                    let muted  = 'rgba(' + mutedColor.rgb[0] + ',' + mutedColor.rgb[1] + ',' + mutedColor.rgb[2] + ', 0.05)';
-                    this.parentNode.style.backgroundColor = bg;
-                    window.GlobalTabBar.style.backgroundColor = bg;
-                    document.documentElement.style.setProperty('--vibrand-color', bg);
-                    
+                    let muted  = 'rgba(' + mutedColor.rgb[0] + ',' + mutedColor.rgb[1] + ',' + mutedColor.rgb[2] + ', 0,05)';
+                    let primary = 'rgba(' + color.rgb[0] + ',' + color.rgb[1] + ',' + color.rgb[2] + ', 1)';
+                    let secondary  = 'rgba(' + mutedColor.rgb[0] + ',' + mutedColor.rgb[1] + ',' + mutedColor.rgb[2] + ', 1)';
+                    if (!lightVibrant) {
+                        debugger;
+                       lightVibrant = vibrant.swatches()['LightVibrant'];
+                    }
+                    let lightVibrantColor  = 'rgba(' + lightVibrant.rgb[0] + ',' + lightVibrant.rgb[1] + ',' + lightVibrant.rgb[2] + ', 1)';
+                  //  this.parentNode.style.backgroundColor = bg;
+                    //window.GlobalTabBar.style.backgroundColor = bg;
+                    document.documentElement.style.setProperty('--vibrant-color', bg);
+                    if (window.GlobalChromeElement.theme.flavor == 'light') {
+                    document.documentElement.style.setProperty('--primary-color', secondary);
+                    document.documentElement.style.setProperty('--secondary-color',  lightVibrantColor);
+                    } else {
+                        
+                    document.documentElement.style.setProperty('--primary-color', lightVibrantColor);
+                    document.documentElement.style.setProperty('--secondary-color', secondary);
+                    }
                 
                 }
             }

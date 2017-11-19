@@ -79,7 +79,7 @@ define(
 	        localStorage.setItem('theme', JSON.stringify(value));
 	    }
 	    loadTheme() {
-	        let theme = JSON.parse(localStorage.getItem('theme'));
+	        let theme = JSON.parse(localStorage.getItem('theme')    );
 	        if (theme != null) {
 	            return theme;
 	        }
@@ -98,6 +98,7 @@ define(
             document.documentElement.style.setProperty('--primary-color', value.colors[0]);
             document.documentElement.style.setProperty('--secondary-color', value.colors[1]);
             document.documentElement.style.setProperty('--tertiary-color', value.colors[2]);
+            
             this.applyStylesheet(value.stylesheet, value.flavor);
 	    }
 	    applyStylesheet(theme, flavor='light') {
@@ -115,8 +116,8 @@ define(
                 document.head.appendChild(link2);
                 link2.setAttribute('rel', 'stylesheet');
             }
-            link2.setAttribute('href', '/themes/' + theme + '/css/' + flavor + '.css');
             link.setAttribute('href', '/themes/' + theme + '/css/' + theme + '.css');
+            link2.setAttribute('href', '/themes/' + theme + '/css/' + flavor + '.css');
         }
 	    
         login(service) {
@@ -151,7 +152,7 @@ define(
             this.main.appendChild(this.mainView);
             this.rightSidebar = document.createElement('sp-feedview');
             this.rightSidebar.style.width = '10%';
-            //this.rightSidebar.setAttribute('hidden', true);
+            this.rightSidebar.setAttribute('hidden', true);
             this.main.appendChild(this.rightSidebar);
             this.appFooter = document.createElement('sp-appfooter');
             this.appendChild(this.appFooter);
