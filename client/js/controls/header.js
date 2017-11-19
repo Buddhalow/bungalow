@@ -137,33 +137,52 @@ define([], function () {
                 img.src = imageUrl;
                 img.onload = () => {
                 
-                    var vibrant = new Vibrant(img);
-                    let color = vibrant.swatches()['Vibrant'];
-                    let mutedColor = vibrant.swatches()['Muted'];
-                    let lightVibrant = vibrant.swatches()['DarkVibrant'];
-                    let bg = 'rgba(' + color.rgb[0] + ',' + color.rgb[1] + ',' + color.rgb[2] + ', 0.05)';
-                    let muted  = 'rgba(' + mutedColor.rgb[0] + ',' + mutedColor.rgb[1] + ',' + mutedColor.rgb[2] + ', 0,05)';
-                    let primary = 'rgba(' + color.rgb[0] + ',' + color.rgb[1] + ',' + color.rgb[2] + ', 1)';
-                    let secondary  = 'rgba(' + mutedColor.rgb[0] + ',' + mutedColor.rgb[1] + ',' + mutedColor.rgb[2] + ', 1)';
-                    if (!lightVibrant) {
-                        debugger;
-                       lightVibrant = vibrant.swatches()['LightVibrant'];
-                    }
-                    let lightVibrantColor  = 'rgba(' + lightVibrant.rgb[0] + ',' + lightVibrant.rgb[1] + ',' + lightVibrant.rgb[2] + ', 1)';
-                  //  this.parentNode.style.backgroundColor = bg;
+                    var v = new Vibrant(img);
+                    let vibrant = v.swatches()['Vibrant'];
+                    let muted = v.swatches()['Muted'];
+                    let primaryColor  = vibrant.getHex();
+                     let secondaryColor  = invertColor(primaryColor);
+               
+                    //  this.parentNode.style.backgroundColor = bg;
                     //window.GlobalTabBar.style.backgroundColor = bg;
-                    document.documentElement.style.setProperty('--vibrant-color', bg);
+                    document.documentElement.style.setProperty('--vibrant-color', primaryColor);
                     if (window.GlobalChromeElement.theme.flavor == 'light') {
-                    document.documentElement.style.setProperty('--primary-color', secondary);
-                    document.documentElement.style.setProperty('--secondary-color',  lightVibrantColor);
-                    } else {
-                        
-                    document.documentElement.style.setProperty('--primary-color', lightVibrantColor);
-                    document.documentElement.style.setProperty('--secondary-color', secondary);
+                        document.documentElement.style.setProperty('--primary-color', secondaryColor);
+                       document.documentElement.style.setProperty('--secondary-color',  primaryColor);
+                    document.documentElement.style.setProperty('--foreground-color', muted.getBodyTextColor());
+                    } else {         
+                    document.documentElement.style.setProperty('--primary-color',  primaryColor);
+                    document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+                    document.documentElement.style.setProperty('--foreground-color', vibrant.getBodyTextColor());
                     }
                 
                 }
             }
         }
     }
+   function invertColor(hex) {
+        if (hex.indexOf('#') === 0) {
+            hex = hex.slice(1);
+        }
+        // convert 3-digit hex to 6-digits.
+        if (hex.length === 3) {
+            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        }
+        if (hex.length !== 6) {
+            throw new Error('Invalid HEX color.');
+        }
+        // invert color components
+        var r = (255 - parseInt(hex.slice(0, 2), 16)).toString(16),
+            g = (255 - parseInt(hex.slice(2, 4), 16)).toString(16),
+            b = (255 - parseInt(hex.slice(4, 6), 16)).toString(16);
+        // pad each with zeros and return
+        return '#' + padZero(r) + padZero(g) + padZero(b);
+    }
+    
+    function padZero(str, len) {
+        len = len || 2;
+        var zeros = new Array(len).join('0');
+        return (zeros + str).slice(-len);
+    }
+
 })
