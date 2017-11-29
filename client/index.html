@@ -108,10 +108,21 @@
           </div>
         </div>
         <div class="post-content">
+            <% if (object.add ) { %>
+            <form method="POST">
           <fieldset>
             <legend></legend>
+            <textarea style="width: 100%; height: 10pt" placeholder="What's on your mind" name="description"></textarea>
+            
+          </fieldset>
+          </form>
+          <% } else { %>
+          <fieldset>
+            <legend></legend>
+            
             <p><%=object.description%></p>
           </fieldset>
+          <% } %>
         </div>
         <div class="post-actions">
           <sp-link class="joy-button"><i class="fa fa-magic"></i> Joy</sp-link>

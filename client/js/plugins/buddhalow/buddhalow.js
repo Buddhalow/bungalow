@@ -27,7 +27,7 @@ define([
                 {
                     name: _e('Feed'),
                     icon: 'home',
-                    uri: 'buddhalow:newsfeed'
+                    uri: 'bungalow:newsfeed'
                 }
             ]
         );
