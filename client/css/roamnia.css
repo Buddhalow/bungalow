@@ -226,3 +226,6 @@ hr {
   border: none;
   border-top: 1pt solid rgba(0, 0, 0, .1);
 }
+fieldset {
+  border: none;
+}
