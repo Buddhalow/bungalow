@@ -149,11 +149,11 @@ define([], function () {
                     if (window.GlobalChromeElement.theme.flavor == 'light') {
                         document.documentElement.style.setProperty('--primary-color', secondaryColor);
                        document.documentElement.style.setProperty('--secondary-color',  primaryColor);
-                    document.documentElement.style.setProperty('--foreground-color', muted.getBodyTextColor());
+             //       document.documentElement.style.setProperty('--foreground-color', muted.getBodyTextColor());
                     } else {         
                     document.documentElement.style.setProperty('--primary-color',  primaryColor);
                     document.documentElement.style.setProperty('--secondary-color', secondaryColor);
-                    document.documentElement.style.setProperty('--foreground-color', vibrant.getBodyTextColor());
+           //         document.documentElement.style.setProperty('--foreground-color', vibrant.getBodyTextColor());
                     }
                 
                 }

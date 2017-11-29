@@ -150,10 +150,7 @@ define(
             this.main.appendChild(this.sidebar); 
             this.mainView = document.createElement('sp-main');
             this.main.appendChild(this.mainView);
-            this.rightSidebar = document.createElement('sp-feedview');
-            this.rightSidebar.style.width = '10%';
-            this.rightSidebar.setAttribute('hidden', true);
-            this.main.appendChild(this.rightSidebar);
+          
             this.appFooter = document.createElement('sp-appfooter');
             this.appendChild(this.appFooter);
             setInterval(this.checkConnectivity.bind(this), 1000);

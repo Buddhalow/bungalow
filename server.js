@@ -3,11 +3,14 @@ var execPath = process.env.PWD;
 var fs = require('fs');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
-var api = require('./api.js');
+var apiFactory = require('./api.js');
 var app = express();
 var bodyParser = require('body-parser');
   app.use(bodyParser());
 var busy = require('busy');
+var server = require('http').createServer(app);
+
+var api = apiFactory(server);
 
 
 process.on('unhandledRejection', (reason, p) => {
@@ -35,7 +38,7 @@ app.use(function(req, res, next) {
         next();
     }
 });*/
-app.use('/api', api.server);
+app.use('/api', api.app);
 
 var busyCheck = busy(function(amount) {
     console.log('Loop was busy for', amount, 'ms');

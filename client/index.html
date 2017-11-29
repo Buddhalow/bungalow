@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en" ng-app>
   <head>
@@ -63,15 +64,13 @@
 
     </template>
     <template type="text/template" id="headerTemplate">
-     
-       <div class="bg-image" style="position: absolute; top: 0pt"></div>
-     
-      
-      </div>
-      <div class="container" style="width: 100%">
-        <div class="col-md-12" style="text-align: center">
-           <sp-image class="header-image" style="display: inline-block" width="<%=width%>" height="<%=height%>" src="<%=object.image_url %>"></sp-image>
-     
+      <div class="container">
+        <% if (!!object.image_url) { %>
+        <div style="flex: 0 0 <%=width%> ; margin-right: 12pt">
+          <sp-image width="192" height="192" src="<%=object.image_url %>"></sp-image>
+        </div>
+        <% } %>
+        <div style="flex: 2" class="header-description">
           <div style="">
              <small style=""><%=_(object.type) %></small>
             <h1> <%= _e(title) %>
@@ -94,8 +93,30 @@
           <% } %>
           </div>
         </div>
-          
+<!-- Eftersom man jobbar med kosmiska identiten behöver man inte vara världsskänd utan även om man bara gör för en liten krets utgör det en egen värld eftersom det har en magnitud. -->          
       </div>
+    </template>
+    <template type="text/template" id="postTemplate">
+      <article class="post" style="margin-top: 15pt">
+        <div class="post-header">
+          <sp-link uri="bungalow:profile:<%=object.profile.slug%>"><sp-image style="width: 32pt; height: 32pt" src="<%=object.profile.image_url%>" width="16pt" height="16pt"></sp-image></sp-link>
+          <div class="post-title">
+            <sp-link uri="bungalow:profile:<%=object.profile.slug%>"><%=object.profile.name%></sp-link>
+            <div>
+              <sp-link style="opacity: 0.5" uri="<%=object.uri%>"><%=moment(object.time).fromNow()%></sp-link>
+            </div>
+          </div>
+        </div>
+        <div class="post-content">
+          <fieldset>
+            <legend></legend>
+            <p><%=object.description%></p>
+          </fieldset>
+        </div>
+        <div class="post-actions">
+          <sp-link class="joy-button"><i class="fa fa-magic"></i> Joy</sp-link>
+        </div>
+      </article>
     </template>
     <div class="body-root splatter"></div>
     <div class="body"></div>

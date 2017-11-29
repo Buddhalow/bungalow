@@ -1,3 +1,5 @@
+var express = require('express');
+var app = express();
 var request = require('request');
 var fs = require('fs'); 
 var Social = function () {
@@ -53,4 +55,6 @@ Social.prototype.request = function (method, url, params) {
     return promise;
 }
 
-module.exports = Social;
+module.exports = {
+    app:app 
+};

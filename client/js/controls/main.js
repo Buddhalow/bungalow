@@ -3,6 +3,8 @@ define(['controls/viewstack'], function (SPViewStackElement) {
         createdCallback() {
             
             this.tabBar = document.createElement('sp-tabbar');
+            this.tabBar.classList.add('sp-2013-hidden');
+            this.tabBar.classList.add('sp-2014-hidden');
             this.appendChild(this.tabBar);
             window.GlobalTabBar = this.tabBar;
             this.viewStack = document.createElement('sp-viewstack');

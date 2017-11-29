@@ -176,3 +176,52 @@ sp-header > .container {
   position: absolute;
   bottom: 0pt;
 }
+sp-header {
+  height: 150pt;
+}
+
+.container {
+  width: 100% !important;
+}
+.post-entry {
+  
+  border-bottom: 1pt solid rgba(0, 0, 0, .05);
+}
+
+.post {
+  /*
+  background-color: rgba(255, 255, 255, .02);
+  box-shadow: 0pt 1pt 1pt rgba(0, 0, 0, 0.18);
+  
+  */
+  margin-bottom: 16pt;
+  display: flex;
+  flex-direction: column;
+  padding: 12pt;
+}
+.post-header {
+  display: flex;
+  flex-direction: row;
+}
+.post-title {
+  display: flex;
+  flex-direction: column;
+}
+.post-content {
+  padding: 6pt;
+}
+sp-image {
+  background-color: white;
+  width: 64pt;
+  height: 64pt;
+}
+.post-header {
+  padding: 6pt;
+}
+.post-header > * {
+  padding-right: 6pt;
+}
+br {
+  border: none;
+  border-top: 1pt solid rgba(0, 0, 0, .1);
+}

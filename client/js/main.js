@@ -266,6 +266,7 @@ requirejs(
         'controls/modal',
         'controls/dialog',
         'controls/list',
+        'controls/post',
         'controls/app'
     ],
   function (
@@ -313,6 +314,7 @@ requirejs(
     SPModalElement,
     SPDialogElement,
     SPListElement,
+    SPPostElement,
     SPAppElement,
     SPAppViewStackViewElement
 ) {
@@ -358,6 +360,7 @@ requirejs(
     document.registerElement('sp-modal', SPModalElement);
     document.registerElement('sp-dialog', SPDialogElement);
     document.registerElement('sp-list', SPListElement);
+    document.registerElement('sp-post', SPPostElement);
     document.registerElement('sp-app', SPAppElement);
      (async () => {
          return new Promise(async (resolve, fail) => {

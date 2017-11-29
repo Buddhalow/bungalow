@@ -17,6 +17,8 @@
         xmlHttp.onreadystatechange = function () {
           if (xmlHttp.readyState == 4) {
             if (xmlHttp.status == 200) {
+              localStorage.setItem(localStorage.getItem('logging_into') + '.session', xmlHttp.responseText);
+            
               window.close();
             } else {
               alert(xmlHttp.status + ' ' + xmlHttp.responseText);

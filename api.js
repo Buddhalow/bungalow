@@ -11,7 +11,7 @@ var express =require('express');
 var app = express();
 
 
-
+module.exports = function (server) {
 
 
 app.get('/app', function (req, res) {
@@ -56,6 +56,7 @@ function getServices() {
     var dirs = fs.readdirSync(__dirname + path.sep + 'services');
   var apps = []
   dirs.forEach(function (appId) {
+    console.log(appId);
     var manifest = JSON.parse(fs.readFileSync(__dirname + path.sep + 'services' + path.sep + appId + path.sep + 'package.json'));
     apps.push(manifest.bungalow);
   });
@@ -74,8 +75,16 @@ var services = getServices();
 services.map(function (service) {
     console.log(service.id);
     console.log(service);
-    var router = require(__dirname + path.sep + 'services' + path.sep + service.id + path.sep + service.id + '.js');
-    app.use('/' + service.id, router);
+    var routerFactory = require(__dirname + path.sep + 'services' + path.sep + service.id + path.sep + service.id + '.js');
+    var router = null;
+    if (routerFactory instanceof Function) {
+      router = routerFactory(server);
+    } else {
+      router = routerFactory.app;
+    }
+    if (!!router) {
+      app.use('/' + service.id, router);
+    }
 })
 
 
@@ -86,8 +95,8 @@ app.use(cookieSession({
     keys: ['key1', 'key2'],
     cookie: {secure: false}
 }));
-
-
-module.exports = {
-    server: app
-};
+  
+  return {
+      app: app
+  }
+}
