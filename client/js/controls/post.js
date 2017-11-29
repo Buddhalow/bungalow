@@ -20,10 +20,19 @@ define([], function () {
                 if (!!this.select) {
                     this.select.dataSource = this.state.object.selectDataSource;
                     this.select.setAttribute('uri', 'bungalow:post');
+                     this.form.querySelector('textarea').addEventListener('change', (e) => {
+                        let url = e.target.value.getUrl();
+                        if (url != null && url.length > 0) {
+                            fetch('/api/lookup?url=' encodeURI(url), {
+                                credentials: 'cos'
+                            })
+                        }
+                    })
                 }
                 this.form.addEventListener('submit', (e) => {
+                   
                     e.preventDefault();
-                    debugger;
+                    this.form.style.opacity = 0.5;
                     let post = {
                         description: this.form.querySelector('textarea').value,
                         profileId: this.select.value

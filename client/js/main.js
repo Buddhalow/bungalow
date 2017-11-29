@@ -19,6 +19,12 @@ Parse.User.logIn('drsounds', '123', {
 })  
 
 
+String.prototype.getUrl = function () {
+    let httpStart = this.indexOf('http');
+    return this.substr(httpStart, this.indexOf(' ', httpStart));
+}
+
+
 String.prototype.hashtagify = function() {
     return this.replace(/#(\S*)/g, '<sp-link uri="bungalow:hashtag:$1">#$1</sp-link>').replace('<sp-link uri="bungalow:hashtag:#', '<sp-link uri="bungalow:hashtag:');
 }
