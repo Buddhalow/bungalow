@@ -34,8 +34,8 @@ define(['controls/view'], function (SPViewElement) {
                 entry.appendChild(postElm);
                 this.appendChild(entry);
           
-                let br = document.createElement('br');
-                this.appendChild(br);
+                let hr = document.createElement('hr');
+                this.appendChild(hr);
             } catch (e) {
                 debugger;
             }

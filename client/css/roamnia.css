@@ -185,7 +185,7 @@ sp-header {
 }
 .post-entry {
   
-  border-bottom: 1pt solid rgba(0, 0, 0, .05);
+  border-bottom: 1pt solid rgba(0, 0, 0, .10);
 }
 
 .post {
@@ -221,7 +221,8 @@ sp-image {
 .post-header > * {
   padding-right: 6pt;
 }
-br {
+hr {
+  display: none;
   border: none;
   border-top: 1pt solid rgba(0, 0, 0, .1);
 }
