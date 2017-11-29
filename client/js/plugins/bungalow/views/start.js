@@ -10,7 +10,10 @@ define(['controls/view'], function (SPViewElement) {
             this.classList.add('sp-view');
             this.startHook = document.createElement('sp-hook');
             this.startHook.setAttribute('data-hook-id', 'startview');
+            this.startHookBottom = document.createElement('sp-hook');
+            this.startHookBottom.setAttribute('data-hook-id', 'startviewbottom');
             this.appendChild(this.startHook);            
+            this.appendChild(this.startHookBottom);            
         }
     }
     return SPStartViewElement;

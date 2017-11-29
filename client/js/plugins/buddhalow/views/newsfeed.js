@@ -9,7 +9,7 @@ define(
   
    return class SPNewsFeedViewElement extends SPViewElement {
        createdCallback() {
-           
+           this.innerHTML = '<sp-divider>Feed</sp-divider>';
            this.classList.add('sp-view');
            this.list = document.createElement('sp-list');
            this.list.dataSource = new SPPostTableDataSource();

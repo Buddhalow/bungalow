@@ -267,7 +267,8 @@ requirejs(
         'controls/dialog',
         'controls/list',
         'controls/post',
-        'controls/app'
+        'controls/app',
+        'controls/select',
     ],
   function (
     EventEmitter,
@@ -316,7 +317,7 @@ requirejs(
     SPListElement,
     SPPostElement,
     SPAppElement,
-    SPAppViewStackViewElement
+    SPSelectElement
 ) {
     localStorage.setItem("showHeaders", true);
     document.registerElement('sp-viewstack', SPViewStackElement);
@@ -362,6 +363,7 @@ requirejs(
     document.registerElement('sp-list', SPListElement);
     document.registerElement('sp-post', SPPostElement);
     document.registerElement('sp-app', SPAppElement);
+    document.registerElement('sp-select', SPSelectElement);
      (async () => {
          return new Promise(async (resolve, fail) => {
             let result = await fetch('/api/plugin', {

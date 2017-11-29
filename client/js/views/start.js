@@ -9,8 +9,9 @@ define(['controls/view'], function (SPViewElement) {
         attachedCallback() {
             this.classList.add('container');
             this.startHook = document.createElement('sp-hook');
-            this.startHook.setAttribute('data-hook-id', 'start_view');
+            this.startHookBottom.setAttribute('data-hook-id', 'start_view_bottom');
             this.appendChild(this.startHook);            
+            this.appendChild(this.startHookBottom);            
         }
     }
     return SPStartViewElement;

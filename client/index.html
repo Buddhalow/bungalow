@@ -99,7 +99,7 @@
     <template type="text/template" id="postTemplate">
       <article class="post" style="margin-top: 15pt">
         <div class="post-header">
-          <sp-link uri="bungalow:profile:<%=object.profile.slug%>"><sp-image style="width: 32pt; height: 32pt" src="<%=object.profile.image_url%>" width="16pt" height="16pt"></sp-image></sp-link>
+          <sp-link uri="bungalow:profile:<%=object.profile.slug%>"><sp-image custom style="width: 32pt; height: 32pt" src="<%=object.profile.image_url%>" width="16pt" height="16pt"></sp-image></sp-link>
           <div class="post-title">
             <sp-link uri="bungalow:profile:<%=object.profile.slug%>"><%=object.profile.name%></sp-link>
             <div>
@@ -108,25 +108,29 @@
           </div>
         </div>
         <div class="post-content">
-            <% if (object.add ) { %>
+            <% if (object.editable ) { %>
             <form method="POST">
-          <fieldset>
-            <legend></legend>
-            <textarea style="width: 100%; height: 10pt" placeholder="What's on your mind" name="description"></textarea>
-            
-          </fieldset>
+            <input type="hidden" name="id" value="<%=object.id%>">
+            <fieldset>
+              <legend></legend>
+              <textarea style="width: 100%; height: 100%" placeholder="What's on your mind" name="description"><%=object.description%></textarea>
+              <div><span style="float: left">Post as <sp-select style="display: inline-block;" name="profile"></sp-select></span><button type="submit" style="float: right">Submit</button></div>
+            </fieldset>
           </form>
           <% } else { %>
           <fieldset>
             <legend></legend>
             
             <p><%=object.description%></p>
+            <div class="post-actions">
+              <sp-link class="joy-button"><i class="fa fa-magic"></i> Joy</sp-link>
+            </div>
           </fieldset>
           <% } %>
         </div>
-        <div class="post-actions">
-          <sp-link class="joy-button"><i class="fa fa-magic"></i> Joy</sp-link>
-        </div>
+         <% if (!object.editable ) { %>
+          
+        <% } %>
       </article>
     </template>
     <div class="body-root splatter"></div>

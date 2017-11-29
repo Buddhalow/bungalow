@@ -25,10 +25,17 @@ define(
                let slug = newVal.split(':')[2];
                let Profile = Parse.Object.extend('Profile');
                let profile = await new Parse.Query(Profile).equalTo('slug', slug).first();
-               if (profile != null)
-               this.header.setState(profile.simplify());
-               this.list.setAttribute('uri', newVal + ':post');
+               if (profile != null) {
+                    profile = profile.simplify();    
                
+                   this.list.setAttribute('uri', newVal + ':post');
+                   
+                   let childProfiles = await new Parse.Query(Profile).equalTo('parent', profile.objectId).find();
+                   
+                   childProfiles = childProfiles.map((o) => o.simplify());
+                   profile.children = childProfiles;
+                   this.header.setState(profile);
+               }
            }
        }
    } 

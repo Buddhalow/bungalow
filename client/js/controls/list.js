@@ -29,6 +29,7 @@ define(['controls/view'], function (SPViewElement) {
                 entry.classList.add('post-entry');
                 let postElm = document.createElement(this.type);
                 postElm.classList.add('container');
+                postElm.list = this;
                 postElm.setState({object: object});
                 entry.appendChild(postElm);
                 this.appendChild(entry);

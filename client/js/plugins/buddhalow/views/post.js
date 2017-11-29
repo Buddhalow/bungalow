@@ -21,6 +21,7 @@ define(['controls/view'], function (SPViewElement) {
                     success: (object) => {
                         let postElm = document.querySelector('sp-post');
                         postElm.setState({object: object.simplify()});
+                     
                     },
                     error: (error) => {
                         alert("Error: " + error.code + " " + error.message);

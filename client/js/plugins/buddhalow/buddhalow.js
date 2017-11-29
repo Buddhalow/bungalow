@@ -32,6 +32,13 @@ define([
             ]
         );
     });
+    
+       document.addEventListener('hook_startviewbottom', (e) => {
+           let hook = document.querySelector('sp-hook[data-hook-id="startviewbottom"]');
+           let view = document.createElement('sp-newsfeedview');
+           hook.appendChild(view);
+           
+       })
     document.addEventListener('viewstackloaded', () => {
     
         GlobalViewStack.registeredViews.push({

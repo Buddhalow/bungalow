@@ -1,4 +1,4 @@
-define(['controls/tabledatasource'], function (SPTableDataSource) {
+define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasource'], function (SPTableDataSource, ParseTableDataSource) {
     return class SPPostTableDataSource extends SPTableDataSource {
         constructor(uri) {
             super();
@@ -6,11 +6,39 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
           this.rows = [];
           this.p = 0;
         }
+        reset() {
+            this.p = 0;
+            this.rows = [];
+        }
         get numberOfRows () {
             return this.rows.length;
         }
         get numberOfColumnHeaders () {
             return 1;
+        }
+        async push(data) {
+            let Post = Parse.Object.extend('Post');
+            let Profile = Parse.Object.extend('Profile');
+            let post = new Post();
+            post.set('description', data.description);
+            post.set('time', new Date());
+            
+            let profile = null;
+            let pq = new Parse.Query(Profile)//.equalTo('user', Parse.User.current());
+            if (data.profileId != null) {
+                pq = pq.equalTo('objectId', data.profileId);
+               
+            }
+            profile = await pq.first();
+            if (profile == null) {
+                throw ('Profile could not be found');
+            }
+            post.set('profile', profile);
+            
+            
+            let result = await post.save();
+            this.reset();
+            this.fetchNext();
         }
         getRowAt(rowId, row) {
             return this.rows[rowId];
@@ -73,14 +101,27 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
                
                let profile1 = new Parse.Query(Profile).equalTo('slug', slug);
                let profile2 = new Parse.Query(Profile).equalTo('id', slug);
-               let profile = await new Parse.Query.or(profile1, profile2);
-               q = new Parse.Query(Post).descending('time');
+               q = new Parse.Query.or(profile1, profile2);
+                
                
            }
            
            if (q != null) {
                q = q.descending('time')
                let results = await q.find();
+               let selectDataSource = new ParseTableDataSource('Profile');
+             
+               this.rows.push({
+                   profile: {
+                       name: 'You',
+                       id: '@',
+                       uri: 'bungalow:profile:@'
+                   },
+                   selectDataSource: selectDataSource,
+                   editable: true,
+                   description: '',
+                   uri: 'bungalow:post:add'
+               });
                 results.map((o) => this.rows.push(o.simplify()));
                 this.onchange();
            }

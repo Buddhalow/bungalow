@@ -3,8 +3,10 @@ define(function () {
 
         createdCallback() {
             let size = getComputedStyle(document.body).getPropertyValue("--image-size");
-            //this.style.width = size;
-            //this.style.height = size;
+            if (!this.hasAttribute('custom')) {
+                this.style.width = size;
+                this.style.height = size;
+            }
             this.attributeChangedCallback('src', null, this.getAttribute('src'));
             if (this.hasAttribute('uri')) {
                 this.addEventListener('click', (e) => {
