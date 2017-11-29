@@ -76,7 +76,7 @@
             <h1> <%= _e(title) %>
             </h1>
              <sp-toolbar></sp-toolbar>      
-            <p style="opacity: 0.5"><%= (object.description ? object.description : '') %></p>
+            <p style="opacity: 0.5"><%= (object.description ? object.description.hashtagify() : '') %></p>
         
           </div>
         </div>
@@ -121,7 +121,7 @@
           <fieldset>
             <legend></legend>
             
-            <p><%=object.description%></p>
+            <p><%=object.description.hashtagify()%></p>
             <div class="post-actions">
               <sp-link class="joy-button"><i class="fa fa-magic"></i> Joy</sp-link>
             </div>

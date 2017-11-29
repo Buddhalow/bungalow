@@ -2,17 +2,20 @@ define([
     'plugins/buddhalow/views/newsfeed',
     'plugins/buddhalow/views/profile',
     'plugins/buddhalow/views/post',
+    'plugins/buddhalow/views/hashtag',
     'controls/menudatasource',
     ], function (
         SPNewsFeedViewElement,
         SPProfileViewElement,
         SPPostViewElement,
+        SPBuddhalowHashtagViewElement,
         SPMenuDataSource
     ) {
               
         document.registerElement('sp-profileview', SPProfileViewElement);
         document.registerElement('sp-newsfeedview', SPNewsFeedViewElement);
         document.registerElement('sp-postview', SPPostViewElement);
+        document.registerElement('sp-buddhalowhashtagview', SPBuddhalowHashtagViewElement);
       
         document.addEventListener('mainmenuload', (e) => {
             
@@ -36,6 +39,12 @@ define([
        document.addEventListener('hook_startviewbottom', (e) => {
            let hook = document.querySelector('sp-hook[data-hook-id="startviewbottom"]');
            let view = document.createElement('sp-newsfeedview');
+           hook.appendChild(view);
+           
+       })
+       document.addEventListener('hook_hashtag_view', (e) => {
+           let hook = document.querySelector('sp-hook[data-hook-id="hashtag_view"]');
+           let view = document.createElement('sp-buddhalowhashtagview');
            hook.appendChild(view);
            
        })

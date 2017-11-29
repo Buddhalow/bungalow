@@ -6,6 +6,7 @@ define(['controls/view'], function (SPViewElement) {
                 //this.innerHTML = "<div style='padding: 13pt'><h3>Search results for '<span id='q'>'</span>";
             this.hook = document.createElement('sp-hook');
             this.hook.setAttribute('data-hook-id', 'searchview');
+            this.hook.view = this;
             this.appendChild(this.hook);
         }
         activate() {

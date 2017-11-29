@@ -19,11 +19,23 @@ define([], function () {
             let e = new CustomEvent('hook_' + this.getAttribute('data-hook-id'));
             e.data = state;
             document.dispatchEvent(e);
+            this.attributeChangedCallback('uri', null, this.getAttribute('uri'));
+        }
+        attributeChangedCallback(attrName, oldVal, newVal) {
+            if (attrName === 'uri') {
+                let controls = this.querySelectorAll('.sp-view');
+                for (let control of controls) {
+                    control.setAttribute('uri', newVal);
+                }
+            }
         }
         attachedCallback() {
-            this.innerHTML = '';
-            let e = new CustomEvent('hook_' + this.getAttribute('data-hook-id'));
-            document.dispatchEvent(e);
+            if (!this.created) {
+                let e = new CustomEvent('hook_' + this.getAttribute('data-hook-id'));
+                e.view = this.view;
+                document.dispatchEvent(e);
+                this.created = true;
+            }
         }
         render() {
         }

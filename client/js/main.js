@@ -17,7 +17,17 @@ Parse.User.logIn('drsounds', '123', {
         reject();
     }
 })  
-moment.locale('set');
+
+
+String.prototype.hashtagify = function() {
+    return this.replace(/#(\S*)/g, '<sp-link uri="bungalow:hashtag:$1">#$1</sp-link>').replace('<sp-link uri="bungalow:hashtag:#', '<sp-link uri="bungalow:hashtag:');
+}
+
+
+String.prototype.userify = function() { 
+    return this.replace(/@(\S*)/g, '<sp-link uri="bungalow:user:$1">#$1</sp-link>').replace('<sp-link uri="bungalow:user:@', '<sp-link uri="bungalow:user:');
+}
+
 
 Array.prototype.insert = function ( index, item ) {
     this.splice( index, 0, item );

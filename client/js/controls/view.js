@@ -40,8 +40,16 @@ define(function () {
         disconnectedCallback() {
             this.removeEventListener('scroll', this._onScroll);
         }
-        attributeChangedCallback(attr, oldValue, newVal) {
-            
+        syncHooks(uri) {
+            let hooks = this.querySelectorAll('sp-hook');
+            for (let hook of hooks) {
+                hook.setAttribute('uri', uri);
+            }
+        }
+        attributeChangedCallback(attrName, oldValue, newVal) {
+            if (attrName === 'uri') {
+                this.syncHooks(newVal);
+            }
         }
     }
 })

@@ -92,11 +92,14 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
             // TODO Implement fetch next
             let uri =  this.uri;
             let user = Parse.User.current();
-            let q = new Parse.Query(Post);
-            q = q.include('profile').include('user');
+            var q = new Parse.Query(Post);
             if (/^bungalow:post$/g.test(uri)) {
             }
-           if (/^bungalow:profile:([a-zA-Z0-9]+):post$/g.test(uri)) {
+            if (/^bungalow:hashtag:([a-zA-Z0-8]+):post$/g.test(uri)) {
+                let hashtag = uri.split(':')[2];
+                q = q.contains('description', '#' + hashtag);
+            }
+            if (/^bungalow:profile:([a-zA-Z0-9]+):post$/g.test(uri)) {
                 let slug = uri.split(':')[2];
              /*  
                let profile1 = new Parse.Query(Profile).equalTo('slug', slug);
@@ -110,12 +113,14 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
                q = q.equalTo('profile', profile);  
                
            }
+            q = q.include('profile').include('user');
            
            if (q != null) {
                q = q.descending('time')
                let results = await q.find();
                let selectDataSource = new ParseTableDataSource('Profile');
                 if (this.table.getAttribute('interact') == 'true')
+                if (this.p == 0)
                this.rows.push({
                    profile: {
                        name: 'You',
@@ -128,7 +133,9 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
                    uri: 'bungalow:post:add'
                });
                 results.map((o) => this.rows.push(o.simplify()));
+            
                 this.onchange();
+                this.p++;    
            }
         }
     }
