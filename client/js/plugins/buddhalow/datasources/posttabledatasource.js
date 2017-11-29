@@ -98,11 +98,16 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
             }
            if (/^bungalow:profile:([a-zA-Z0-9]+):post$/g.test(uri)) {
                 let slug = uri.split(':')[2];
-               
+             /*  
                let profile1 = new Parse.Query(Profile).equalTo('slug', slug);
                let profile2 = new Parse.Query(Profile).equalTo('id', slug);
-               q = new Parse.Query.or(profile1, profile2);
-                
+               q = Parse.Query.and(q, new Parse.Query.or(profile1, profile2));
+               */
+               let profile = await new Parse.Query(Profile).equalTo('slug', slug).first();
+               if (!profile) {
+                   throw "Profile not found";
+               }
+               q = q.equalTo('profile', profile);  
                
            }
            
@@ -110,7 +115,7 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
                q = q.descending('time')
                let results = await q.find();
                let selectDataSource = new ParseTableDataSource('Profile');
-             
+                if (this.table.getAttribute('interact') == 'true')
                this.rows.push({
                    profile: {
                        name: 'You',

@@ -13,7 +13,7 @@ define(
            this.classList.add('sp-view');
            this.list = document.createElement('sp-list');
            this.list.dataSource = new SPPostTableDataSource();
-           
+           this.list.setAttribute('interact', true);
            this.appendChild(this.list);
            this.attributeChangedCallback('uri', null, 'bungalow:post');
        }

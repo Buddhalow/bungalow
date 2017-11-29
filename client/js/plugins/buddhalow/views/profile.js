@@ -27,7 +27,7 @@ define(
                let profile = await new Parse.Query(Profile).equalTo('slug', slug).first();
                if (profile != null) {
                     profile = profile.simplify();    
-               
+                  
                    this.list.setAttribute('uri', newVal + ':post');
                    
                    let childProfiles = await new Parse.Query(Profile).equalTo('parent', profile.objectId).find();

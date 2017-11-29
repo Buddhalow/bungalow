@@ -47,7 +47,7 @@ define([
         });
         GlobalViewStack.registeredViews.push({
             tag: 'sp-profileview',
-            regex: /^bungalow:profile:([a-zA-Z0-9]+)$/
+            regex: /^bungalow:profile:([a-zA-Z0-9\\.\\_]+)$/
         });
         GlobalViewStack.registeredViews.push({
             tag: 'sp-postview',
