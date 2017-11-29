@@ -16,6 +16,7 @@ define(
             this.appendChild(this.divider);
             this.divider.innerHTML = _e('Public posts');
             this.list = document.createElement('sp-list');
+            this.list.type = 'sp-post';
             this.list.dataSource = new SPPostTableDataSource();
             this.appendChild(this.list);
        }
