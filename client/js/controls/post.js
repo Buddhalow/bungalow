@@ -13,6 +13,15 @@ define([], function () {
                 this.innerHTML = template(this.state);
                 this.form = this.querySelector('form');
                 this.select = this.querySelector('sp-select');
+                if (this.state.object.attachment) {
+                    this.attachment = document.createElement('sp-attachment');
+                    this.querySelector('.attachment-room').appendChild(this.attachment);
+                    if (this.state.object.attachment.uri.indexOf('http://open.spotify.com') == 0 || this.state.object.attachment.uri.indexOf('https://open.spotify.com') == 0 || this.state.object.attachment.uri.indexOf('http') != 0) {
+                        this.attachment.setAttribute('uri', this.state.object.attachment.uri);
+                    } else {
+                        this.attachment.setState({object: this.state.object.attachment});
+                    }
+                }
                 
                 // TODO Separate this code from the logic
                 
@@ -23,9 +32,12 @@ define([], function () {
                      this.form.querySelector('textarea').addEventListener('change', (e) => {
                         let url = e.target.value.getUrl();
                         if (url != null && url.length > 0) {
-                            fetch('/api/lookup?url=' encodeURI(url), {
-                                credentials: 'cos'
-                            })
+                            if (this.attachment != null) {
+                                this.attachment.parentNode.removeChild(this.attachment);
+                            }
+                            this.attachment = document.createElement('sp-attachment');
+                            this.querySelector('.attachment-room').appendChild(this.attachment);
+                            this.attachment.setAttribute('uri', url);
                         }
                     })
                 }
@@ -35,8 +47,11 @@ define([], function () {
                     this.form.style.opacity = 0.5;
                     let post = {
                         description: this.form.querySelector('textarea').value,
-                        profileId: this.select.value
+                        profileId: this.select.value,
+                        
                     };
+                    if (this.attachment != null && this.attachment.state && this.attachment.state.object != null)
+                        post.attachment = this.attachment.state.object;
                     this.list.dataSource.push(post);
                     return false;
                 })

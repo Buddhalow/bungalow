@@ -10,7 +10,9 @@ define(function () {
             this.setAttribute('draggable', true);
             this.addEventListener('dragstart', (e) => {
                     let text = e.target.getAttribute('uri');
-                    
+                    if (text.indexOf('http') == 0) {
+                        window.open(text);
+                    }
                     event.dataTransfer.setData("Text",text);
             })
         }

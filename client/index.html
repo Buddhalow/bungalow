@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/css/montserrat.css"> 
+    <link rel="stylesheet" href="/css/throbber.css"> 
     <link rel="stylesheet" href="/css/font-awesome.css"> 
     <link rel="stylesheet" href="/css/bootstrap-grid.css"> 
     <link rel="stylesheet" href="/css/bungalow.css"> 
@@ -96,6 +97,19 @@
 <!-- Eftersom man jobbar med kosmiska identiten behöver man inte vara världsskänd utan även om man bara gör för en liten krets utgör det en egen värld eftersom det har en magnitud. -->          
       </div>
     </template>
+    <template type="text/template" id="attachmentTemplate">
+        <sp-link uri="<%=object.uri%>">
+           <article class="attachment">
+            <sp-image custom style="width: 100%; height: 320pt" src="<%=object.image_url%>"></sp-image>
+            <div class="attachment-description">
+              <h3><%=object.name%></h3>
+              <p><%=object.description%></p>
+              
+            </div>
+          </article>
+        </sp-link>
+    </template>
+    
     <template type="text/template" id="postTemplate">
       <article class="post" style="margin-top: 15pt">
         <div class="post-header">
@@ -114,6 +128,7 @@
             <fieldset>
               <legend></legend>
               <textarea style="width: 100%; height: 100%" placeholder="What's on your mind" name="description"><%=object.description%></textarea>
+              <div class="attachment-room"></div>
               <div><span style="float: left">Post as <sp-select style="display: inline-block;" name="profile"></sp-select></span><button type="submit" style="float: right">Submit</button></div>
             </fieldset>
           </form>
@@ -122,6 +137,7 @@
             <legend></legend>
             
             <p><%=object.description.hashtagify()%></p>
+            <div class="attachment-room"></div>
             <div class="post-actions">
               <sp-link class="joy-button"><i class="fa fa-magic"></i> Joy</sp-link>
             </div>

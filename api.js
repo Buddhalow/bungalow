@@ -9,10 +9,38 @@ var cookieParser = require('cookie-parser');
 var utils = require('./utils.js');
 var express =require('express');
 var app = express();
+var ogs = require('open-graph-scraper');
 
 
 module.exports = function (server) {
 
+
+app.get('/lookup', function (req, res) {
+  var uri = req.query.uri;
+  ogs({
+    url: uri
+  }, function (err, results) {
+    if (err) {
+      res.status(500).json(err).end();
+    }
+    var data = results.data;
+    var object = {
+      slug: '',
+      name: data.ogTitle,
+      type: data.ogType,
+      url: data.ogUrl,
+      uri: data.ogUrl,
+    
+      image_url: data.ogImage.url,
+      images: [{
+        url: data.ogImage
+      }],
+      description: data.ogDescription
+    };
+    res.json(object).end();
+  })
+  
+});
 
 app.get('/app', function (req, res) {
   var dirs = fs.readdirSync(__dirname + path.sep + 'client' + path.sep + 'apps');

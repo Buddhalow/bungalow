@@ -239,6 +239,9 @@ var store = null;
 requirejs(
     [  
         'events',
+        'controls/throbber',
+        'controls/attachment',
+        'controls/embeddedresource',
         'controls/hook',
         'controls/expander',
         'controls/about',
@@ -288,6 +291,9 @@ requirejs(
     ],
   function (
     EventEmitter,
+    SPThrobberElement,
+    SPAttachmentElement,
+    SPEmbeddedResourceElement,
     SPHookElement,
     SPExpanderElement,
     SPAboutElement,
@@ -337,6 +343,9 @@ requirejs(
 ) {
     localStorage.setItem("showHeaders", true);
     document.registerElement('sp-viewstack', SPViewStackElement);
+    document.registerElement('sp-throbber', SPThrobberElement);
+    document.registerElement('sp-attachment', SPAttachmentElement);
+    document.registerElement('sp-embeddedresource', SPEmbeddedResourceElement);
     document.registerElement('sp-hook', SPHookElement);
     document.registerElement('sp-expander', SPExpanderElement);
     document.registerElement('sp-datetime', SPDateTimeElement);

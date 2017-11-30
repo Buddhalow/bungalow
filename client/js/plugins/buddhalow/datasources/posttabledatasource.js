@@ -19,6 +19,7 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
         async push(data) {
             let Post = Parse.Object.extend('Post');
             let Profile = Parse.Object.extend('Profile');
+            let Attachment = Parse.Object.extend('Attachment');
             let post = new Post();
             post.set('description', data.description);
             post.set('time', new Date());
@@ -35,6 +36,19 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
             }
             post.set('profile', profile);
             
+            if ('attachment' in data && data.attachment != null) {
+                let attachment = await new Parse.Query(Attachment).equalTo('uri', data.attachment.uri).first();
+                if (!attachment) {
+                    attachment = new Attachment();
+                    attachment.set('uri', data.attachment.uri);
+                }
+                attachment.set('name', data.attachment.name);
+                attachment.set('image_url', data.attachment.image_url);
+                attachment.set('type', data.attachment.type);
+                attachment.set('description', data.attachment.description);
+                await attachment.save();
+                post.set('attachment', attachment);
+            }
             
             let result = await post.save();
             this.reset();
@@ -113,7 +127,7 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
                q = q.equalTo('profile', profile);  
                
            }
-            q = q.include('profile').include('user');
+            q = q.include('profile').include('user').include('attachment');
            
            if (q != null) {
                q = q.descending('time')
