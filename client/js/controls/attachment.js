@@ -8,13 +8,13 @@ define([], function () {
         }
         async attributeChangedCallback(attrName, oldVal, newVal) {
             if (attrName === 'uri') {
-                if (newVal.indexOf('http://open.spotify.com') ) {
+                if (newVal.indexOf('http://open.spotify.com') == 0) {
                     this.setState({uri: 'spotify:' + newVal.split('/').slice(3).join(':')});
                 }
-                if (newVal.indexOf('https://open.spotify.com') ) {
+                if (newVal.indexOf('https://open.spotify.com') == 0) {
                     this.setState({uri: 'spotify:' + newVal.split('/').slice(3).join(':')});
                 }
-                if (newVal.indexOf('http://play.spotify.com') ) {
+                if (newVal.indexOf('http://play.spotify.com') == 0) {
                     this.setState({uri: 'spotify:' + newVal.split('/').slice(3).join(':')});
                 } else if (newVal.indexOf('http://') == 0) {
                     let object = await fetch('/api/lookup?uri=' + encodeURI(newVal), {
