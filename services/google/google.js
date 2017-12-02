@@ -31,6 +31,9 @@ Google.prototype.search = function (q, site, fields, cx, exclude, offset) {
                 return;
             };
             var result = JSON.parse(body);
+            if (!('items' in result)) {
+                result.items = []; 
+            }
             result.service = {
                 id: 'google',
                 name: 'Google',

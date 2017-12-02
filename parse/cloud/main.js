@@ -112,16 +112,55 @@ Parse.Cloud.define("cravingStats", function(request, response) {
     
     var aggregate = request.params.aggregate;
     if (aggregate == 'weekday') {
-   
+        var result = {
+            
+        };
+        Promise.all([0, 1, 2, 3, 4, 5, 6].map(
+            function (weekday) {
+                return new Promise(function (resolve, fail) {
+                    generateStats(new Parse.Query('Craving'), {aggregate: aggregate, weekday: weekday}).then(function (data) {
+                       result[weekday] = data;
+                       resolve(data);
+                    }, function (err) {
+                        fail(err);
+                    });
+                });
+            }
+        )).then(function (results) {
+            response.success(result);
+        }, function (err) {
+            response.error(err);
+        });
+    } else if (aggregate == 'hour') {
+        var result = {
+            
+        };
+        Promise.all([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23].map(
+            function (hour) {
+                return new Promise(function (resolve, fail) {
+                    generateStats(new Parse.Query('Craving'), {aggregate: aggregate, hour: hour}).then(function (data) {
+                       result[hour] = data;
+                       resolve(data);
+                    }, function (err) {
+                        fail(err);
+                    });
+                });
+            }
+        )).then(function (results) {
+            response.success(result);
+        }, function (err) {
+            response.error(err);
+        });
     } else {
-        generateStats(new Parse.Query('Craving')).then(function (result) {
+        generateStats(new Parse.Query('Craving')).then(function (r) {
             response.success(result);
         }, function (error) {
             response.error(error);
         });
     }
     
-    function generateStats(query) {
+    function generateStats(query, options) {
+        options = options || {aggregate: '', weekday: ''};
         return new Promise(function (resolve, fail) {
             var hours = {};
             var statuses = {};
@@ -129,27 +168,36 @@ Parse.Cloud.define("cravingStats", function(request, response) {
             var foods = {};
             var reasons = {};
             var weekdays = {};
-            
+            var aggregate = options.aggregate;
             
             query.each(
                 function (craving) {
-                try {
-                  var time = craving.get('time');
-                  var hour = time.getHours();
-                  var weekday = time.getDay();
-                  var reason = craving.get('reason');
-                  increase(weekdays,weekday);
-                  increase(hours, hour);
-                  increase(reasons, reason);
-                var statusCode = craving.get('statusCode');
-                increase(statuses,statusCode);
-                  var action = craving.get('action');
-                  increase(actions, action);
-                  var food = craving.get('food');
-                  increase(foods, food);
-                } catch (e) {
-                    console.log(e.stack);
-                }
+                    try {
+                      var time = craving.get('createdAt');
+                      console.log(time);
+                      var hour = time.getHours();
+                      var month = time.getMonth();
+                      var weekday = time.getDay();
+                      console.log(weekday);
+                      var date = time.getDate();
+                      if (aggregate == 'weekday' && weekday != options.weekday) return;
+                      if (aggregate == 'hour' && hour != options.hour) return;
+                      if (aggregate == 'month' && month != options.month ) return;
+                      if (aggregate == 'date' && date != options.date ) return;
+                      
+                      var reason = craving.get('reason');
+                      increase(weekdays,weekday);
+                      increase(hours, hour);
+                      increase(reasons, reason);
+                        var statusCode = craving.get('statusCode');
+                        increase(statuses,statusCode);
+                      var action = craving.get('action');
+                      increase(actions, action);
+                      var food = craving.get('food');
+                      increase(foods, food);
+                    } catch (e) {
+                        console.log(e.stack);
+                    }
                 }, 
                 {
                     success: function () {
