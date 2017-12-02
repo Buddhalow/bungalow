@@ -137,8 +137,10 @@ Parse.Cloud.define("cravingStats", function(request, response) {
                   var time = craving.get('time');
                   var hour = time.getHours();
                   var weekday = time.getDay();
+                  var reason = craving.get('reason');
                   increase(weekdays,weekday);
                   increase(hours, hour);
+                  increase(reasons, reason);
                 var statusCode = craving.get('statusCode');
                 increase(statuses,statusCode);
                   var action = craving.get('action');
@@ -155,6 +157,7 @@ Parse.Cloud.define("cravingStats", function(request, response) {
                             statuses: statuses,
                             actions: actions,
                             foods: foods,
+                            
                             reasons: reasons,
                             weekdays: weekdays
                         });

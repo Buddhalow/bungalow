@@ -19,6 +19,7 @@
     "express-session": "^1.15.3",
     "less": "^2.7.2",
     "loke-mysql-orm": "^1.11.0",
+    "md5": "^2.2.1",
     "mock": "^0.1.1",
     "node-wikipedia": "0.0.2",
     "object-assign": "^4.1.1",
