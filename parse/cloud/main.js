@@ -100,96 +100,78 @@ Parse.Cloud.afterSave("FungalTreatment", function(request, response) {
   })
 });
 
+    var increase = function (obj, key) {
+        if (!(key in obj)) {
+            obj[key] = 0;
+        }
+        obj[key]++;
+    }
+    
 
 Parse.Cloud.define("cravingStats", function(request, response) {
-  var query = new Parse.Query('Craving');
-    var result = {
-        weekdays: {},
-        hours: {},
-        reasons: {},
-        actions: {}
-    };
     
-    var hours = [0, 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
-        
-     var reasons = ['anxiety', 'success', 'failure', 'grief'];
-     reasons.map(function (i) {
-          result.reasons[i] = {
-              total: 0
-          };
-      }); 
-      var statuses = [200, 201, 628];
-      
-      var actions = ['eat', 'meditation'];
-      var foods = ['chocolate', 'candy', 'fastfood'];
-      
-      actions.map(function (i) {
-          result.actions[i] = {
-              total: 0,
-              
-          };
-      }); 
-        
-        hours.map(function (i) {
-          result.hours[i] = {
-              total: 0,
-            
-          };
-      });
-     
-        var weekdays = [
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday',
-          'Sunday'
-      ].map(function (i) {
-          var stats = {
-              total: 0,
-              hours: hours.reduce(slack),
-              statuses: statuses.reduce(slack),
-              actions: actions.reduce(slack),
-              foods: foods.reduce(slack),
-              reasons: reasons.reduce(slack)
-          };
-          result.weekdays[i] = stats;
-      });
-    
-    function slack (a, b) {
-        a[b] = {
-            total: 0
-        };
-        return a;
+    var aggregate = request.params.aggregate;
+    if (aggregate == 'weekday') {
+   
+    } else {
+        generateStats(new Parse.Query('Craving')).then(function (result) {
+            response.success(result);
+        }, function (error) {
+            response.error(error);
+        });
     }
-      
-      console.log("T");
-
-  query.find().then(function (results) {
-      for (var i = 0; i < results.length; i++) {
-          var craving = results[i];
-          console.log(craving);
-          var time = craving.get('time');
-          var hour = time.getHours();
-          var weekday = time.getDay();
-            var statusCode = craving.get('statusCode');
-          var action = craving.get('action');
-          var food = craving.get('food');
-          result.prype('weekdays', weekday);
-          prype(result.weekdays[weekday], 'statuses', statusCode);
-          
-          prype(prype(result.weekdays[weekday], 'hours', hour), 'statuses', statusCode);
-          prype(result, 'hours', hour);
-          prype(result, 'statuses', statusCode);
-          result.food[food]++;
-      }
-      response.success(result);
-  })
+    
+    function generateStats(query) {
+        return new Promise(function (resolve, fail) {
+            var hours = {};
+            var statuses = {};
+            var actions = {};
+            var foods = {};
+            var reasons = {};
+            var weekdays = {};
+            
+            
+            query.each(
+                function (craving) {
+                try {
+                  var time = craving.get('time');
+                  var hour = time.getHours();
+                  var weekday = time.getDay();
+                  increase(weekdays,weekday);
+                  increase(hours, hour);
+                var statusCode = craving.get('statusCode');
+                increase(statuses,statusCode);
+                  var action = craving.get('action');
+                  increase(actions, action);
+                  var food = craving.get('food');
+                  increase(foods, food);
+                } catch (e) {
+                    console.log(e.stack);
+                }
+                }, 
+                {
+                    success: function () {
+                        resolve({
+                            statuses: statuses,
+                            actions: actions,
+                            foods: foods,
+                            reasons: reasons,
+                            weekdays: weekdays
+                        });
+                    },
+                    error: function (error) {
+                        fail(error);
+                    }
+                }
+            );
+        });
+    }
 });
 
 var prype = function (obj, key, k) {
+    if (!obj) {
     
+    }
     if (!(obj[key] instanceof Object)) {
         obj[key] = {};
     }

@@ -122,8 +122,7 @@ define(function () {
         }
     
         get offset() {
-            if (!this.hasAttribute('offset')) return 0;
-                return parseInt(this.getAttribute('offset'));
+            this.dataSource.offset;
         }
     
         get uri() {
@@ -206,11 +205,11 @@ define(function () {
             return this.selectedIndicies.filter(tr => tr.getAttribute('data-index')).length > 0;
         }
         render() {
-            this.clear();
             if (this._designer == null) throw "No designer set";
             if (this._dataSource == null) throw "Missing data source";
-            this.table.tbody.innerHTML = '';
-            this.table.thead.innerHTML = '';
+            if (this.offset == 0) {
+                this.clear();
+            }this.table.thead.innerHTML = '';
             this.table.thead.innerHTML = '';
             this.table.thead.tr = this.designer.getHeaderRow(); 
             this.table.thead.appendChild(this.table.thead.tr);

@@ -239,6 +239,7 @@ var store = null;
 requirejs(
     [  
         'events',
+        'controls/button',
         'controls/throbber',
         'controls/attachment',
         'controls/embeddedresource',
@@ -291,6 +292,7 @@ requirejs(
     ],
   function (
     EventEmitter,
+    SPButtonElement,
     SPThrobberElement,
     SPAttachmentElement,
     SPEmbeddedResourceElement,
@@ -342,6 +344,7 @@ requirejs(
     SPSelectElement
 ) {
     localStorage.setItem("showHeaders", true);
+    document.registerElement('sp-button', SPButtonElement);
     document.registerElement('sp-viewstack', SPViewStackElement);
     document.registerElement('sp-throbber', SPThrobberElement);
     document.registerElement('sp-attachment', SPAttachmentElement);

@@ -3,7 +3,7 @@ define(function () {
 
         createdCallback() {
             this.form = document.createElement('form');
-            this.form.innerHTML = '<span class="btn-group"><button id="btnBack" class="fa fa-arrow-left" onclick="window.goBack()"></button><button class="fa fa-arrow-right"  id="btnForward" onclick="window.goForward()"></button></span>';
+            this.form.innerHTML = '<span class="btn-group"><button id="btnBack" class="btn fa fa-arrow-left" onclick="window.goBack()"></button><button class="btn fa fa-arrow-right"  id="btnForward" onclick="window.goForward()"></button></span>';
 
             this.form.setAttribute('action', '/');
             this.form.setAttribute('method', 'GET');
@@ -22,7 +22,8 @@ define(function () {
             
             this.form.searchTextBox.setAttribute('placeholder', 'search');
             this.form.appendChild(this.form.searchTextBox);
-            this.form.btnSubmit = document.createElement('button');
+            this.form.btnSubmit = document.createElement('sp-button');
+        
             this.form.btnSubmit.classList.add('fa');
             this.form.btnSubmit.classList.add('fa-arrow-right');
             this.form.btnSubmit.setAttribute('type', 'submit');

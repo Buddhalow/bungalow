@@ -2,6 +2,9 @@ define(function () {
     return class SPLinkElement extends HTMLAnchorElement {
         onClick(e) {
             e.preventDefault();
+            if (this.getAttribute('uri').indexOf('http') == 0) {
+                window.open(this.getAttribute('uri'));
+            }        
             GlobalViewStack.navigate(this.getAttribute('uri'));
         }
         createdCallback() {
@@ -10,9 +13,7 @@ define(function () {
             this.setAttribute('draggable', true);
             this.addEventListener('dragstart', (e) => {
                     let text = e.target.getAttribute('uri');
-                    if (text.indexOf('http') == 0) {
-                        window.open(text);
-                    }
+                    
                     event.dataTransfer.setData("Text",text);
             })
         }

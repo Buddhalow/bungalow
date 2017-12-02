@@ -238,3 +238,7 @@ sp-attachment {
   background-color: rgba(255, 255, 255, .1);
   box-shadow: 0pt 0pt 3pt rgba(0, 0, 0, 0.28);
 }
+
+sp-playlistlist {
+  display: block;
+}
