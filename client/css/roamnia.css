@@ -172,13 +172,6 @@ sp-header > .bg-mask {
 .tagg {
   fill-opacity: 0.9;
 }
-sp-header > .container {
-  position: absolute;
-  bottom: 0pt;
-}
-sp-header {
-  height: 150pt;
-}
 
 .container {
   width: 100% !important;

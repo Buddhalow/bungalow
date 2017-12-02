@@ -134,3 +134,14 @@ td {
 sp-main > sp-tabbar {
     display: none;
 }
+
+
+sp-header > .container {
+  position: absolute;
+  bottom: 0pt;
+}
+
+
+sp-header {
+  height: 150pt;
+}
