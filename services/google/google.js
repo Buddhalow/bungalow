@@ -16,8 +16,8 @@ function Google() {
 Google.prototype.search = function (q, site, fields, cx, exclude, offset) {
     var self = this;
     return new Promise(function (resolve, reject) {
-        var url = 'https://www.googleapis.com/customsearch/v1?key=' + self.apikeys.client_id + '&fields=' + fields + '&cx=' + cx + '&q=' + encodeURI(q) + '&siteSearch=' + site + '&siteFilter=i&start=' + offset + '&excludeTerms=' + encodeURI(exclude);
-        var fileId = temp_dir + '/' + md5(url) + '.json';
+        var url = 'https://www.googleapis.com/customsearch/v1?key=' + self.apikeys.client_id + '&fields=' + fields + '&cx=' + cx + '&q=' + encodeURI(q) + '&siteSearch=' + site + '&siteFilter=i&start=' + (offset + 1) + '&excludeTerms=' + encodeURI(exclude);
+        var fileId = temp_dir + '/cache/' + md5(url) + '.json';
         if (fs.existsSync(fileId)) {
             var result = JSON.parse(fs.readFileSync(fileId, 'utf-8'));
             resolve(result);
