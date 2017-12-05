@@ -6,6 +6,7 @@ define([
     'plugins/bungalow/views/config',
     'plugins/bungalow/views/hashtag',
     'plugins/bungalow/views/service',
+    'plugins/bungalow/views/plugin',
     'controls/menudatasource'
 ], function (
     SPAppViewStackViewElement,
@@ -14,7 +15,8 @@ define([
     SPStartViewElement,
     SPConfigViewElement,
     SPHashtagViewElement,
-    SPServiceViewElement,
+    SPServiceListViewElement,
+    SPPluginListViewElement,
     SPMenuDataSource
 ) {
    document.registerElement('sp-appviewstackview', SPAppViewStackViewElement);
@@ -23,7 +25,8 @@ define([
    document.registerElement('sp-startview', SPStartViewElement);
    document.registerElement('sp-hashtagview', SPHashtagViewElement);
    document.registerElement('sp-configview', SPConfigViewElement);
-   document.registerElement('sp-serviceview', SPServiceViewElement);
+   document.registerElement('sp-servicelistview', SPServiceListViewElement);
+   document.registerElement('sp-pluginlistview', SPPluginListViewElement);
    document.addEventListener('mainmenuload', (e) => {
         let menu = document.createElement('sp-menu');
         let sidebarmenu = document.querySelector('sp-sidebarmenu');
@@ -44,6 +47,10 @@ define([
                 {
                     name: _e('Services'),
                     uri: 'bungalow:service'
+                },
+                {
+                    name: _e('Plugins'),
+                    uri: 'bungalow:plugin'
                 }
             ]
         );
@@ -63,8 +70,12 @@ define([
             regex: /^bungalow:app:(.*)?$/g
         });
         GlobalViewStack.registeredViews.push({
-            tag: 'sp-serviceview',
+            tag: 'sp-servicelistview',
             regex: /^bungalow:service?$/g
+        });
+        GlobalViewStack.registeredViews.push({
+            tag: 'sp-pluginlistview',
+            regex: /^bungalow:plugin?$/g
         });
     });
 });

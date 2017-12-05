@@ -12,7 +12,25 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
             td.innerHTML = '&nbsp';
             if (!row) return td;
              let columnId = this.table.dataSource.getColumnAt(columnIndex);
-            
+            if (columnId === 'enabled') {
+                
+                var button = document.createElement('button');
+                button.dataset['service'] = row.id;
+                button.innerHTML = 'Enable';
+                if (localStorage.getItem('service.' + row.id + '.enabled') == 'true') {
+                    button.innerHTML = 'Disable';
+                }
+                button.addEventListener('click', (e) => {
+                    if (localStorage.getItem('service.' + e.target.dataset.service + '.enabled') == 'true') {
+                        localStorage.setItem('service.' + e.target.dataset.service + '.enabled', 'false');
+                    } else {
+                        localStorage.setItem('service.' + e.target.dataset.service + '.enabled', 'true')
+                    }
+                    alert('Restarting');
+                    location.reload();
+                })
+                td.appendChild(button);
+            }
             if (columnId === 'login') {
                 let btn = document.createElement('btn');
                 btn.classList.add('btn');
@@ -98,7 +116,7 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
                 tr.created = true;
                 tr.setAttribute('data-id', row.id);
                
-                if (!row) return tr;
+                if (!row) return tr;    
             } else {
                 tr.created = false;
             }

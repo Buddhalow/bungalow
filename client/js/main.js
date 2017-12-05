@@ -418,9 +418,21 @@ requirejs(
             /**
              * Load all plugins on start
              * */
-            await requireAwait(result.objects.map(t => '/js/plugins/' + t.id + '/' + t.id + '.js'));
-            
+            await requireAwait(
+                result.objects.filter(
+                    t => { 
+                        return localStorage.getItem('service.' + t.id + '.enabled') == 'true' || t.id == 'bungalow';
+                    }
+                ).map(
+                    t => {
+                
+                        return '/js/plugins/' + t.id + '/' + t.id + '.js';
+               
+                    }
+                )
+            );
             resolve(result);
+            
             
         document.querySelector('.body').appendChild(document.createElement('sp-chrome'));
      });
