@@ -34,3 +34,9 @@
 [submodule "client/themes/obama-2012"]
 	path = client/themes/obama-2012
 	url = git@github.com:Buddhalow/bungalow-spotify12-theme.git
+[submodule "services/lastfm"]
+	path = services/lastfm
+	url = git@github.com:Buddhalow/bungalow-lastfm-service
+[submodule "client/js/plugins/--force"]
+	path = client/js/plugins/--force
+	url = git@github.com:Buddhalow/bungalow-lastfm-plugin

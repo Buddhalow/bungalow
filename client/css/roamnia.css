@@ -19,6 +19,9 @@
   }
 }
 */
+sp-button {
+  display: block;
+}
  
  [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: "roamnia";

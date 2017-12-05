@@ -44,10 +44,10 @@ define([], function () {
             insertAfter(this.tabBar, this);
             
             if (localStorage.getItem('showHeaders') != 'true') {
-                this.style = 'display: none !important';
+                this.style = 'display: nonet';
             } else {
                 
-                this.style = 'display: block !important';
+                this.style = 'display: block';
             }
         }
         setState(object) {

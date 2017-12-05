@@ -156,12 +156,26 @@ const onHashChanged =  (e) => {
         if (tabs.length > 0)
             tabs[0].classList.add('sp-tab-active');
     }
-    for (let tabView of view.querySelectorAll('sp-tabcontent')) {
+    let tabViews = view.querySelectorAll('sp-tabcontent');
+    for (let tabView of tabViews) {
         if (tabView.getAttribute('data-tab-id') == tabId) {
             tabView.style.display = 'block';
         } else {
             tabView.style.display = 'none';
         }
+        
+    }
+    try {
+        var viewHeader = tabViews[0].parentNode.querySelector('sp-header');
+        if (viewHeader != null) {
+            if (tabId != 'overview') {
+                viewHeader.classList.add('overview-hidden')
+            } else {
+                viewHeader.classList.remove('overview-hidden');
+            }
+        }
+    } catch (e) {
+        console.log(e);
     }
     if (GlobalViewStack && GlobalViewStack.currentView) {
         if (GlobalViewStack.currentView.setHash instanceof Function)

@@ -86,7 +86,12 @@ function getServices() {
   dirs.forEach(function (appId) {
     console.log(appId);
     var manifest = JSON.parse(fs.readFileSync(__dirname + path.sep + 'services' + path.sep + appId + path.sep + 'package.json'));
-    apps.push(manifest.bungalow);
+    try {
+    if ('bungalow' in manifest)
+      apps.push(manifest.bungalow);
+    } catch (e) {
+      console.log(e.stack);
+    }
   });
   return (apps);
 }
@@ -113,6 +118,7 @@ services.map(function (service) {
     if (!!router) {
       app.use('/' + service.id, router);
     }
+  
 })
 
 
