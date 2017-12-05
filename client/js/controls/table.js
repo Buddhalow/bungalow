@@ -207,7 +207,7 @@ define(function () {
         render() {
             if (this._designer == null) throw "No designer set";
             if (this._dataSource == null) throw "Missing data source";
-            if (this.offset == 0) {
+            if (this.dataSource.offset == 0) {
                 this.clear();
             }this.table.thead.innerHTML = '';
             this.table.thead.innerHTML = '';

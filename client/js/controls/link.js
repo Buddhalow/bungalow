@@ -19,7 +19,7 @@ define(function () {
         }
         attributeChangedCallback(attrName, oldVal, newVal) {
             if (attrName === 'uri') {
-                let viewstack = !this.getParentElementByTagName("sp-viewstack");
+                let viewstack = this.getParentElementByTagName("sp-viewstack");
                 try {
                     if (!!viewstack && viewstack.isLinkValid(newVal)) {
                      

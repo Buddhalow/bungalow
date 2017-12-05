@@ -75,6 +75,18 @@ define(['controls/tab'], function (SPTabElement) {
 	                
 	            }
 	        }
+	        
+	        var view = GlobalViewStack.currentView;
+	        
+	        var extraTabs = view.extraTabs;
+	        
+	        if (extraTabs instanceof Array) {
+	        	extraTabs.map((tab) => {
+	        		state.objects.push(tab);
+	        	});
+	        }
+	        
+	        
 	        if (state && state.objects instanceof Array && state.objects.length > 0) {
 	            for (let i = 0; i < state.objects.length; i++) {
 	            	let currentId = window.location.hash.substr(1);
@@ -148,6 +160,7 @@ define(['controls/tab'], function (SPTabElement) {
 	        var spacing = document.createElement('div');
 	        spacing.classList.add('sp-2012');
 	        this.appendChild(spacing);
+	        
 	    }
 	}
 })

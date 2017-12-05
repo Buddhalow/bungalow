@@ -4,9 +4,19 @@ define(function () {
             super();
             this.scrollX = 0;
             this.scrollY = 0;
+            
+        }
+        createdCallback() {
+            this.extraTabs = [];
         }
         acceptsUri(uri) {
             return false;
+        }
+        get uri() {
+            return this.getAttribute('uri');
+        }
+        set uri(value) {
+            this.setAttribute('uri', value);
         }
         activate() {
             GlobalTabBar.setState({
@@ -45,6 +55,24 @@ define(function () {
             for (let hook of hooks) {
                 hook.setAttribute('uri', uri);
             }
+        }
+        afterLoad(uri) {
+            var event = new CustomEvent('viewload', {detail: this});
+            document.dispatchEvent(event);
+        }
+        addTab(tabId, name) {
+            if (!this.extraTabs) {
+                this.extraTabs = [];
+            }
+            this.extraTabs.push({
+                id: tabId,
+                name: name
+            }); 
+            let tab = document.createElement('sp-tabcontent');
+            tab.setAttribute('data-tab-id', tabId);
+            tab.setAttribute('data-label', name);
+            this.appendChild(tab);
+            return tab;
         }
         attributeChangedCallback(attrName, oldValue, newVal) {
             if (attrName === 'uri') {
