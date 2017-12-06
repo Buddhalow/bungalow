@@ -12,7 +12,7 @@ define(['controls/view'], function (SPViewElement) {
             this.innerHTML = '<form>' +
                 '<h1>' + _('Settings') + '</h1>' +
                 '<fieldset><legend>' + _('Appearance') + '</legend><sp-theme></sp-theme></fieldset>' +
-                '<sp-button type="submit">Apply</sp-button>' +
+                '<button type="submit">Apply</button>' +
                 '</form>';
                 this.querySelector('form').addEventListener('submit', (e) => {
                     e.preventDefault();

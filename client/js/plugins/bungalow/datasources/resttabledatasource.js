@@ -2,7 +2,7 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
     return class SPRestTableDataSource extends SPTableDataSource {
         constructor(resource, fields) {
             super();
-            this.fields = ['id', 'name', 'enabled'];
+            this.fields = fields || ['id', 'name', 'login', 'enabled'];
             this.limit = 28;
             this.offset = 0;
             this.resource = resource;
@@ -27,8 +27,9 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
         get numberOfColumnHeaders () {
             return this.fields.length;
         }
+        
         async fetchNext() {
-            let result = await fetch(this.resource + '?offset=' + this.page + '&limit=' + this.limit, {
+            let result = await fetch('/api/' + this.resource.split(':').join('/') + '?offset=' + this.page + '&limit=' + this.limit, {
                 credentials: 'same-origin'
             }).then(r => r.json());
             for (let obj of result.objects) {
@@ -38,15 +39,35 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
             this.onchange();
         }
         
-        async find(q) {
-           return await new Promise((resolve, reject) => {
-                fetch(this.resource + '?q=' + q).then(r => r.json()).then((result) => {
-                    resolve(result);
-                }, (err) => {
-                    fail(err);
-                });
-            });
+        async getRows(uri, options) {
+            var url = null;
+            if (uri.indexOf('/') == 0) {
+                url = uri;
+            } else {
+                url = '/api/' + uri.split(':').join('/');
+            }
+            let result = await fetch(url + '?' +(options || {}).toQuerystring(), {
+                credentials: 'same-origin'
+            }).then(r => r.json());
+            for (let obj of result.objects) {
+                this.objects.push(obj);
+            }
+            return result;
         }
+        
+        async getRow(uri, options) {
+            var url = null;
+            if (uri.indexOf('/') == 0) {
+                url = uri;
+            } else {
+                url = '/api/' + uri.split(':').join('/');
+            }
+            let result = await fetch(url + '?' + (options || {}).toQuerystring(), {
+                credentials: 'same-origin'
+            }).then(r => r.json());
+            return result;
+        }
+        
         get numberOfFields() {
             return Object.keys(this.fields).length;
         }

@@ -12,6 +12,9 @@ var server = require('http').createServer(app);
 
 var api = apiFactory(server);
 
+ 
+var nodeadmin = require('nodeadmin');
+app.use(nodeadmin(app));
 
 process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);

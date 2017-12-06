@@ -1,13 +1,13 @@
-define(function () {
+define(['controls/resource'], function (SPResourceElement) {
 	/**
      * Table element
      **/
-    return class SPTableElement extends HTMLElement {
+    return class SPTableElement extends SPResourceElement {
         constructor() {
             super();
-            
-            
+            this.result = {objects: []};
         }
+        
         get selectedIndicies() {
             return this._selectedIndicies;
         }
@@ -27,34 +27,18 @@ define(function () {
                 this.querySelector('tr[data-index="' + i + '"]').classList.add('sp-track-selected');
             });
         }
-        fetchNext() {
-            this.dataSource.fetchNext();
-        }
-        get dataSource() {
-            return this._dataSource;
-        }
-        
-        set dataSource(value) {
-            this._dataSource = value;
-            this._dataSource.table = this;
-            this._dataSource.onchange = (e) => {
-                let evt = new CustomEvent('change');
-          
-                this.dispatchEvent(evt);
-                this.render();
-                let firstRow = this.querySelector('tr');
-               /* if (firstRow) {
-                    let th = this.querySelector('th');
-                    let size = (firstRow.getBoundingClientRect().height * 2) + 'pt ' + (firstRow.cells[0].getBoundingClientRect().height * 1.5) + 'pt';
-                    this.parentNode.style.backgroundSize =  size;
-                    let tablestart = th.getBoundingClientRect().top + th.getBoundingClientRect().height;
-                    this.parentNode.style.backgroundPosition = '0pt ' +  (tablestart) +  'pt';
-                    debugger;
-                }*/
-    
+        async fetchNext() {
+            var result = await this.dataSource.getRows(this.getAttribute('uri'), {
+                limit: this.limit,
+                offset: this.offset
+            });
+            for (let row in result.objects) {
+                this.result.objects.push(row);
             }
             this.render();
+            this.offset += this.limit;
         }
+        
         get designer() {
             return this._designer;
         }
@@ -63,9 +47,35 @@ define(function () {
             this._designer.table = this;
             
         }
+        reset() {
+            this.table.tbody.innerHTML = '';
+            this.offset = 0;
+            this.limit = 0;
+        }
+        get headers() {
+            return this.getAttribute('headers');
+        }
+        set headers(value) {
+            this.setAttribute('headers', value);
+        }
+        get columnheaders() {
+            return (this.getAttribute('headers') || '').split(',');
+        }
+        set columnheaders(val) {
+            if (val instanceof Array) {
+                val = val.join(',');
+            }
+            this.setAttribute('headers', val);
+        }
         createdCallback() {
+            super.createdCallback();
             window.addEventListener('resize', this._onResize.bind(this));
-            
+            this.offset = 0;
+            this.limit = 28;
+            this._columns = [];
+            this.result = {
+                objects : []
+            };
             this._dataSource = null;
             this._designer = null;
             this._selectedIndicies = [];
@@ -192,8 +202,14 @@ define(function () {
             this.dataSource.refresh();
         }
         attributeChangedCallback(attrName, oldVal, newVal) {
-            if (attrName == 'headers') {
-                if (!newVal) {
+            if (attrName == 'uri') {
+                if (newVal != null) {
+                this.reset();
+                this.fetchNext();
+                }
+            }
+            if (attrName == 'showheaders') {
+                if (newVal == 'true') {
                     if (this.table.tfoot != null) {
                         this.table.removeChild(this.table.tfoot);
                         this.table.tfoot = null;
@@ -202,17 +218,19 @@ define(function () {
             }
         }
         isRowWithIndexSelected(index) {
-            return this.selectedIndicies.filter(tr => tr.getAttribute('data-index')).length > 0;
+            try {
+                return this.selectedIndicies.filter(tr => tr.getAttribute('data-index')).length > 0;
+            } catch (e) {
+                return false;
+            }
         }
         render() {
-            if (this._designer == null) throw "No designer set";
-            if (this._dataSource == null) throw "Missing data source";
-            if (this.dataSource.offset == 0) {
-                this.clear();
-            }this.table.thead.innerHTML = '';
+            this.table.tbody.innerHTML = '';
             this.table.thead.innerHTML = '';
-            this.table.thead.tr = this.designer.getHeaderRow(); 
-            this.table.thead.appendChild(this.table.thead.tr);
+            this.table.thead.innerHTML = '';
+            this.table.thead.tr = document.createElement('tr'); 
+            if(this.getAttribute('showheaders') == 'true')
+                this.table.thead.appendChild(this.table.thead.tr);
             if (this.dataSource.canReorderRows || this.dataSource.canAddRows) {
                 $(this, 'td').on('dragover', false);
                  $(this, 'td').on('drop', async (ex) => {
@@ -237,14 +255,13 @@ define(function () {
                     
                 });
             }
-            let offset = 0;
             if (this.dataSource.removedRows instanceof Array)
                 for (let row of this.dataSource.removedRows) {
                     let tr = this.table.tbody.querySelector('td[data-id="' + row.id + '"]');
                     this.table.tbody.removeChild(tr);
                 }
-            for (let i = 0; i < this.dataSource.getNumberOfRows(); i++) {
-                let row = this.dataSource.getRowAt(i);
+            for (let i = 0; i < this.result.objects.length; i++) {
+                let row = this.result.objects[i];
                 let tr = this.designer.getRowElement(row);
                 tr.setAttribute('draggable', true);
                 tr.addEventListener('dragstart', (e) => {
@@ -299,7 +316,7 @@ define(function () {
                 tr.setAttribute('data-id', row.id);
                 tr.setAttribute('data-uri', row.uri);
                 tr.setAttribute('data-context-uri', this.uri);
-                for (let j = 0; j < this.dataSource.numberOfColumnHeaders; j++) {
+                for (let j = 0; j < this.columnheaders.length; j++) {
                     let td = this.designer.getCellElement(j, row);
                     if (!td) continue;
                     tr.appendChild(td);
@@ -318,14 +335,16 @@ define(function () {
                         }
                     })
                 }
-                let numberOfChildren = this.dataSource.getNumberOfChildren(row);
+                let offset = 0;
+                let children = row.objects;
                 if (tr.created) {
                     this.table.tbody.insertBefore(tr, this.table.tbody.children[i + offset]);
                     tr.created = false;
                 }
-                for (let c = 0; c < numberOfChildren; c++) {
+                if (row.objects instanceof Array)
+                for (let c = 0; c < row.objects.length; c++) {
                     
-                    let child = this.dataSource.getRowAt(c, row);
+                    let child = row.objects[c];
                     let tr2 = this.designer.getRowElement(child);
                     tr2.setAttribute('data-parent-id', row.id);
                     tr2.setAttribute('data-parent-index', i);
@@ -340,7 +359,7 @@ define(function () {
                              
                         }
                     });
-                    for (let j = 0; j < this.dataSource.numberOfColumnHeaders; j++) {
+                    for (let j = 0; j < this.columnheaders.length; j++) {
                         let td = this.designer.getCellElement(j, child);
                         tr2.appendChild(td);
                         tr2.dataset.index = i;
@@ -351,20 +370,21 @@ define(function () {
                     }
     
                 }
-                offset += numberOfChildren;
+                if (children instanceof Array)
+                offset += children.length;
                 
-                if (i == this.dataSource.getNumberOfRows() - 1 && !!this.header) {
+                if (i == this.result.objects.length - 1 && !!this.header) {
                     let rect = tr.getBoundingClientRect();
                     let top = ((i % 2 == 0 ? rect.height : 0) + (this.header.getBoundingClientRect().top) + this.table.thead.getBoundingClientRect().height);
                     this.view.style.backgroundPosition = "0pt " + top + 'pt'; 
                 }
                
             }
-            for (let j = 0; j < this.dataSource.numberOfColumnHeaders; j++) {
+            for (let j = 0; j < this.columnheaders.length; j++) {
                 let th = this.designer.getColumnElementAt(j);
                 this.table.thead.tr.appendChild(th);
             }
-            if (this.dataSource.getNumberOfRows() > 0) {
+            if (this.result.objects.length < 1) {
                 this.emptyLabel.setAttribute('hidden', true);
             } else {
               this.emptyLabel.style.left = (this.getBoundingClientRect().width) + 'px';
@@ -387,7 +407,7 @@ define(function () {
                 this.table.tfoot = document.createElement('tfoot');
                 this.table.tfoot.tr = document.createElement('tr');
                 this.table.tfoot.tr.td = document.createElement('td');
-                this.table.tfoot.tr.td.setAttribute('colspan', (this.dataSource.numberOfColumnHeaders));
+                this.table.tfoot.tr.td.setAttribute('colspan', (this.columnheaders.length));
                 this.table.tfoot.tr.td.classList.add('zebra');
                 this.table.appendChild(this.table.tfoot);
                 this.table.tfoot.appendChild(this.table.tfoot.tr);
@@ -401,6 +421,14 @@ define(function () {
                 } catch (e) {
                     
                 }
+            }   
+            if (!this.getAttribute('showheaders')) {
+                this.table.thead.setAttribute('hidden', 'true');
+
+            } else {
+                if (this.table.thead.hasAttribute('hidden'))
+                this.table.thead.removeAttribute('hidden');
+                
             }
             
             let evt = new CustomEvent('rendered');

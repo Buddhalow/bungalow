@@ -122,14 +122,14 @@ define(['controls/tab'], function (SPTabElement) {
 		    			} else {
 		    				objs = [objs];
 		    			}
-		    			this.objectLink.innerHTML += objs.map((obj) => '<sp-link uri="' + obj.uri + '">' + obj.name + '</sp-link>').join(', ');
+		    			this.objectLink.innerHTML += objs.map((obj) => '<sp-link style="font-weight: bold" uri="' + obj.uri + '">' + obj.name + '</sp-link>').join(', ');
 		    			this.objectLink.innerHTML += '<span style="padding-left: 5pt; padding-right: 5pt">&raquo;</span>';
-		    			this.objectLink.innerHTML += '<sp-link uri="' + state.object.uri + '">' + state.object.name + '</sp-link>';
+		    			this.objectLink.innerHTML += '<sp-link style="font-weight: bold" uri="' + state.object.uri + '">' + state.object.name + '</sp-link>';
 		    			extended = true;
 		    		} 
 	    		}
 	    		if (!extended) {
-	    			this.objectLink.innerHTML += '<sp-link uri="' + state.object.uri + '">' + state.object.name + '</sp-link>'
+	    			this.objectLink.innerHTML += '<sp-link style="font-weight: bold" uri="' + state.object.uri + '">' + state.object.name + '</sp-link>'
 	    		}
 	    		this.appendChild(this.objectLink);	
 	    	}

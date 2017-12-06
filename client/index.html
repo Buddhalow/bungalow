@@ -84,14 +84,15 @@
         <div style="flex: 0 0 30">
           <div style="float: right; text-align: right">
             <% if ('followers' in object) { %>
-          <b><%= numeral(object.followers.total).format('0,0') %></b><br>
-          <span><%=_e('Followers')%></span>
-          <% } %>
-          <% if ('following' in object && 'followers' in object) { %><hr><% } %>
-           <% if ('following' in object) { %>
-          <b><%= numeral(object.following.total).format('0,0') %></b><br>
-          <span><%=_e('Following')%></span>
-          <% } %>
+            <b><%= numeral(object.followers.total).format('0,0') %></b><br>
+            <span><%=_e('Followers')%></span>
+            <% } %>
+            <% if ('following' in object && 'followers' in object) { %><hr><% } %>
+             <% if ('following' in object) { %>
+            <b><%= numeral(object.following.total).format('0,0') %></b><br>
+            <span><%=_e('Following')%></span>
+            <% } %>
+            <sp-hook data-hook-id="<%=type%>_header_right"></sp-hook>
           </div>
         </div>
 <!-- Eftersom man jobbar med kosmiska identiten behöver man inte vara världsskänd utan även om man bara gör för en liten krets utgör det en egen värld eftersom det har en magnitud. -->          

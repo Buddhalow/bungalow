@@ -71,6 +71,7 @@ define(function () {
             let tab = document.createElement('sp-tabcontent');
             tab.setAttribute('data-tab-id', tabId);
             tab.setAttribute('data-label', name);
+            tab.style.display = 'none';
             this.appendChild(tab);
             return tab;
         }

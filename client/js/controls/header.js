@@ -1,5 +1,5 @@
-define([], function () {
-	return class SPHeaderElement extends HTMLElement {
+define(['controls/resource'], function (SPResourceElement) {
+	return class SPHeaderElement extends SPResourceElement {
         createdCallback() {
             this.created = true;
             this.classList.add('header');
@@ -12,8 +12,7 @@ define([], function () {
             let innerHTML = _.unescape(document.querySelector('#headerTemplate').innerHTML);
             let template = _.template(innerHTML);
             this.innerHTML = '';
-           
-        
+            this.attributeChangedCallback('uri', null, this.getAttribute('uri'));
         }
         attachedCallback() {
             
@@ -50,8 +49,10 @@ define([], function () {
                 this.style = 'display: block';
             }
         }
-        setState(object) {
-            if (object == null) return;
+        render() {
+            if (!this.state) return;
+            if (!this.state.object) return;
+            let object = this.state.object;
             let size = getComputedStyle(document.body).getPropertyValue("--image-size");
             let width = size;
             let height = size;  
