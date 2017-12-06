@@ -1,6 +1,7 @@
 define(['controls/resource'], function (SPResourceElement) {
 	return class SPHeaderElement extends SPResourceElement {
         createdCallback() {
+            super.createdCallback();
             this.created = true;
             this.classList.add('header');
             window.GlobalTabBar.titleVisible  = false;

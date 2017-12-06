@@ -44,7 +44,7 @@
             
             <%=(obj.description ? '<p>' + obj.description + '</p>' : '') %>
             <div class="contents">
-              
+              <sp-trackcontext uri="<%=obj.uri%>:track"></sp-trackcontext>
             </div>
             <% /*obj.copyrights.map((c) => { %>
                 <span style="opacity: 0.5">'<%= c.type %>  <%=c.text%></span>

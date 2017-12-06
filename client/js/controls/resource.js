@@ -1,12 +1,15 @@
-define(['plugins/bungalow/datasources/'], function (SPResourceElement) {
+define(['plugins/bungalow/datasources/restdatasource'], function (SPRestDataSource) {
 	return class SPResourceElement extends HTMLElement {
         async attributeChangedCallback(attrName, oldVal, newVal) {
             if (!newVal) return;
             if (attrName === 'uri') {
-                let result = await this.dataSource.getRow(newVal);
-                this.setState({object: result});
+                let result = await this.dataSource.request('GET', newVal);
+                this.state = {
+                    object: result
+                };
             }
         }
+        
         get dataSource() {
             return this._dataSource;
         }
@@ -31,15 +34,24 @@ define(['plugins/bungalow/datasources/'], function (SPResourceElement) {
             }
             this.render();
         }
-        setState(state) {
-            this.state = state;
+        get state() {
+            return this._state;
+        }
+        set state(value) {
+            this._state = value;
             this.render();
         }
         render() {
+            if (!this.state || this.state.object) {
+                this.innerHTML = '<sp-throbber></sp-throbber>';
+                return;
+            }
             let obj = this.state.object;
+            
             this.innerHTML = '<sp-link uri="' + obj.uri + '">' + obj.name + '</sp-link>';
         }
         createdCallback() {
+            this.dataSource = new SPRestDataSource();
         }
         setState(state) {
             this.state = state;

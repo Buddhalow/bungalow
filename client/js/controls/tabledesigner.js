@@ -5,14 +5,15 @@ define(function () {
     return class SPTableDesigner {
         getCellElementAt(columnIndex, row) {
             let td = document.createElement('td');
+            td.innerHTML = row[columnIndex];
             return td;
         }
-        getRowElement(row) {
+        getRowElementAt(row) {
             // Returns row at index
             let tr = document.createElement('tr');
             return tr;
         }
-        getColumnElement(row, column) {
+        getColumnElementAt(row, column) {
             let th = document.createElement('th');
             return th;
         }

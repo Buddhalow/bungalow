@@ -1,11 +1,29 @@
-define(['controls/resource'], function (SPResourceElement) {
+define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElement, SPTableDesigner) {
 	/**
      * Table element
      **/
     return class SPTableElement extends SPResourceElement {
         constructor() {
             super();
-            this.result = {objects: []};
+        }
+        
+        get state() {
+            if (!this._state) {
+                this._state = {
+                    object: {
+                    objects: []
+                        
+                    }
+                };
+            }
+            return this._state;
+        }
+        setState(state) {
+            this.state = state;
+            this.render();
+        }
+        set state(value) {
+            this.state = value;
         }
         
         get selectedIndicies() {
@@ -24,22 +42,27 @@ define(['controls/resource'], function (SPResourceElement) {
                 trs[i].classList.remove('sp-track-selected');
             }
             this._selectedIndicies.map((i) => {
-                this.querySelector('tr[data-index="' + i + '"]').classList.add('sp-track-selected');
+                let elm = this.querySelector('tr[data-index="' + i + '"]');
+                if (elm != null)
+                    elm.classList.add('sp-track-selected');
             });
         }
         async fetchNext() {
-            var result = await this.dataSource.getRows(this.getAttribute('uri'), {
+            var result = await this.dataSource.request('GET', this.getAttribute('uri'), {
                 limit: this.limit,
                 offset: this.offset
             });
-            for (let row in result.objects) {
-                this.result.objects.push(row);
+            for (let row of result.objects) {
+                this.state.object.objects.push(row);
             }
             this.render();
             this.offset += this.limit;
         }
         
         get designer() {
+            if (!this._designer) {
+                this._designer = new SPTableDesigner();
+            }
             return this._designer;
         }
         set designer(value) {
@@ -48,24 +71,19 @@ define(['controls/resource'], function (SPResourceElement) {
             
         }
         reset() {
+            if (this.table != null)
             this.table.tbody.innerHTML = '';
             this.offset = 0;
             this.limit = 0;
         }
-        get headers() {
-            return this.getAttribute('headers');
-        }
-        set headers(value) {
-            this.setAttribute('headers', value);
-        }
         get columnheaders() {
-            return (this.getAttribute('headers') || '').split(',');
+            return (this.getAttribute('columnheaders') || '').split(',');
         }
         set columnheaders(val) {
             if (val instanceof Array) {
                 val = val.join(',');
             }
-            this.setAttribute('headers', val);
+            this.setAttribute('columnheaders', val);
         }
         createdCallback() {
             super.createdCallback();
@@ -77,7 +95,7 @@ define(['controls/resource'], function (SPResourceElement) {
                 objects : []
             };
             this._dataSource = null;
-            this._designer = null;
+            this._designer = new SPTableDesigner();
             this._selectedIndicies = [];
             this.table = document.createElement('table');
             this.table.thead = document.createElement('thead');
@@ -88,10 +106,7 @@ define(['controls/resource'], function (SPResourceElement) {
             this.table.appendChild(this.table.tbody);
             this.appendChild(this.table);
             this.created = true;
-            this.emptyLabel = document.createElement('div');
-            this.emptyLabel.classList.add('sp-empty');
-            this.emptyLabel.setAttribute('hidden', true);
-            this.appendChild(this.emptyLabel);
+            
             this.table.setAttribute('tabindex', '0');
             document.body.addEventListener('keydown', (event) => {
                 if (event.which == "17")
@@ -225,11 +240,24 @@ define(['controls/resource'], function (SPResourceElement) {
             }
         }
         render() {
+            super.render();
+            if (this.state == null || this.state.object == null || !(this.state.object.objects instanceof Array)) return;
+            this.innerHTML = '';
+            this.emptyLabel = document.createElement('div');
+            this.emptyLabel.classList.add('sp-empty');
+            this.emptyLabel.setAttribute('hidden', true);
+            this.appendChild(this.emptyLabel);
+            this.table = document.createElement('table');
+            this.appendChild(this.table);
+            this.table.tbody = document.createElement('tbody');
+            this.table.appendChild(this.table.tbody);
             this.table.tbody.innerHTML = '';
+            this.table.thead = document.createElement('thead');
+            this.table.appendChild(this.table.thead);
             this.table.thead.innerHTML = '';
             this.table.thead.innerHTML = '';
             this.table.thead.tr = document.createElement('tr'); 
-            if(this.getAttribute('showheaders') == 'true')
+            if(this.getAttribute('showcolumnheaders') == 'true')
                 this.table.thead.appendChild(this.table.thead.tr);
             if (this.dataSource.canReorderRows || this.dataSource.canAddRows) {
                 $(this, 'td').on('dragover', false);
@@ -260,9 +288,12 @@ define(['controls/resource'], function (SPResourceElement) {
                     let tr = this.table.tbody.querySelector('td[data-id="' + row.id + '"]');
                     this.table.tbody.removeChild(tr);
                 }
-            for (let i = 0; i < this.result.objects.length; i++) {
-                let row = this.result.objects[i];
+            for (let i = 0; i < this.state.object.objects.length; i++) {
+                let row = this.state.object.objects[i];
                 let tr = this.designer.getRowElement(row);
+                if (!tr.hasAttribute('data-index')) {
+                    tr.setAttribute('data-index', i);
+                }
                 tr.setAttribute('draggable', true);
                 tr.addEventListener('dragstart', (e) => {
                     
@@ -321,6 +352,9 @@ define(['controls/resource'], function (SPResourceElement) {
                     if (!td) continue;
                     tr.appendChild(td);
                     tr.dataset.index = i;
+                    if (!tr.hasAttribute('data-index')) {
+                        tr.setAttribute('data-index', j);
+                    }
                     td.addEventListener('mousedown', (e) => {
                         let selectedIndicies = this.selectedIndicies || [];
                         let selectedIndex = e.target.parentNode.dataset.index;
@@ -373,7 +407,7 @@ define(['controls/resource'], function (SPResourceElement) {
                 if (children instanceof Array)
                 offset += children.length;
                 
-                if (i == this.result.objects.length - 1 && !!this.header) {
+                if (i == this.state.object.objects.length - 1 && !!this.header) {
                     let rect = tr.getBoundingClientRect();
                     let top = ((i % 2 == 0 ? rect.height : 0) + (this.header.getBoundingClientRect().top) + this.table.thead.getBoundingClientRect().height);
                     this.view.style.backgroundPosition = "0pt " + top + 'pt'; 
@@ -384,7 +418,7 @@ define(['controls/resource'], function (SPResourceElement) {
                 let th = this.designer.getColumnElementAt(j);
                 this.table.thead.tr.appendChild(th);
             }
-            if (this.result.objects.length < 1) {
+            if (this.state.object.objects.length < 1) {
                 this.emptyLabel.setAttribute('hidden', true);
             } else {
               this.emptyLabel.style.left = (this.getBoundingClientRect().width) + 'px';
@@ -395,8 +429,7 @@ define(['controls/resource'], function (SPResourceElement) {
                 
             }
             
-            let thead = this.querySelector('thead');
-            if (!thead.hasAttribute('hidden')) {
+             if (this.getAttribute('showcolumnheaders') == 'true') {
                 if (this.table.tfoot) {
                     try {
                         this.table.removeChild(this.table.tfoot);
@@ -422,7 +455,7 @@ define(['controls/resource'], function (SPResourceElement) {
                     
                 }
             }   
-            if (!this.getAttribute('showheaders')) {
+            if (!this.getAttribute('showcolumnheaders')) {
                 this.table.thead.setAttribute('hidden', 'true');
 
             } else {
@@ -470,6 +503,7 @@ define(['controls/resource'], function (SPResourceElement) {
         attachedCallback() {
             
             let thead = this.querySelector('thead');
+            if (thead != null)
             if (thead.hasAttribute('hidden')) {
             this.adjustZebra();
             }

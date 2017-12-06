@@ -28,27 +28,18 @@ define(['controls/datasource'], function (SPDataSource) {
             return this.fields.length;
         }
         
-        async getRows(uri, options) {
+        async request(method, uri, options, data) {
             var url = null;
             if (uri.indexOf('/') == 0) {
                 url = uri;
             } else {
                 url = '/api/' + uri.split(':').join('/');
             }
-            let result = await fetch(url + '?' + serializeObject(options || {}), {
-                credentials: 'same-origin'
-            }).then(r => r.json());
-            return result;
-        }
-        
-        async getRow(uri, options) {
-            var url = null;
-            if (uri.indexOf('/') == 0) {
-                url = uri;
-            } else {
-                url = '/api/' + uri.split(':').join('/');
+            if (url.indexOf(':track') == url.length - ':track'.length) {
+               
             }
             let result = await fetch(url + '?' + serializeObject(options || {}), {
+                method: method,
                 credentials: 'same-origin'
             }).then(r => r.json());
             return result;

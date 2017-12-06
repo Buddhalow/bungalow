@@ -253,6 +253,8 @@ var store = null;
 requirejs(
     [  
         'events',
+        'controls/flow',
+        'controls/item',
         'controls/button',
         'controls/throbber',
         'controls/attachment',
@@ -306,6 +308,8 @@ requirejs(
     ],
   function (
     EventEmitter,
+    SPFlowElement,
+    SPItemElement,
     SPButtonElement,
     SPThrobberElement,
     SPAttachmentElement,
@@ -359,6 +363,8 @@ requirejs(
 ) {
     localStorage.setItem("showHeaders", true);
     document.registerElement('sp-button', SPButtonElement);
+    document.registerElement('sp-flow', SPFlowElement);
+    document.registerElement('sp-item', SPItemElement);
     document.registerElement('sp-viewstack', SPViewStackElement);
     document.registerElement('sp-throbber', SPThrobberElement);
     document.registerElement('sp-attachment', SPAttachmentElement);

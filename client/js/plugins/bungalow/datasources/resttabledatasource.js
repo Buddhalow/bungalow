@@ -28,18 +28,7 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
             return this.fields.length;
         }
         
-        async fetchNext() {
-            let result = await fetch('/api/' + this.resource.split(':').join('/') + '?offset=' + this.page + '&limit=' + this.limit, {
-                credentials: 'same-origin'
-            }).then(r => r.json());
-            for (let obj of result.objects) {
-                this.objects.push(obj);
-            }
-            this.offset+=this.limit;
-            this.onchange();
-        }
-        
-        async getRows(uri, options) {
+        async request(method, uri, options, data) {
             var url = null;
             if (uri.indexOf('/') == 0) {
                 url = uri;
@@ -47,7 +36,8 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
                 url = '/api/' + uri.split(':').join('/');
             }
             let result = await fetch(url + '?' +(options || {}).toQuerystring(), {
-                credentials: 'same-origin'
+                credentials: 'same-origin',
+                method: method
             }).then(r => r.json());
             for (let obj of result.objects) {
                 this.objects.push(obj);
