@@ -27,6 +27,15 @@ define(['controls/datasource', 'controls/formfield', 'controls/relationfield'], 
             this._dataSource = value;
             this.render();
         }
+        get fields() {
+            if (!this._fields) {
+                return {};
+            }
+            return this._fields;
+        }
+        set fields(value) {
+            this._fields = value;
+        }
         get label() {
             return this.getAttribute('label');
         }
@@ -71,8 +80,8 @@ define(['controls/datasource', 'controls/formfield', 'controls/relationfield'], 
             input.classList.add('input');
             input.setAttribute('name', 'id');
             this.appendChild(input);
-            for (let k of Object.keys(this.dataSource.fields)) {
-                let field = this.dataSource.fields[k];
+            for (let k of Object.keys(this.fields)) {
+                let field = this.fields[k];
                 if (field.type == 'manyToOne') {
                     let input = document.createElement('sp-relationfield');
                     input.classList.add('input');

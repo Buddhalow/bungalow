@@ -191,8 +191,8 @@ sp-tabbar {
  align-items: flex-start;
 }
 sp-tabbar sp-tab {
-    padding-left: 10pt;
-    padding-right: 10pt;
+    padding-left: 25pt;
+    padding-right: 25pt;
 }
 sp-main {
     flex-grow: 2;

@@ -137,34 +137,12 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             this.emptyLabel.innerHTML = value;
         }
     
-        get limit() {
-            if (!this.hasAttribute('limit')) return 30;
-            return parseInt(this.getAttribute('limit'));
-        }
-    
-        set limit(value) {
-                this.setAttribute('limit', value);
-        }
-    
-        get offset() {
-            this.dataSource.offset;
-        }
-    
         get uri() {
             return this.getAttribute('uri');
         }
     
         set uri(value) {
             this.setAttribute('uri', value);
-        }
-        set offset(value) {
-            this.setAttribute('offset', value);
-        }
-        get query() {
-            return this.getAttribute('query');
-        }
-        set query(value) {
-            this.setAttribute('query', value);
         }
         set header(val) {
             this._header = val;

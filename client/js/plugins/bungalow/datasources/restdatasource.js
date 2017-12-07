@@ -38,7 +38,11 @@ define(['controls/datasource'], function (SPDataSource) {
             if (url.indexOf(':track') == url.length - ':track'.length) {
                
             }
-            let result = await fetch(url + '?' + serializeObject(options || {}), {
+            url = url;
+            if (options instanceof Object) {
+                url += '?' + serializeObject(options);
+            }
+            let result = await fetch(url, {
                 method: method,
                 credentials: 'same-origin'
             }).then(r => r.json());

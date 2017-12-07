@@ -23,6 +23,7 @@ define([
                 this.table.designer = new SPRestTableDesigner();
                 this.table.dataSource = new SPRestTableDataSource();
                 this.table.columnheaders = ['name', 'login'];
+                debugger;
                 this.table.setAttribute('showcolumnheaders', 'true');
                 this.table.setAttribute('uri', 'service');
                 this.classList.add('sp-view');

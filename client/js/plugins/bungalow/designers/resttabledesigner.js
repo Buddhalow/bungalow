@@ -11,7 +11,7 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
             }
             td.innerHTML = '&nbsp';
             if (!row) return td;
-             let columnId = this.table.dataSource.getColumnAt(columnIndex);
+             let columnId = this.table.columnheaders[columnIndex];
             if (columnId === 'enabled') {
                 
                 var button = document.createElement('button');
@@ -180,7 +180,7 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
         }
         getColumnElementAt(columnIndex) {
             let th = document.createElement('th');
-            let column = this.table.dataSource.getColumnAt(columnIndex);
+            let column = this.table.columnheaders[columnIndex];
             th.innerHTML = _e(column);
             return th;
         }

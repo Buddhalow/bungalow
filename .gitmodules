@@ -37,6 +37,9 @@
 [submodule "services/lastfm"]
 	path = services/lastfm
 	url = git@github.com:Buddhalow/bungalow-lastfm-service
-[submodule "client/js/plugins/--force"]
-	path = client/js/plugins/--force
+[submodule "client/js/plugins/lastfm"]
+	path = client/js/plugins/lastfm
 	url = git@github.com:Buddhalow/bungalow-lastfm-plugin
+[submodule "client/themes/obama-2013"]
+        path = client/themes/obama-2013
+        url = git@github.com:Buddhalow/bungalow-spotify13-theme.git
