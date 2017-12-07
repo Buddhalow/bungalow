@@ -56,7 +56,7 @@ define(['controls/tabbar'], function (SPTabBarElement) {
             let evt = new CustomEvent('beforenavigate');
             this.dispatchEvent(evt);
             
-            
+        
             let menuItems = document.querySelectorAll('sp-menuitem');
             if (this === GlobalViewStack)
             for (let item of menuItems) {
@@ -70,20 +70,16 @@ define(['controls/tabbar'], function (SPTabBarElement) {
             }   
             
             
-            if (uri.indexOf('spotify:') === 0) {
-                uri = 'bungalow:' + uri.substr('spotify:'.length);
-            }
-            let newUri = uri;
             if (uri === 'bungalow:login') {
                 store.login().then(() => {});
                 return;
             }
             
-            if (newUri === 'bungalow:') {
-                newUri == 'bungalow:internal:start';
+            if (uri.indexOf(':') > -1) {
+                uri = 'bungalow:' + uri.split(':').splice(1).join(':');
             }
-                
-           
+            let newUri = uri;
+    
             if (window.GlobalViewStack.currentView != null && newUri === window.GlobalViewStack.currentView.getAttribute('uri') && window.GlobalViewStack === this)
                 return;
             let view = null;
@@ -98,6 +94,7 @@ define(['controls/tabbar'], function (SPTabBarElement) {
                 return result;
             });
             console.log(externalViews);
+            if (externalViews.length < 1) debugger;
             if (/^bungalow:app:(.*)$/.test(newUri)) {
                 view = document.querySelector('sp-appviewstackview');
                 if (!view) {

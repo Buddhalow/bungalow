@@ -10,7 +10,7 @@ Social.prototype.request = function (method, url, params) {
     console.log(url);
     var promise = new Promise(function (resolve, fail) {
 
-        var parts = url.split(/\//g);
+        var parts = url.split(/\//);
         console.log(parts);
         if (parts[0] == 'hashtag') {
             console.log("F");

@@ -5504,7 +5504,7 @@ button.btn-floating {
  *
  * Copyright 2014 Alfiana E. Sibuea and other contributors
  * Released under the MIT license
- * https://github.com/fians/Waves/blob/master/LICENSE
+ * https://ithub.com/fians/Waves/blob/master/LICENSE
  */
 .waves-effect {
   position: relative;
@@ -7674,7 +7674,7 @@ input[type=range]:focus::-ms-fill-upper {
  * We write out each animation in full (instead of separating animation-name,
  * animation-duration, etc.) because under the polyfill, Safari does not recognize those
  * specific properties properly, treats them as -webkit-animation, and overrides the
- * other animation rules. See https://github.com/Polymer/platform/issues/53.
+ * other animation rules. See https://ithub.com/Polymer/platform/issues/53.
  */
 .active .spinner-layer.spinner-blue {
   /* durations: 4 * ARCTIME */

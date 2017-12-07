@@ -52,6 +52,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                 limit: this.limit,
                 offset: this.offset
             });
+            if (!!result)
             for (let row of result.objects) {
                 this.state.object.objects.push(row);
             }

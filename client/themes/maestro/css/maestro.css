@@ -6,8 +6,8 @@
 body {
     
     
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0.69+0,0+75 */
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0.15+0,0+75 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/radient-editor/#ffffff+0,ffffff+100&0.69+0,0+75 */
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/radient-editor/#ffffff+0,ffffff+100&0.15+0,0+75 */
 background: -moz-linear-gradient(top,  rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 75%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
 background: linear-gradient(to bottom,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 15%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#26ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */

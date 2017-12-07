@@ -27,7 +27,7 @@ define(['controls/view'], function (SPViewElement) {
             if (attrName === 'uri') {
                 this.hook.setState({
                     uri: newVal,
-                    q: newVal.substr('bungalow:search:'.length).split(/\:/g)[0]
+                    q: newVal.substr('bungalow:search:'.length).split(/\:/)[0]
                 });
             }
         }

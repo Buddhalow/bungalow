@@ -381,7 +381,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  '=': '&#x3D;'
 	};
 
-	var badChars = /[&<>"'`=]/g,
+	var badChars = /[&<>"'`=]/,
 	    possible = /[&<>"'`=]/;
 
 	function escapeChar(chr) {
@@ -404,7 +404,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.toString = toString;
 	// Sourced from lodash
-	// https://github.com/bestiejs/lodash/blob/master/LICENSE.txt
+	// https://ithub.com/bestiejs/lodash/blob/master/LICENSE.txt
 	/* eslint-disable func-style */
 	var isFunction = function isFunction(value) {
 	  return typeof value === 'function';
@@ -1447,7 +1447,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 29 */
 /***/ (function(module, exports) {
 
-	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+	// https://ithub.com/zloirock/core-js/issues/86#issuecomment-115759028
 	var global = module.exports = typeof window != 'undefined' && window.Math == Math
 	  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
 	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
@@ -2035,7 +2035,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.offset++;
 	                this.match += ch;
 	                this.matched += ch;
-	                var lines = ch.match(/(?:\r\n?|\n).*/g);
+	                var lines = ch.match(/(?:\r\n?|\n).*/);
 	                if (lines) {
 	                    this.yylineno++;
 	                    this.yylloc.last_line++;
@@ -2049,13 +2049,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            unput: function unput(ch) {
 	                var len = ch.length;
-	                var lines = ch.split(/(?:\r\n?|\n)/g);
+	                var lines = ch.split(/(?:\r\n?|\n)/);
 
 	                this._input = ch + this._input;
 	                this.yytext = this.yytext.substr(0, this.yytext.length - len - 1);
 	                //this.yyleng -= len;
 	                this.offset -= len;
-	                var oldLines = this.match.split(/(?:\r\n?|\n)/g);
+	                var oldLines = this.match.split(/(?:\r\n?|\n)/);
 	                this.match = this.match.substr(0, this.match.length - 1);
 	                this.matched = this.matched.substr(0, this.matched.length - 1);
 
@@ -2082,14 +2082,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            pastInput: function pastInput() {
 	                var past = this.matched.substr(0, this.matched.length - this.match.length);
-	                return (past.length > 20 ? '...' : '') + past.substr(-20).replace(/\n/g, "");
+	                return (past.length > 20 ? '...' : '') + past.substr(-20).replace(/\n/, "");
 	            },
 	            upcomingInput: function upcomingInput() {
 	                var next = this.match;
 	                if (next.length < 20) {
 	                    next += this._input.substr(0, 20 - next.length);
 	                }
-	                return (next.substr(0, 20) + (next.length > 20 ? '...' : '')).replace(/\n/g, "");
+	                return (next.substr(0, 20) + (next.length > 20 ? '...' : '')).replace(/\n/, "");
 	            },
 	            showPosition: function showPosition() {
 	                var pre = this.pastInput();
@@ -2117,7 +2117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 	                if (match) {
-	                    lines = match[0].match(/(?:\r\n?|\n).*/g);
+	                    lines = match[0].match(/(?:\r\n?|\n).*/);
 	                    if (lines) this.yylineno += lines.length;
 	                    this.yylloc = { first_line: this.yylloc.last_line,
 	                        last_line: this.yylineno + 1,
@@ -2204,7 +2204,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.popState();
 	                    // Should be using `this.topState()` below, but it currently
 	                    // returns the second top instead of the first top. Opened an
-	                    // issue about it at https://github.com/zaach/jison/issues/291
+	                    // issue about it at https://ithub.com/zaach/jison/issues/291
 	                    if (this.conditionStack[this.conditionStack.length - 1] === 'raw') {
 	                        return 15;
 	                    } else {
@@ -2302,10 +2302,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.popState();return 33;
 	                    break;
 	                case 31:
-	                    yy_.yytext = strip(1, 2).replace(/\\"/g, '"');return 80;
+	                    yy_.yytext = strip(1, 2).replace(/\\"/, '"');return 80;
 	                    break;
 	                case 32:
-	                    yy_.yytext = strip(1, 2).replace(/\\'/g, "'");return 80;
+	                    yy_.yytext = strip(1, 2).replace(/\\'/, "'");return 80;
 	                    break;
 	                case 33:
 	                    return 85;
@@ -2335,7 +2335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return 72;
 	                    break;
 	                case 42:
-	                    yy_.yytext = yy_.yytext.replace(/\\([\\\]])/g, '$1');return 72;
+	                    yy_.yytext = yy_.yytext.replace(/\\([\\\]])/, '$1');return 72;
 	                    break;
 	                case 43:
 	                    return 'INVALID';
@@ -3375,7 +3375,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    if (this.stringParams) {
 	      if (value.replace) {
-	        value = value.replace(/^(\.?\.\/)*/g, '').replace(/\//g, '.');
+	        value = value.replace(/^(\.?\.\/)*/, '').replace(/\//, '.');
 	      }
 
 	      if (val.depth) {
@@ -4786,8 +4786,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  quotedString: function quotedString(str) {
-	    return '"' + (str + '').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\u2028/g, '\\u2028') // Per Ecma-262 7.3 + 7.8.4
-	    .replace(/\u2029/g, '\\u2029') + '"';
+	    return '"' + (str + '').replace(/\\/, '\\\\').replace(/"/, '\\"').replace(/\n/, '\\n').replace(/\r/, '\\r').replace(/\u2028/, '\\u2028') // Per Ecma-262 7.3 + 7.8.4
+	    .replace(/\u2029/, '\\u2029') + '"';
 	  },
 
 	  objectLiteral: function objectLiteral(obj) {

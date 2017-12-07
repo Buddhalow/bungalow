@@ -7,7 +7,7 @@ define(
         'controls/carousel',
         'controls/chrome',
         'controls/divider',
-        'controls/gondole',
+        'controls/ondole',
         'controls/image',
         'controls/infobar',
         'controls/link',

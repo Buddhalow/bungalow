@@ -1,23 +1,9 @@
-Parse.initialize("yvZbizRiIpJ3O1Q6Va0urSMkeg6AMRwzx0Sk6Sqo", "yaBh9ill6i0ktvvTb7WDPmoSg8QSxoGCFZ0yuYQY");
-Parse.serverURL = 'https://parseapi.back4app.com/'
-Parse.liveQueryServerURL = 'wss://leros.back4app.io';
-
 
 function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 moment.locale('se');
-Parse.User.logIn('drsounds', '123', {
-    success: () => {
-        resolve(user);
-
-    }, 
-    error: () => {
-        reject();
-    }
-})  
-
 
 String.prototype.getUrl = function () {
     let httpStart = this.indexOf('http');
@@ -26,12 +12,12 @@ String.prototype.getUrl = function () {
 
 
 String.prototype.hashtagify = function() {
-    return this.replace(/#(\S*)/g, '<sp-link uri="bungalow:hashtag:$1">#$1</sp-link>').replace('<sp-link uri="bungalow:hashtag:#', '<sp-link uri="bungalow:hashtag:');
+    return this.replace(/#(\S*)/, '<sp-link uri="bungalow:hashtag:$1">#$1</sp-link>').replace('<sp-link uri="bungalow:hashtag:#', '<sp-link uri="bungalow:hashtag:');
 }
 
 
 String.prototype.userify = function() { 
-    return this.replace(/@(\S*)/g, '<sp-link uri="bungalow:user:$1">#$1</sp-link>').replace('<sp-link uri="bungalow:user:@', '<sp-link uri="bungalow:user:');
+    return this.replace(/@(\S*)/, '<sp-link uri="bungalow:user:$1">#$1</sp-link>').replace('<sp-link uri="bungalow:user:@', '<sp-link uri="bungalow:user:');
 }
 
 
@@ -249,6 +235,20 @@ String.prototype.toHHMMSS = function () {
 const TOTAL_ARTISTS_ON_SPOTIFY = 2000000;
 const VERIFIED_PROFILES = ['drsounds', 'alexanderforselius', 'daniel', 'spotify'];
 
+window.resolvers = [];
+
+
+window.registerResolver = function (resolver) {
+    window.resolvers.push(resolver);
+}
+
+
+window.resolve = function (method, uri, query, headers, data) {
+    for (let worker of window.workers) {
+        
+    }
+}
+
 var store = null;
 requirejs(
     [  
@@ -437,11 +437,13 @@ requirejs(
                     }
                 )
             );
+            
+            
+            document.querySelector('.body').appendChild(document.createElement('sp-chrome'));
+            
             resolve(result);
             
-            
-        document.querySelector('.body').appendChild(document.createElement('sp-chrome'));
-     });
+        });
     })();
         
 });1

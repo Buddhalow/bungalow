@@ -5,7 +5,7 @@
  *
  * Copyright 2017 Nick Downie
  * Released under the MIT license
- * https://github.com/chartjs/Chart.js/blob/master/LICENSE.md
+ * https://ithub.com/chartjs/Chart.js/blob/master/LICENSE.md
  */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Chart = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
@@ -508,7 +508,7 @@ Color.prototype = {
 
 	greyscale: function () {
 		var rgb = this.values.rgb;
-		// http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
+		// http://en.wikipedia.org/wiki/rayscale#Converting_color_to_grayscale
 		var val = rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11;
 		this.setValues('rgb', [val, val, val]);
 		return this;
@@ -536,7 +536,7 @@ Color.prototype = {
 
 	/**
 	 * Ported from sass implementation in C
-	 * https://github.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209
+	 * https://ithub.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209
 	 */
 	mix: function (mixinColor, weight) {
 		var color1 = this;
@@ -2736,7 +2736,7 @@ module.exports = function(Chart) {
 				line._model = {
 					// Appearance
 					// The default behavior of lines is to break at null values, according
-					// to https://github.com/chartjs/Chart.js/issues/2435#issuecomment-216718158
+					// to https://ithub.com/chartjs/Chart.js/issues/2435#issuecomment-216718158
 					// This option gives lines the ability to span gaps
 					spanGaps: dataset.spanGaps ? dataset.spanGaps : options.spanGaps,
 					tension: custom.tension ? custom.tension : helpers.getValueOrDefault(dataset.lineTension, lineElementOptions.tension),
@@ -3835,7 +3835,7 @@ module.exports = function(Chart) {
 				// The given item is not a compatible context2d element, let's return before finalizing
 				// the chart initialization but after setting basic chart / controller properties that
 				// can help to figure out that the chart is not valid (e.g chart.canvas !== null);
-				// https://github.com/chartjs/Chart.js/issues/2807
+				// https://ithub.com/chartjs/Chart.js/issues/2807
 				console.error("Failed to create chart: can't acquire context from the given item");
 				return;
 			}
@@ -4199,7 +4199,7 @@ module.exports = function(Chart) {
 			} else {
 				me.draw();
 
-				// See https://github.com/chartjs/Chart.js/issues/3781
+				// See https://ithub.com/chartjs/Chart.js/issues/3781
 				onComplete(new Chart.Animation({numSteps: 0, chart: me}));
 			}
 
@@ -4432,7 +4432,7 @@ module.exports = function(Chart) {
 			// Responsiveness is currently based on the use of an iframe, however this method causes
 			// performance issues and could be troublesome when used with ad blockers. So make sure
 			// that the user is still able to create a chart without iframe when responsive is false.
-			// See https://github.com/chartjs/Chart.js/issues/2210
+			// See https://ithub.com/chartjs/Chart.js/issues/2210
 			if (me.options.responsive) {
 				listener = function() {
 					me.resize();
@@ -5861,7 +5861,7 @@ module.exports = function(Chart) {
 
 		// If no style has been set on the canvas, the render size is used as display size,
 		// making the chart visually bigger, so let's enforce it to the "correct" values.
-		// See https://github.com/chartjs/Chart.js/issues/3575
+		// See https://ithub.com/chartjs/Chart.js/issues/3575
 		canvas.style.height = height + 'px';
 		canvas.style.width = width + 'px';
 	};
@@ -9729,7 +9729,7 @@ module.exports = function(Chart) {
 
 		// Force canvas to display as block to avoid extra space caused by inline
 		// elements, which would interfere with the responsive resize process.
-		// https://github.com/chartjs/Chart.js/issues/2538
+		// https://ithub.com/chartjs/Chart.js/issues/2538
 		style.display = style.display || 'block';
 
 		if (renderWidth === null || renderWidth === '') {
@@ -9791,12 +9791,12 @@ module.exports = function(Chart) {
 			'z-index:-1;';
 
 		// Prevent the iframe to gain focus on tab.
-		// https://github.com/chartjs/Chart.js/issues/3090
+		// https://ithub.com/chartjs/Chart.js/issues/3090
 		iframe.tabIndex = -1;
 
 		// If the iframe is re-attached to the DOM, the resize listener is removed because the
 		// content is reloaded, so make sure to install the handler after the iframe is loaded.
-		// https://github.com/chartjs/Chart.js/issues/3521
+		// https://ithub.com/chartjs/Chart.js/issues/3521
 		helpers.addEvent(iframe, 'load', function() {
 			helpers.addEvent(iframe.contentWindow || iframe, 'resize', handler);
 
@@ -9861,17 +9861,17 @@ module.exports = function(Chart) {
 			}
 
 			// To prevent canvas fingerprinting, some add-ons undefine the getContext
-			// method, for example: https://github.com/kkapsner/CanvasBlocker
-			// https://github.com/chartjs/Chart.js/issues/2807
+			// method, for example: https://ithub.com/kkapsner/CanvasBlocker
+			// https://ithub.com/chartjs/Chart.js/issues/2807
 			var context = item && item.getContext && item.getContext('2d');
 
 			// `instanceof HTMLCanvasElement/CanvasRenderingContext2D` fails when the item is
 			// inside an iframe or when running in a protected environment. We could guess the
 			// types from their toString() value but let's keep things flexible and assume it's
 			// a sufficient condition if the item has a context2D which has item as `canvas`.
-			// https://github.com/chartjs/Chart.js/issues/3887
-			// https://github.com/chartjs/Chart.js/issues/4102
-			// https://github.com/chartjs/Chart.js/issues/4152
+			// https://ithub.com/chartjs/Chart.js/issues/3887
+			// https://ithub.com/chartjs/Chart.js/issues/4102
+			// https://ithub.com/chartjs/Chart.js/issues/4152
 			if (context && context.canvas === item) {
 				initCanvas(item, config);
 				return context;
@@ -10023,8 +10023,8 @@ module.exports = function(Chart) {
 module.exports = function(Chart) {
 	/**
 	 * Plugin based on discussion from the following Chart.js issues:
-	 * @see https://github.com/chartjs/Chart.js/issues/2380#issuecomment-279961569
-	 * @see https://github.com/chartjs/Chart.js/issues/2440#issuecomment-256461897
+	 * @see https://ithub.com/chartjs/Chart.js/issues/2380#issuecomment-279961569
+	 * @see https://ithub.com/chartjs/Chart.js/issues/2440#issuecomment-256461897
 	 */
 	Chart.defaults.global.plugins.filler = {
 		propagate: true
@@ -11899,7 +11899,7 @@ module.exports = function(Chart) {
 	function fitWithPointLabels(scale) {
 		/*
 		 * Right, this is really confusing and there is a lot of maths going on here
-		 * The gist of the problem is here: https://gist.github.com/nnnick/696cc9c55f4b0beb8fe9
+		 * The gist of the problem is here: https://ist.github.com/nnnick/696cc9c55f4b0beb8fe9
 		 *
 		 * Reaction: https://dl.dropboxusercontent.com/u/34601363/toomuchscience.gif
 		 *
@@ -12367,7 +12367,7 @@ module.exports = function(Chart) {
 			unit: false, // false == automatic or override with week, month, year, etc.
 			round: false, // none, or override with week, month, year, etc.
 			displayFormat: false, // DEPRECATED
-			isoWeekday: false, // override week start day - see http://momentjs.com/docs/#/get-set/iso-weekday/
+			isoWeekday: false, // override week start day - see http://momentjs.com/docs/#/et-set/iso-weekday/
 			minUnit: 'millisecond',
 
 			// defaults to unit's corresponding unitFormat below or override using pattern string from http://momentjs.com/docs/#/displaying/format/

@@ -833,7 +833,7 @@ module.exports = MMCQ.quantize
     Class that wraps the html image element and canvas.
     It also simplifies some of the canvas context manipulation
     with a set of helper functions.
-    Stolen from https://github.com/lokesh/color-thief
+    Stolen from https://ithub.com/lokesh/color-thief
    */
 
   window.CanvasImage = CanvasImage = (function() {

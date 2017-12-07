@@ -5,13 +5,13 @@ define([], function () {
         }
         attributeChangedCallback(attrName, oldVal, newVal) {
             if (attrName == 'uri') {
-                if (/spotify:album:(.*)/g.test(newVal)) {
+                if (/spotify:album:(.*)/.test(newVal)) {
                     this.innerHTML = '<sp-playlist uri="' + newVal + '"></sp-playlist>';
                 }
-                if (/spotify:user:(.*):playlist:(.*)/g.test(newVal)) {
+                if (/spotify:user:(.*):playlist:(.*)/.test(newVal)) {
                     this.innerHTML = '<sp-playlist uri="' + newVal + '"></sp-playlist>';
                 }
-                if (/spotify:track:(.*)/g.test(newVal)) {
+                if (/spotify:track:(.*)/.test(newVal)) {
                     this.innerHTML = '<sp-track uri="' + newVal + '"></sp-track>';
                 }
             }

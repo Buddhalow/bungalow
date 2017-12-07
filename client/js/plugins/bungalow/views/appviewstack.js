@@ -21,17 +21,17 @@ define(['controls/view'], function (SPViewElement) {
             this.setAttribute('uri', value);
         }
         navigate(uri, isHistory) {
-            let bundleId = uri.split(/\:/g)[2];
+            let bundleId = uri.split(/\:/)[2];
             if (this.app && this.app.getAttribute('data-bundle') == bundleId) {
                 this.app.postMessage({
-                    arguments: uri.substr('bungalow:' + bundleId + ':'.length).split(/\:/g),
+                    arguments: uri.substr('bungalow:' + bundleId + ':'.length).split(/\:/),
                     uri: uri,
                     hash: window.location.hash.substr(1)
                 });
                 return;
             }
             if (!isHistory) {
-                var pathname = uri.substr(uri.split(':')[0].length).replace(/\:/g, '/');
+                var pathname = uri.substr(uri.split(':')[0].length).replace(/\:/, '/');
                 history.pushState(uri, '', pathname);
             }
             var apps = this.querySelectorAll('sp-app');
@@ -66,7 +66,7 @@ define(['controls/view'], function (SPViewElement) {
                             app.addEventListener('load', (e) => {
                                 app.postMessage({
                                     uri: uri,
-                                    arguments: uri.substr('bungalow:' + appManifest.BundleIdentifier + ':'.length).split(/\:/g),
+                                    arguments: uri.substr('bungalow:' + appManifest.BundleIdentifier + ':'.length).split(/\:/),
                                     fragment: window.location.hash.substr(1)
                                 }, '*')
                             })

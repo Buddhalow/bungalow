@@ -1,6 +1,6 @@
 /** vim: et:ts=4:sw=4:sts=4
  * @license RequireJS 2.3.4 Copyright jQuery Foundation and other contributors.
- * Released under MIT license, https://github.com/requirejs/requirejs/blob/master/LICENSE
+ * Released under MIT license, https://ithub.com/requirejs/requirejs/blob/master/LICENSE
  */
 //Not using strict: uneven strict support in browsers, #392, and causes
 //problems with requirejs.exec()/transpiler plugins that may not be strict.
@@ -13,7 +13,7 @@ var requirejs, require, define;
         interactiveScript, currentlyAddingScript, mainScript, subPath,
         version = '2.3.4',
         commentRegExp = /\/\*[\s\S]*?\*\/|([^:"'=]|^)\/\/.*$/mg,
-        cjsRequireRegExp = /[^.]\s*require\s*\(\s*["']([^'"\s]+)["']\s*\)/g,
+        cjsRequireRegExp = /[^.]\s*require\s*\(\s*["']([^'"\s]+)["']\s*\)/,
         jsSuffixRegExp = /\.js$/,
         currDirRegExp = /^\.\//,
         op = Object.prototype,
@@ -1442,7 +1442,7 @@ var requirejs, require, define;
                         return defined[id];
                     }
 
-                    //Grab defines waiting in the global queue.
+                    //rab defines waiting in the global queue.
                     intakeDefines();
 
                     //Mark all the dependencies as needing to be loaded.
@@ -1912,11 +1912,11 @@ var requirejs, require, define;
             if (node.attachEvent &&
                     //Check if node.attachEvent is artificially added by custom script or
                     //natively supported by browser
-                    //read https://github.com/requirejs/requirejs/issues/187
+                    //read https://ithub.com/requirejs/requirejs/issues/187
                     //if we can NOT find [native code] then it must NOT natively supported.
                     //in IE8, node.attachEvent does not have toString()
                     //Note the test for "[native code" with no closing brace, see:
-                    //https://github.com/requirejs/requirejs/issues/273
+                    //https://ithub.com/requirejs/requirejs/issues/273
                     !(node.attachEvent.toString && node.attachEvent.toString().indexOf('[native code') < 0) &&
                     !isOpera) {
                 //Probably IE. IE (at least 6-8) do not fire

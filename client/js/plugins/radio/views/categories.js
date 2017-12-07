@@ -5,6 +5,7 @@ define(['controls/view'], function (SPViewElement) {
             this.tabContent.setAttribute('data-tab-id', 'overview');
             this.tabContent.setAttribute('data-label', 'Categories');
             this.appendChild(this.tabContent);
+            this.tabContent.flow = document.createElement()
         }
         attributeChangedCallback(attrName, oldVal, newVal) {
             if (attrName === 'uri') {

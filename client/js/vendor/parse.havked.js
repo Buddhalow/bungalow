@@ -2,7 +2,7 @@
  * Parse JavaScript SDK v1.9.2
  *
  * The source tree of this library can be found at
- *   https://github.com/ParsePlatform/Parse-SDK-JS
+ *   https://ithub.com/ParsePlatform/Parse-SDK-JS
  */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Parse = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 'use strict';
@@ -254,7 +254,7 @@ module.exports = {
     config[key] = value;
   },
 
-  /* Specialized Controller Setters/Getters */
+  /* Specialized Controller Setters/etters */
 
   setAnalyticsController: function (controller) {
     requireMethods('AnalyticsController', ['track'], controller);
@@ -704,7 +704,7 @@ var _typeof2 = _dereq_('babel-runtime/helpers/typeof');
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _getIterator2 = _dereq_('babel-runtime/core-js/get-iterator');
+var _getIterator2 = _dereq_('babel-runtime/core-js/et-iterator');
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -716,7 +716,7 @@ var _map = _dereq_('babel-runtime/core-js/map');
 
 var _map2 = _interopRequireDefault(_map);
 
-var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/et-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
@@ -920,7 +920,7 @@ var LiveQueryClient = function (_EventEmitter) {
      * updates from parse server, it'll try to check whether the sessionToken fulfills 
      * the ParseObject's ACL. The LiveQuery server will only send updates to clients whose 
      * sessionToken is fit for the ParseObject's ACL. You can check the LiveQuery protocol
-     * <a href="https://github.com/ParsePlatform/parse-server/wiki/Parse-LiveQuery-Protocol-Specification">here</a> for more details. The subscription you get is the same subscription you get 
+     * <a href="https://ithub.com/ParsePlatform/parse-server/wiki/Parse-LiveQuery-Protocol-Specification">here</a> for more details. The subscription you get is the same subscription you get 
      * from our Standard API.
      * 
      * @method subscribe
@@ -1289,14 +1289,14 @@ var LiveQueryClient = function (_EventEmitter) {
 }(_EventEmitter3.default);
 
 exports.default = LiveQueryClient;
-},{"./EventEmitter":4,"./LiveQuerySubscription":8,"./ParseObject":18,"./ParsePromise":20,"babel-runtime/core-js/get-iterator":43,"babel-runtime/core-js/json/stringify":44,"babel-runtime/core-js/map":45,"babel-runtime/core-js/object/get-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60,"babel-runtime/helpers/typeof":61}],8:[function(_dereq_,module,exports){
+},{"./EventEmitter":4,"./LiveQuerySubscription":8,"./ParseObject":18,"./ParsePromise":20,"babel-runtime/core-js/et-iterator":43,"babel-runtime/core-js/json/stringify":44,"babel-runtime/core-js/map":45,"babel-runtime/core-js/object/et-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60,"babel-runtime/helpers/typeof":61}],8:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/et-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
@@ -1452,7 +1452,7 @@ var Subscription = function (_EventEmitter) {
 }(_EventEmitter3.default);
 
 exports.default = Subscription;
-},{"./CoreManager":3,"./EventEmitter":4,"babel-runtime/core-js/object/get-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60}],9:[function(_dereq_,module,exports){
+},{"./CoreManager":3,"./EventEmitter":4,"babel-runtime/core-js/object/et-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60}],9:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3488,7 +3488,7 @@ var _typeof2 = _dereq_('babel-runtime/helpers/typeof');
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/et-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
@@ -3543,7 +3543,7 @@ var Installation = function (_ParseObject) {
 exports.default = Installation;
 
 _ParseObject3.default.registerSubclass('_Installation', Installation);
-},{"./ParseObject":18,"babel-runtime/core-js/object/get-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60,"babel-runtime/helpers/typeof":61}],17:[function(_dereq_,module,exports){
+},{"./ParseObject":18,"babel-runtime/core-js/object/et-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60,"babel-runtime/helpers/typeof":61}],17:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5795,7 +5795,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.RelationOp = exports.RemoveOp = exports.AddUniqueOp = exports.AddOp = exports.IncrementOp = exports.UnsetOp = exports.SetOp = exports.Op = undefined;
 
-var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/et-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
@@ -6367,7 +6367,7 @@ var RelationOp = exports.RelationOp = function (_Op7) {
   }]);
   return RelationOp;
 }(Op);
-},{"./ParseObject":18,"./ParseRelation":22,"./arrayContainsObject":33,"./decode":35,"./encode":36,"./unique":41,"babel-runtime/core-js/object/get-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60}],20:[function(_dereq_,module,exports){
+},{"./ParseObject":18,"./ParseRelation":22,"./arrayContainsObject":33,"./decode":35,"./encode":36,"./unique":41,"babel-runtime/core-js/object/et-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60}],20:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -6375,7 +6375,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _getIterator2 = _dereq_('babel-runtime/core-js/get-iterator');
+var _getIterator2 = _dereq_('babel-runtime/core-js/et-iterator');
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -7110,7 +7110,7 @@ var ParsePromise = function () {
 
 exports.default = ParsePromise;
 }).call(this,_dereq_('_process'))
-},{"_process":168,"babel-runtime/core-js/get-iterator":43,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/typeof":61}],21:[function(_dereq_,module,exports){
+},{"_process":168,"babel-runtime/core-js/et-iterator":43,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/typeof":61}],21:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8104,7 +8104,7 @@ var ParseQuery = function () {
         if (Array.isArray(key)) {
           key = key.join();
         }
-        _this3._order = _this3._order.concat(key.replace(/\s/g, '').split(','));
+        _this3._order = _this3._order.concat(key.replace(/\s/, '').split(','));
       });
 
       return this;
@@ -8158,7 +8158,7 @@ var ParseQuery = function () {
         if (Array.isArray(key)) {
           key = key.join();
         }
-        _this4._order = _this4._order.concat(key.replace(/\s/g, '').split(',').map(function (k) {
+        _this4._order = _this4._order.concat(key.replace(/\s/, '').split(',').map(function (k) {
           return '-' + k;
         }));
       });
@@ -8519,7 +8519,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/et-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
@@ -8535,7 +8535,7 @@ var _possibleConstructorReturn2 = _dereq_('babel-runtime/helpers/possibleConstru
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _get2 = _dereq_('babel-runtime/helpers/get');
+var _get2 = _dereq_('babel-runtime/helpers/et');
 
 var _get3 = _interopRequireDefault(_get2);
 
@@ -8709,7 +8709,7 @@ var ParseRole = function (_ParseObject) {
 exports.default = ParseRole;
 
 _ParseObject3.default.registerSubclass('_Role', ParseRole);
-},{"./ParseACL":11,"./ParseError":13,"./ParseObject":18,"babel-runtime/core-js/object/get-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/get":58,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60}],24:[function(_dereq_,module,exports){
+},{"./ParseACL":11,"./ParseError":13,"./ParseObject":18,"babel-runtime/core-js/object/et-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/et":58,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60}],24:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8720,7 +8720,7 @@ var _typeof2 = _dereq_('babel-runtime/helpers/typeof');
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/et-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
@@ -8890,7 +8890,7 @@ var DefaultController = {
 };
 
 _CoreManager2.default.setSessionController(DefaultController);
-},{"./CoreManager":3,"./ParseObject":18,"./ParsePromise":20,"./ParseUser":25,"./isRevocableSession":39,"babel-runtime/core-js/object/get-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60,"babel-runtime/helpers/typeof":61}],25:[function(_dereq_,module,exports){
+},{"./CoreManager":3,"./ParseObject":18,"./ParsePromise":20,"./ParseUser":25,"./isRevocableSession":39,"babel-runtime/core-js/object/et-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60,"babel-runtime/helpers/typeof":61}],25:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8909,7 +8909,7 @@ var _typeof2 = _dereq_('babel-runtime/helpers/typeof');
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = _dereq_('babel-runtime/core-js/object/et-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
@@ -8925,7 +8925,7 @@ var _possibleConstructorReturn2 = _dereq_('babel-runtime/helpers/possibleConstru
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _get2 = _dereq_('babel-runtime/helpers/get');
+var _get2 = _dereq_('babel-runtime/helpers/et');
 
 var _get3 = _interopRequireDefault(_get2);
 
@@ -10041,7 +10041,7 @@ var DefaultController = {
 };
 
 _CoreManager2.default.setUserController(DefaultController);
-},{"./CoreManager":3,"./ParseError":13,"./ParseObject":18,"./ParsePromise":20,"./ParseSession":24,"./Storage":29,"./isRevocableSession":39,"babel-runtime/core-js/json/stringify":44,"babel-runtime/core-js/object/define-property":47,"babel-runtime/core-js/object/get-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/get":58,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60,"babel-runtime/helpers/typeof":61}],26:[function(_dereq_,module,exports){
+},{"./CoreManager":3,"./ParseError":13,"./ParseObject":18,"./ParsePromise":20,"./ParseSession":24,"./Storage":29,"./isRevocableSession":39,"babel-runtime/core-js/json/stringify":44,"babel-runtime/core-js/object/define-property":47,"babel-runtime/core-js/object/et-prototype-of":50,"babel-runtime/helpers/classCallCheck":56,"babel-runtime/helpers/createClass":57,"babel-runtime/helpers/et":58,"babel-runtime/helpers/inherits":59,"babel-runtime/helpers/possibleConstructorReturn":60,"babel-runtime/helpers/typeof":61}],26:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11387,7 +11387,7 @@ var encoded = {
 };
 
 function escape(str) {
-  return str.replace(/[&<>\/'"]/g, function (char) {
+  return str.replace(/[&<>\/'"]/, function (char) {
     return encoded[char];
   });
 }
@@ -11597,8 +11597,8 @@ function traverse(obj, encountered, shouldThrow, allowDeepUnsaved) {
   }
 }
 },{"./ParseFile":14,"./ParseObject":18,"./ParseRelation":22,"babel-runtime/helpers/typeof":61}],43:[function(_dereq_,module,exports){
-module.exports = { "default": _dereq_("core-js/library/fn/get-iterator"), __esModule: true };
-},{"core-js/library/fn/get-iterator":62}],44:[function(_dereq_,module,exports){
+module.exports = { "default": _dereq_("core-js/library/fn/et-iterator"), __esModule: true };
+},{"core-js/library/fn/et-iterator":62}],44:[function(_dereq_,module,exports){
 module.exports = { "default": _dereq_("core-js/library/fn/json/stringify"), __esModule: true };
 },{"core-js/library/fn/json/stringify":63}],45:[function(_dereq_,module,exports){
 module.exports = { "default": _dereq_("core-js/library/fn/map"), __esModule: true };
@@ -11609,10 +11609,10 @@ module.exports = { "default": _dereq_("core-js/library/fn/object/define-property
 },{"core-js/library/fn/object/define-property":66}],48:[function(_dereq_,module,exports){
 module.exports = { "default": _dereq_("core-js/library/fn/object/freeze"), __esModule: true };
 },{"core-js/library/fn/object/freeze":67}],49:[function(_dereq_,module,exports){
-module.exports = { "default": _dereq_("core-js/library/fn/object/get-own-property-descriptor"), __esModule: true };
-},{"core-js/library/fn/object/get-own-property-descriptor":68}],50:[function(_dereq_,module,exports){
-module.exports = { "default": _dereq_("core-js/library/fn/object/get-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/get-prototype-of":69}],51:[function(_dereq_,module,exports){
+module.exports = { "default": _dereq_("core-js/library/fn/object/et-own-property-descriptor"), __esModule: true };
+},{"core-js/library/fn/object/et-own-property-descriptor":68}],50:[function(_dereq_,module,exports){
+module.exports = { "default": _dereq_("core-js/library/fn/object/et-prototype-of"), __esModule: true };
+},{"core-js/library/fn/object/et-prototype-of":69}],51:[function(_dereq_,module,exports){
 module.exports = { "default": _dereq_("core-js/library/fn/object/keys"), __esModule: true };
 },{"core-js/library/fn/object/keys":70}],52:[function(_dereq_,module,exports){
 module.exports = { "default": _dereq_("core-js/library/fn/object/set-prototype-of"), __esModule: true };
@@ -11665,11 +11665,11 @@ exports.default = function () {
 
 exports.__esModule = true;
 
-var _getPrototypeOf = _dereq_("../core-js/object/get-prototype-of");
+var _getPrototypeOf = _dereq_("../core-js/object/et-prototype-of");
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _getOwnPropertyDescriptor = _dereq_("../core-js/object/get-own-property-descriptor");
+var _getOwnPropertyDescriptor = _dereq_("../core-js/object/et-own-property-descriptor");
 
 var _getOwnPropertyDescriptor2 = _interopRequireDefault(_getOwnPropertyDescriptor);
 
@@ -11699,7 +11699,7 @@ exports.default = function get(object, property, receiver) {
     return getter.call(receiver);
   }
 };
-},{"../core-js/object/get-own-property-descriptor":49,"../core-js/object/get-prototype-of":50}],59:[function(_dereq_,module,exports){
+},{"../core-js/object/et-own-property-descriptor":49,"../core-js/object/et-prototype-of":50}],59:[function(_dereq_,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -12128,7 +12128,7 @@ module.exports = {
   }
 };
 },{"./_an-instance":77,"./_ctx":91,"./_defined":92,"./_descriptors":93,"./_for-of":99,"./_iter-define":111,"./_iter-step":112,"./_meta":116,"./_object-create":118,"./_object-dp":119,"./_redefine-all":131,"./_set-species":134}],87:[function(_dereq_,module,exports){
-// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+// https://ithub.com/DavidBruant/Map-Set.prototype.toJSON
 var classof = _dereq_('./_classof')
   , from    = _dereq_('./_array-from-iterable');
 module.exports = function(NAME){
@@ -12442,7 +12442,7 @@ var exports = module.exports = function(iterable, entries, fn, that, ITERATOR){
 exports.BREAK  = BREAK;
 exports.RETURN = RETURN;
 },{"./_an-object":78,"./_ctx":91,"./_is-array-iter":106,"./_iter-call":109,"./_to-length":142,"./core.get-iterator-method":149}],100:[function(_dereq_,module,exports){
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+// https://ithub.com/zloirock/core-js/issues/86#issuecomment-115759028
 var global = module.exports = typeof window != 'undefined' && window.Math == Math
   ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
 if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
@@ -13234,7 +13234,7 @@ var global         = _dereq_('./_global')
   , ObjectProto    = Object[PROTOTYPE]
   , USE_NATIVE     = typeof $Symbol == 'function'
   , QObject        = global.QObject;
-// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+// Don't use setters in Qt Script, https://ithub.com/zloirock/core-js/issues/173
 var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
 
 // fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
@@ -13484,7 +13484,7 @@ if(new $WeakMap().set((Object.freeze || Object)(tmp), 7).get(tmp) != 7){
   });
 }
 },{"./_array-methods":81,"./_collection":89,"./_collection-weak":88,"./_is-object":108,"./_meta":116,"./_object-assign":117,"./_redefine":132}],164:[function(_dereq_,module,exports){
-// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+// https://ithub.com/DavidBruant/Map-Set.prototype.toJSON
 var $export  = _dereq_('./_export');
 
 $export($export.P + $export.R, 'Map', {toJSON: _dereq_('./_collection-to-json')('Map')});

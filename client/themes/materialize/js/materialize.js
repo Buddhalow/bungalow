@@ -18,11 +18,11 @@ if (typeof jQuery === 'undefined') {
   }
 }
 ; /*
-  * jQuery Easing v1.4.0 - http://gsgd.co.uk/sandbox/jquery/easing/
+  * jQuery Easing v1.4.0 - http://sgd.co.uk/sandbox/jquery/easing/
   * Open source under the BSD License.
   * Copyright © 2008 George McGinley Smith
   * All rights reserved.
-  * https://raw.github.com/gdsmith/jquery-easing/master/LICENSE
+  * https://raw.github.com/dsmith/jquery-easing/master/LICENSE
   */
 
 (function (factory) {
@@ -458,7 +458,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         return 1 - Math.cos(4.5 * e * Math.PI) * Math.exp(6 * -e);
       } }, f.each([["ease", [.25, .1, .25, 1]], ["ease-in", [.42, 0, 1, 1]], ["ease-out", [0, 0, .58, 1]], ["ease-in-out", [.42, 0, .58, 1]], ["easeInSine", [.47, 0, .745, .715]], ["easeOutSine", [.39, .575, .565, 1]], ["easeInOutSine", [.445, .05, .55, .95]], ["easeInQuad", [.55, .085, .68, .53]], ["easeOutQuad", [.25, .46, .45, .94]], ["easeInOutQuad", [.455, .03, .515, .955]], ["easeInCubic", [.55, .055, .675, .19]], ["easeOutCubic", [.215, .61, .355, 1]], ["easeInOutCubic", [.645, .045, .355, 1]], ["easeInQuart", [.895, .03, .685, .22]], ["easeOutQuart", [.165, .84, .44, 1]], ["easeInOutQuart", [.77, 0, .175, 1]], ["easeInQuint", [.755, .05, .855, .06]], ["easeOutQuint", [.23, 1, .32, 1]], ["easeInOutQuint", [.86, 0, .07, 1]], ["easeInExpo", [.95, .05, .795, .035]], ["easeOutExpo", [.19, 1, .22, 1]], ["easeInOutExpo", [1, 0, 0, 1]], ["easeInCirc", [.6, .04, .98, .335]], ["easeOutCirc", [.075, .82, .165, 1]], ["easeInOutCirc", [.785, .135, .15, .86]]], function (e, t) {
       b.Easings[t[0]] = l.apply(null, t[1]);
-    });var S = b.CSS = { RegEx: { isHex: /^#([A-f\d]{3}){1,2}$/i, valueUnwrap: /^[A-z]+\((.*)\)$/i, wrappedValueAlreadyExtracted: /[0-9.]+ [0-9.]+ [0-9.]+( [0-9.]+)?/, valueSplit: /([A-z]+\(.+\))|(([A-z0-9#-.]+?)(?=\s|$))/gi }, Lists: { colors: ["fill", "stroke", "stopColor", "color", "backgroundColor", "borderColor", "borderTopColor", "borderRightColor", "borderBottomColor", "borderLeftColor", "outlineColor"], transformsBase: ["translateX", "translateY", "scale", "scaleX", "scaleY", "skewX", "skewY", "rotateZ"], transforms3D: ["transformPerspective", "translateZ", "scaleZ", "rotateX", "rotateY"] }, Hooks: { templates: { textShadow: ["Color X Y Blur", "black 0px 0px 0px"], boxShadow: ["Color X Y Blur Spread", "black 0px 0px 0px 0px"], clip: ["Top Right Bottom Left", "0px 0px 0px 0px"], backgroundPosition: ["X Y", "0% 0%"], transformOrigin: ["X Y Z", "50% 50% 0px"], perspectiveOrigin: ["X Y", "50% 50%"] }, registered: {}, register: function () {
+    });var S = b.CSS = { RegEx: { isHex: /^#([A-f\d]{3}){1,2}$/i, valueUnwrap: /^[A-z]+\((.*)\)$/i, wrappedValueAlreadyExtracted: /[0-9.]+ [0-9.]+ [0-9.]+( [0-9.]+)?/, valueSplit: /([A-z]+\(.+\))|(([A-z0-9#-.]+?)(?=\s|$))/i }, Lists: { colors: ["fill", "stroke", "stopColor", "color", "backgroundColor", "borderColor", "borderTopColor", "borderRightColor", "borderBottomColor", "borderLeftColor", "outlineColor"], transformsBase: ["translateX", "translateY", "scale", "scaleX", "scaleY", "skewX", "skewY", "rotateZ"], transforms3D: ["transformPerspective", "translateZ", "scaleZ", "rotateX", "rotateY"] }, Hooks: { templates: { textShadow: ["Color X Y Blur", "black 0px 0px 0px"], boxShadow: ["Color X Y Blur Spread", "black 0px 0px 0px 0px"], clip: ["Top Right Bottom Left", "0px 0px 0px 0px"], backgroundPosition: ["X Y", "0% 0%"], transformOrigin: ["X Y Z", "50% 50% 0px"], perspectiveOrigin: ["X Y", "50% 50%"] }, registered: {}, register: function () {
           for (var e = 0; e < S.Lists.colors.length; e++) {
             var t = "color" === S.Lists.colors[e] ? "0 0 0 1" : "255 255 255 1";S.Hooks.templates[S.Lists.colors[e]] = ["Red Green Blue Alpha", t];
           }var r, a, n;if (d) for (r in S.Hooks.templates) {
@@ -488,7 +488,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         } }, Normalizations: { registered: { clip: function (e, t, r) {
             switch (e) {case "name":
                 return "clip";case "extract":
-                var a;return S.RegEx.wrappedValueAlreadyExtracted.test(r) ? a = r : (a = r.toString().match(S.RegEx.valueUnwrap), a = a ? a[1].replace(/,(\s+)?/g, " ") : r), a;case "inject":
+                var a;return S.RegEx.wrappedValueAlreadyExtracted.test(r) ? a = r : (a = r.toString().match(S.RegEx.valueUnwrap), a = a ? a[1].replace(/,(\s+)?/, " ") : r), a;case "inject":
                 return "rect(" + r + ")";}
           }, blur: function (e, t, r) {
             switch (e) {case "name":
@@ -511,7 +511,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
               var t = S.Lists.transformsBase[e];S.Normalizations.registered[t] = function (e, r, n) {
                 switch (e) {case "name":
                     return "transform";case "extract":
-                    return i(r) === a || i(r).transformCache[t] === a ? /^scale/i.test(t) ? 1 : 0 : i(r).transformCache[t].replace(/[()]/g, "");case "inject":
+                    return i(r) === a || i(r).transformCache[t] === a ? /^scale/i.test(t) ? 1 : 0 : i(r).transformCache[t].replace(/[()]/, "");case "inject":
                     var o = !1;switch (t.substr(0, t.length - 1)) {case "translate":
                         o = !/(%|px|em|rem|vw|vh|\d)$/i.test(n);break;case "scal":case "scale":
                         b.State.isAndroid && i(r).transformCache[t] === a && 1 > n && (n = 1), o = !/(\d)$/i.test(n);break;case "skew":
@@ -526,14 +526,14 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     return t;case "extract":
                     var o;if (S.RegEx.wrappedValueAlreadyExtracted.test(n)) o = n;else {
                       var i,
-                          s = { black: "rgb(0, 0, 0)", blue: "rgb(0, 0, 255)", gray: "rgb(128, 128, 128)", green: "rgb(0, 128, 0)", red: "rgb(255, 0, 0)", white: "rgb(255, 255, 255)" };/^[A-z]+$/i.test(n) ? i = s[n] !== a ? s[n] : s.black : S.RegEx.isHex.test(n) ? i = "rgb(" + S.Values.hexToRgb(n).join(" ") + ")" : /^rgba?\(/i.test(n) || (i = s.black), o = (i || n).toString().match(S.RegEx.valueUnwrap)[1].replace(/,(\s+)?/g, " ");
+                          s = { black: "rgb(0, 0, 0)", blue: "rgb(0, 0, 255)", gray: "rgb(128, 128, 128)", green: "rgb(0, 128, 0)", red: "rgb(255, 0, 0)", white: "rgb(255, 255, 255)" };/^[A-z]+$/i.test(n) ? i = s[n] !== a ? s[n] : s.black : S.RegEx.isHex.test(n) ? i = "rgb(" + S.Values.hexToRgb(n).join(" ") + ")" : /^rgba?\(/i.test(n) || (i = s.black), o = (i || n).toString().match(S.RegEx.valueUnwrap)[1].replace(/,(\s+)?/, " ");
                     }return 8 >= d || 3 !== o.split(" ").length || (o += " 1"), o;case "inject":
-                    return 8 >= d ? 4 === n.split(" ").length && (n = n.split(/\s+/).slice(0, 3).join(" ")) : 3 === n.split(" ").length && (n += " 1"), (8 >= d ? "rgb" : "rgba") + "(" + n.replace(/\s+/g, ",").replace(/\.(\d)+(?=,)/g, "") + ")";}
+                    return 8 >= d ? 4 === n.split(" ").length && (n = n.split(/\s+/).slice(0, 3).join(" ")) : 3 === n.split(" ").length && (n += " 1"), (8 >= d ? "rgb" : "rgba") + "(" + n.replace(/\s+/, ",").replace(/\.(\d)+(?=,)/, "") + ")";}
               };
             }();
           }
         } }, Names: { camelCase: function (e) {
-          return e.replace(/-(\w)/g, function (e, t) {
+          return e.replace(/-(\w)/, function (e, t) {
             return t.toUpperCase();
           });
         }, SVGAttribute: function (e) {
@@ -836,7 +836,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
   }function w(a, b) {
     return a.indexOf(b) > -1;
   }function x(a) {
-    return a.trim().split(/\s+/g);
+    return a.trim().split(/\s+/);
   }function y(a, b, c) {
     if (a.indexOf && !c) return a.indexOf(b);for (var d = 0; d < a.length;) {
       if (c && a[d][c] == b || !c && a[d] === b) return d;d++;
@@ -1266,7 +1266,7 @@ if (typeof exports !== 'undefined' && !exports.nodeType) {
 
 /*
  * raf.js
- * https://github.com/ngryman/raf.js
+ * https://ithub.com/ngryman/raf.js
  *
  * original requestAnimationFrame polyfill by Erik Möller
  * inspired from paul_irish gist and post
@@ -1288,7 +1288,7 @@ if (typeof exports !== 'undefined' && !exports.nodeType) {
   }
 
   // polyfill with setTimeout fallback
-  // heavily inspired from @darius gist mod: https://gist.github.com/paulirish/1579671#comment-837945
+  // heavily inspired from @darius gist mod: https://ist.github.com/paulirish/1579671#comment-837945
   if (!requestAnimationFrame || !cancelAnimationFrame) {
     requestAnimationFrame = function (callback) {
       var now = +Date.now(),
@@ -1315,7 +1315,7 @@ Materialize.objectSelectorString = function (obj) {
   var tagStr = obj.prop('tagName') || '';
   var idStr = obj.attr('id') || '';
   var classStr = obj.attr('class') || '';
-  return (tagStr + idStr + classStr).replace(/\s/g, '');
+  return (tagStr + idStr + classStr).replace(/\s/, '');
 };
 
 // Unique Random ID
@@ -1334,7 +1334,7 @@ Materialize.guid = function () {
  * @returns {string}
  */
 Materialize.escapeHash = function (hash) {
-  return hash.replace(/(:|\.|\[|\]|,|=)/g, "\\$1");
+  return hash.replace(/(:|\.|\[|\]|,|=)/, "\\$1");
 };
 
 Materialize.elementOrParentIsFixed = function (element) {
@@ -3039,7 +3039,7 @@ if (Vel) {
   *
   * Copyright 2014 Alfiana E. Sibuea and other contributors
   * Released under the MIT license
-  * https://github.com/fians/Waves/blob/master/LICENSE
+  * https://ithub.com/fians/Waves/blob/master/LICENSE
   */
 
 ;(function (window) {
@@ -4116,11 +4116,11 @@ if (Vel) {
   * This watches the window scroll and fires events when elements are scrolled into viewport.
   *
   * throttle() and getTime() taken from Underscore.js
-  * https://github.com/jashkenas/underscore
+  * https://ithub.com/jashkenas/underscore
   *
   * @author Copyright 2013 John Smart
   * @license https://raw.github.com/thesmart/jquery-scrollspy/master/LICENSE
-  * @see https://github.com/thesmart
+  * @see https://ithub.com/thesmart
   * @version 0.1.2
   */
 (function ($) {
@@ -4490,7 +4490,7 @@ if (Vel) {
       }
 
       hiddenDiv.text($textarea.val() + '\n');
-      var content = hiddenDiv.html().replace(/\n/g, '<br>');
+      var content = hiddenDiv.html().replace(/\n/, '<br>');
       hiddenDiv.html(content);
 
       // When textarea is hidden, width goes crazy.
@@ -4942,7 +4942,7 @@ if (Vel) {
       var dropdownIcon = $('<span class="caret">&#9660;</span>');
 
       // escape double quotes
-      var sanitizedLabelHtml = label.replace(/"/g, '&quot;');
+      var sanitizedLabelHtml = label.replace(/"/, '&quot;');
 
       var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + ($select.is(':disabled') ? 'disabled' : '') + ' data-activates="select-options-' + uniqueID + '" value="' + sanitizedLabelHtml + '"/>');
       $select.before($newSelect);
@@ -5238,7 +5238,7 @@ if (Vel) {
 
         // Move img src into background-image
         $slides.find('img').each(function () {
-          var placeholderBase64 = 'data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+          var placeholderBase64 = 'data:image/if;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
           if ($(this).attr('src') !== placeholderBase64) {
             $(this).css('background-image', 'url("' + $(this).attr('src') + '")');
             $(this).attr('src', placeholderBase64);
@@ -6746,7 +6746,7 @@ if (Vel) {
           }
           return P.component.get(thing);
         }
-      }, //get
+      }, //et
 
 
       /**
@@ -7137,7 +7137,7 @@ if (Vel) {
 
   /**
    * Get the width of the browser’s scrollbar.
-   * Taken from: https://github.com/VodkaBears/Remodal/blob/master/src/jquery.remodal.js
+   * Taken from: https://ithub.com/VodkaBears/Remodal/blob/master/src/jquery.remodal.js
    */
   function getScrollbarWidth() {
 
@@ -7212,7 +7212,7 @@ if (Vel) {
 
       // Return the list of nodes
       return nodesList;
-    }, //group
+    }, //roup
 
 
     /**
@@ -8024,7 +8024,7 @@ if (Vel) {
 
       // Create an array by splitting the formatting string passed.
       toArray: function (formatString) {
-        return formatString.split(/(d{1,4}|m{1,4}|y{4}|yy|!.)/g);
+        return formatString.split(/(d{1,4}|m{1,4}|y{4}|yy|!.)/);
       },
 
       // Format an object into a string using the formatting options.
@@ -8585,7 +8585,7 @@ if (Vel) {
 ; /*!
   * ClockPicker v0.0.7 (http://weareoutman.github.io/clockpicker/)
   * Copyright 2014 Wang Shenwei.
-  * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
+  * Licensed under MIT (https://ithub.com/weareoutman/clockpicker/blob/h-pages/LICENSE)
   *
   * Further modified
   * Copyright 2015 Ching Yaw Hao.

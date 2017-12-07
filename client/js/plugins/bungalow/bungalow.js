@@ -59,7 +59,7 @@ define([
     
         GlobalViewStack.registeredViews.push({
             tag: 'sp-configview',
-            regex: /^bungalow:config?$/g
+            regex: /^bungalow:config?$/
         });
         GlobalViewStack.registeredViews.push({
             tag: 'sp-hashtagview',
@@ -67,15 +67,15 @@ define([
         });
         GlobalViewStack.registeredViews.push({
             tag: 'sp-appviewstackview',
-            regex: /^bungalow:app:(.*)?$/g
+            regex: /^bungalow:app:(.*)?$/
         });
         GlobalViewStack.registeredViews.push({
             tag: 'sp-servicelistview',
-            regex: /^bungalow:service?$/g
+            regex: /^bungalow:service?$/
         });
         GlobalViewStack.registeredViews.push({
             tag: 'sp-pluginlistview',
-            regex: /^bungalow:plugin?$/g
+            regex: /^bungalow:plugin?$/
         });
     });
 });

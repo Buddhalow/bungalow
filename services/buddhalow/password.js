@@ -1,4 +1,4 @@
-// From https://gist.github.com/soplakanets/980737
+// From https://ist.github.com/soplakanets/980737
 
 var crypto = require('crypto');
 
