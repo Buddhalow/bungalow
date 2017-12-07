@@ -94,6 +94,25 @@ define(['controls/tabbar'], function (SPTabBarElement) {
                 return result;
             });
             console.log(externalViews);
+            if (newUri === 'bungalow:playlist:add') {
+                var name = prompt('Enter name of playlist');
+                if (name) {
+                    $.ajax({
+                        method: 'POST',
+                        url: '/api/spotify/playlist',
+                        body: JSON.parse({
+                            name: name
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(function (result) {
+                        alert("Playlist created");
+                    }, function (error) {
+                        alert(error);
+                    })
+                }
+            }
             if (externalViews.length < 1) debugger;
             if (/^bungalow:app:(.*)$/.test(newUri)) {
                 view = document.querySelector('sp-appviewstackview');

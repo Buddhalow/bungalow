@@ -59,6 +59,10 @@ HTMLElement.prototype.getParentElementByClass = function (tagName) {
 window.hooks = {};
 
 
+window.prompt = function (text, defval) {
+    
+}
+
 Parse.Object.prototype.simplify = function (level = 0) {
     try {
         let newObj = {};
