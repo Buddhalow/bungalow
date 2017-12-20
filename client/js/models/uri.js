@@ -32,6 +32,9 @@ define([], function () {
             this.querystring = parseQuery(this.query);
      
         }
+        toUri() {
+            return this.service + ':' + this.app + ':' + this.path.join(':');
+        }
         get pathname() {
             return '/' + this.app + '/' + this.path.join('/');
         }

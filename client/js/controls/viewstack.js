@@ -29,9 +29,9 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
             this.views = {};
             if (this.parentNode && this.parentNode.tagName == 'SP-MAIN') {
                 let path = window.location.pathname.substr(1);
-                var qs = window.location.href.split('?')[1].toQuerystring();
-                if (!qs) {
-                    qs = {};
+                var qs ={};
+                if (window.location.href.split('?').length > 1) {
+                    qs = window.location.href.split('?')[1].split('#')[0].toQuerystring();
                 }
                 if (!('service' in qs)) {
                     qs['service'] = 'bungalow';
@@ -41,9 +41,10 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
             
                 window.addEventListener('popstate', (event) => {
                     let path = window.location.pathname.substr(1);
-                    var qs = window.location.href.split('?')[1].toQuerystring();
-                    if (!qs) {
-                        qs = {};
+                    var qs = {};
+                    if (window.location.href.split('?').length > 1) {
+                        qs = window.location.href.split('?')[1].split('#')[0].toQuerystring();
+                        
                     }
                     if (!('service' in qs)) {
                         qs['service'] = 'bungalow';
@@ -87,13 +88,13 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
             }   
             
             
-            let newUri = url.split('?')[0];
+            let newUri = uri.toUri();
             
             if (window.GlobalViewStack.currentView != null && newUri === window.GlobalViewStack.currentView.getAttribute('uri') && window.GlobalViewStack === this)
                 return;
             let view = null;
             console.log(newUri);
-            debugger;
+            
             console.log(window.GlobalViewStack.registeredViews);
             let externalViews = window.GlobalViewStack.registeredViews.filter((v) => {
                 
