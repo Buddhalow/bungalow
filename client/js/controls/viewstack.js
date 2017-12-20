@@ -87,20 +87,13 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
             }   
             
             
-            if (url === 'bungalow:login') {
-                store.login().then(() => {});
-                return;
-            }
-            
-            if (url.indexOf(':') > -1) {
-                url = 'bungalow:' + url.split(':').splice(1).join(':');
-            }
             let newUri = url.split('?')[0];
-    
+            
             if (window.GlobalViewStack.currentView != null && newUri === window.GlobalViewStack.currentView.getAttribute('uri') && window.GlobalViewStack === this)
                 return;
             let view = null;
             console.log(newUri);
+            debugger;
             console.log(window.GlobalViewStack.registeredViews);
             let externalViews = window.GlobalViewStack.registeredViews.filter((v) => {
                 

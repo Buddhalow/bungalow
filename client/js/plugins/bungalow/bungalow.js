@@ -20,7 +20,7 @@ define([
     SPMenuDataSource
 ) {
    document.registerElement('sp-appviewstackview', SPAppViewStackViewElement);
-   document.registerElement('sp-searchview', SPSearchViewElement);
+   document.registerElement('sp-bungalowsearchview', SPSearchViewElement);
    document.registerElement('sp-modelview', SPModelViewElement);
    document.registerElement('sp-startview', SPStartViewElement);
    document.registerElement('sp-hashtagview', SPHashtagViewElement);

@@ -91,8 +91,8 @@ define(
 	    }
 	    applyTheme(value) {
 	        
-	        document.documentElement.style.setProperty('--primary-saturation', value.saturation);
-            document.documentElement.style.setProperty('--primary-hue', value.hue);
+	        document.documentElement.style.setProperty('--primary-saturation', value.saturation + '%');
+            document.documentElement.style.setProperty('--primary-hue', value.hue + 'deg');
             document.documentElement.style.setProperty('--primary-color', value.colors[0]);
             document.documentElement.style.setProperty('--secondary-color', value.colors[1]);
             document.documentElement.style.setProperty('--tertiary-color', value.colors[2]);
