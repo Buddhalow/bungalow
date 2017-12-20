@@ -264,3 +264,7 @@ sp-playlistlist {
 body {
   transition: background 1s;
 }
+
+sp-spotifysearchheader {
+  padding: 20pt;
+}

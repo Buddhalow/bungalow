@@ -86,7 +86,6 @@ define(['controls/tab'], function (SPTabElement) {
 	        	});
 	        }
 	        
-	        
 	        if (state && state.objects instanceof Array && state.objects.length > 0) {
 	            for (let i = 0; i < state.objects.length; i++) {
 	            	let currentId = window.location.hash.substr(1);

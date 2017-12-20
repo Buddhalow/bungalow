@@ -5,8 +5,12 @@ moment.locale(lang);
         var xmlHttpRequest = new XMLHttpRequest();
         xmlHttpRequest.open('GET', '/lang/' + lang + '.json', false);
         xmlHttpRequest.send(null);
-        let data = JSON.parse(xmlHttpRequest.responseText);
-        window.languages[lang] = data;
+        try {
+            let data = JSON.parse(xmlHttpRequest.responseText);
+            window.languages[lang] = data;
+        } catch (e) {
+            window.languages[lang] = {};
+        }
     
 }
 

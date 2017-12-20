@@ -470,7 +470,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             if (!this.gondole) {
                   this.gondole = document.createElement('tr');
                 this.table.tbody.appendChild(this.gondole);
-                this.gondole.innerHTML = '<tr><td style="text-align: center" colspan="' + this.columnheaders.length + '"><sp-throbber></sp-throbber></td></tr>';
+                this.gondole.innerHTML = '<tr height="1pt"><td style="text-align: center" colspan="' + this.columnheaders.length + '"></td></tr>';
              /*   this.gondole.querySelector('button').addEventListener('click', () => {
                    this.fetchNext(); 
                 });*/

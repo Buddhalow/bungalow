@@ -77,7 +77,6 @@ app.get('/', function (req, res) {
     res.write(index);
     res.end();
 });
-app.use(express.static(__dirname + '/client/'));
 module.exports = app;
 if (typeof require != 'undefined' && require.main==module) {
     app.listen(process.env.PORT || 9261);
