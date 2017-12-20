@@ -28,7 +28,7 @@ define([], function () {
                 this.select = this.querySelector('sp-select');
                 if (!!this.select) {
                     this.select.dataSource = this.state.object.selectDataSource;
-                    this.select.setAttribute('uri', 'bungalow:post');
+                    this.select.setAttribute('uri', 'buddhalow:post');
                      this.form.querySelector('textarea').addEventListener('change', (e) => {
                         let url = e.target.value.getUrl();
                         if (url != null && url.length > 0) {

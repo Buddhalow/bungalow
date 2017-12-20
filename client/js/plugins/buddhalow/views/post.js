@@ -6,7 +6,7 @@ define(['controls/view'], function (SPViewElement) {
            this.classList.add('sp-view');
            this.innerHTML = '<div class="container feed" style="padding-left: 15%; padding-right: 15%"><sp-post></sp-post></div>';
            
-           this.attributeChangedCallback('uri', null, 'bungalow:');
+           this.attributeChangedCallback('uri', null, 'buddhalow:');
        }
        attributeChangedCallback(attrName, oldVal, newVal) {
            if (attrName === 'uri') {

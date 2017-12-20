@@ -12,9 +12,9 @@ define([
         SPMenuDataSource
     ) {
               
-        document.registerElement('sp-profileview', SPProfileViewElement);
-        document.registerElement('sp-newsfeedview', SPNewsFeedViewElement);
-        document.registerElement('sp-postview', SPPostViewElement);
+        document.registerElement('sp-buddhalowprofileview', SPProfileViewElement);
+        document.registerElement('sp-buddhalownewsfeedview', SPNewsFeedViewElement);
+        document.registerElement('sp-buddhalowpostview', SPPostViewElement);
         document.registerElement('sp-buddhalowhashtagview', SPBuddhalowHashtagViewElement);
       
         document.addEventListener('mainmenuload', (e) => {
@@ -30,7 +30,7 @@ define([
                 {
                     name: _e('Feed'),
                     icon: 'home',
-                    uri: 'bungalow:newsfeed'
+                    uri: 'buddhalow:newsfeed'
                 }
             ]
         );
@@ -51,16 +51,20 @@ define([
     document.addEventListener('viewstackloaded', () => {
     
         GlobalViewStack.registeredViews.push({
-            tag: 'sp-newsfeedview',
-            regex: /^bungalow:newsfeed$/
+            tag: 'sp-buddhalownewsfeedview',
+            regex: /^buddhalow:newsfeed$/
         });
         GlobalViewStack.registeredViews.push({
-            tag: 'sp-profileview',
-            regex: /^bungalow:profile:([a-zA-Z0-9\\.\\_]+)$/
+            tag: 'sp-buddhalowprofileview',
+            regex: /^buddhalow:profile:([a-zA-Z0-9\\.\\_]+)$/
         });
         GlobalViewStack.registeredViews.push({
-            tag: 'sp-postview',
-            regex: /^bungalow:post:([a-zA-Z0-9]+)$/
+            tag: 'sp-buddhalowpostview',
+            regex: /^buddhalow:post:([a-zA-Z0-9]+)$/
+        });
+        GlobalViewStack.registeredViews.push({
+            tag: 'sp-buddhalowhashtagview',
+            regex: /^buddhalow:hashtag:(.*)$/
         });
     });
   

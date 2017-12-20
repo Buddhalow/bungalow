@@ -11,8 +11,9 @@ define(['controls/viewstack'], function (SPViewStackElement) {
             window.GlobalViewStack = this.viewStack;
             document.dispatchEvent(new CustomEvent('viewstackloaded')); 
             this.appendChild(this.viewStack);
-            
-            
+            var $body = $('.mainbody');
+            $body.fadeIn("slow");    
+      
         }
     }
 })

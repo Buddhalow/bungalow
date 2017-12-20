@@ -12,12 +12,12 @@ String.prototype.getUrl = function () {
 
 
 String.prototype.hashtagify = function() {
-    return this.replace(/#(\S*)/, '<sp-link uri="bungalow:hashtag:$1">#$1</sp-link>').replace('<sp-link uri="bungalow:hashtag:#', '<sp-link uri="bungalow:hashtag:');
+    return this.replace(/#(\S*)/, '<sp-link uri="buddhalow:hashtag:$1">#$1</sp-link>').replace('<sp-link uri="buddhalow:hashtag:#', '<sp-link uri="buddhalow:hashtag:');
 }
 
 
 String.prototype.userify = function() { 
-    return this.replace(/@(\S*)/, '<sp-link uri="bungalow:user:$1">#$1</sp-link>').replace('<sp-link uri="bungalow:user:@', '<sp-link uri="bungalow:user:');
+    return this.replace(/@(\S*)/, '<sp-link uri="buddhalow:user:$1">#$1</sp-link>').replace('<sp-link uri="buddhalow:user:@', '<sp-link uri="buddhalow:user:');
 }
 
 
@@ -77,7 +77,7 @@ Parse.Object.prototype.simplify = function (level = 0) {
         let newObj = {};
 
         newObj.id = this.id;
-        newObj.uri = "bungalow:" + this.className.toLowerCase() + ":" + this.id;
+        newObj.uri = "buddhalow:" + this.className.toLowerCase() + ":" + this.id;
         Object.keys(this.attributes).forEach((field) => {
             let val = this.attributes[field];
             if (val instanceof Parse.Relation) {
@@ -461,9 +461,11 @@ requirejs(
             );
             
             
-            document.querySelector('.body').appendChild(document.createElement('sp-chrome'));
-            
-            resolve(result);
+                    
+            $('#loading').fadeOut(function () {
+                document.querySelector('.body').appendChild(document.createElement('sp-chrome'));
+            });
+             
             
         });
     })();

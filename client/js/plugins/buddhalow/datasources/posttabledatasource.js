@@ -107,13 +107,13 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
             let uri =  this.uri;
             let user = Parse.User.current();
             var q = new Parse.Query(Post);
-            if (/^bungalow:post$/.test(uri)) {
+            if (/^buddhalow:post$/.test(uri)) {
             }
-            if (/^bungalow:hashtag:([a-zA-Z0-8]+):post$/.test(uri)) {
+            if (/^buddhalow:hashtag:([a-zA-Z0-8]+):post$/.test(uri)) {
                 let hashtag = uri.split(':')[2];
                 q = q.contains('description', '#' + hashtag);
             }
-            if (/^bungalow:profile:([a-zA-Z0-9]+):post$/.test(uri)) {
+            if (/^buddhalow:profile:([a-zA-Z0-9]+):post$/.test(uri)) {
                 let slug = uri.split(':')[2];
              /*  
                let profile1 = new Parse.Query(Profile).equalTo('slug', slug);
@@ -139,12 +139,12 @@ define(['controls/tabledatasource', 'plugins/parse/datasources/parsetabledatasou
                    profile: {
                        name: 'You',
                        id: '@',
-                       uri: 'bungalow:profile:@'
+                       uri: 'buddhalow:profile:@'
                    },
                    selectDataSource: selectDataSource,
                    editable: true,
                    description: '',
-                   uri: 'bungalow:post:add'
+                   uri: 'buddhalow:post:add'
                });
                 results.map((o) => this.rows.push(o.simplify()));
             

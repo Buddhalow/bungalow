@@ -1,3 +1,6 @@
+:root {
+  --foreground-color: #666;
+}
 @font-face {
   font-family: 'roamnia';
   src: url('../font/roamnia.eot?27223602');
@@ -243,4 +246,21 @@ sp-playlistlist {
   padding: 20pt;
   width: 50%;
 
+}
+.origo {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.body {
+  background-color: var(--background-color);
+}
+#loading * {
+  background-color: var(--foreground-color)
+}
+.mainbody {
+}
+body {
+  transition: background 1s;
 }

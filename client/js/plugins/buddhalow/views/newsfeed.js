@@ -15,7 +15,7 @@ define(
            this.list.dataSource = new SPPostTableDataSource();
            this.list.setAttribute('interact', true);
            this.appendChild(this.list);
-           this.attributeChangedCallback('uri', null, 'bungalow:post');
+           this.attributeChangedCallback('uri', null, 'buddhalow:post');
        }
        attributeChangedCallback(attrName, oldVal, newVal) {
            if (attrName === 'uri') {

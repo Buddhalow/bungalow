@@ -124,7 +124,6 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
                     })
                 }
             }
-            if (externalViews.length < 1) debugger;
             if (/^bungalow:app:(.*)$/.test(newUri)) {
                 view = document.querySelector('sp-appviewstackview');
                 if (!view) {
