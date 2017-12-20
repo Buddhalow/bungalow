@@ -196,6 +196,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
         
         }
         checkNext() {
+            if (!this.hasAttribute('expands')) return;
             if (this.parentNode == null) return;
             let view = this.getParentElementByClass("sp-view");
             if (!view) return;
@@ -469,10 +470,10 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             if (!this.gondole) {
                   this.gondole = document.createElement('tr');
                 this.table.tbody.appendChild(this.gondole);
-                this.gondole.innerHTML = '<tr><td style="text-align: center" colspan="' + this.columnheaders.length + '"><button>Fetch next</button></td></tr>';
-                this.gondole.querySelector('button').addEventListener('click', () => {
+                this.gondole.innerHTML = '<tr><td style="text-align: center" colspan="' + this.columnheaders.length + '"><sp-throbber></sp-throbber></td></tr>';
+             /*   this.gondole.querySelector('button').addEventListener('click', () => {
                    this.fetchNext(); 
-                });
+                });*/
             } else {
                 this.gondole.parentNode.removeChild(this.gondole);
                 this.table.tbody.appendChild(this.gondole);
