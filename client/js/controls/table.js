@@ -203,10 +203,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             
             let gondole = this.gondole;
             if (gondole && gondole.getBoundingClientRect().top < viewBounds.top + viewBounds.height) {
-                
                 this.fetchNext();
-                    
-                
             }
         }
         clear() {
@@ -246,6 +243,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             super.render();
             if (!this.parentNode) return;
             if ( !this.designer || this.state == null || this.state.object == null || !(this.state.object.objects instanceof Array)) return;
+            $('sp-throbber').remove();
             this.table.innerHTML = '';
             this.emptyLabel = document.createElement('div');
             this.emptyLabel.classList.add('sp-empty');
@@ -469,8 +467,15 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             
             let evt = new CustomEvent('rendered');
             if (!this.gondole) {
-                  this.gondole = document.createElement('div');
-                this.appendChild(this.gondole);
+                  this.gondole = document.createElement('tr');
+                this.table.tbody.appendChild(this.gondole);
+                this.gondole.innerHTML = '<tr><td style="text-align: center" colspan="' + this.columnheaders.length + '"><button>Fetch next</button></td></tr>';
+                this.gondole.querySelector('button').addEventListener('click', () => {
+                   this.fetchNext(); 
+                });
+            } else {
+                this.gondole.parentNode.removeChild(this.gondole);
+                this.table.tbody.appendChild(this.gondole);
             }
             this.checkNext();
             this.dispatchEvent(evt);

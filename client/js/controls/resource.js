@@ -41,9 +41,16 @@ define(['plugins/bungalow/datasources/restdatasource'], function (SPRestDataSour
             this._state = value;
             this.render();
         }
+        hideThrobber() {
+            this.throbber.style.display = 'none';
+        }
+        showThrobber() {
+            this.throbber.style.display = 'block';
+        }
         render() {
             if (!this.state || this.state.object) {
-                this.innerHTML = '<sp-throbber></sp-throbber>';
+                this.throbber = document.createElement('sp-throbber');
+                this.appendChild(this.throbber);
                 return;
             }
             let obj = this.state.object;
