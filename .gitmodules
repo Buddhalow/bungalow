@@ -9,13 +9,13 @@
 	url = git@github.com:Buddhalow/bungalow-spotify-service
 [submodule "services/spotify"]
 	path = services/spotify
-	url = git@github.com:Buddhalow/bungalow-spotify-service
+	url = git@bitbucket.org:drsounds/bungalow-spotify-service
 [submodule "client/themes/obama-2009"]
 	path = client/themes/obama-2009
-	url = git@github.com:Buddhalow/bungalow-spotify09-theme
+	url = git@bitbucket.org:drsounds/bungalow-spotify09-theme.git
 [submodule "client/themes/obama-2010"]
 	path = client/themes/obama-2010
-	url = git@github.com:Buddhalow/bungalow-spotify10-theme
+	url = git@bitbucket.org:drsounds/bungalow-spotify10-theme
 [submodule "client/js/plugins/bungalow-roamnia-plugin"]
 	path = client/js/plugins/bungalow-roamnia-plugin
 	url = git@bitbucket.org:drsounds/bungalow-roamnia-plugin
@@ -24,16 +24,13 @@
 	url = git@github.com:Buddhalow/bungalow-plugin-parse
 [submodule "client/themes/wmp-10"]
 	path = client/themes/wmp-10
-	url = git@github.com:Buddhalow/wmp-10.git
+	url = git@bitbucket.org:drsounds/bungalow-wmp10-theme.git
 [submodule "client/themes/wmp-9"]
 	path = client/themes/wmp-9
-	url = git@github.com:Buddhalow/wmp-9.git
-[submodule "client/themes/obama-12"]
-	path = client/themes/obama-12
-	url = git@github.com:Buddhalow/bungalow-spotify12-theme.git
+	url = git@bitbucket.org:drsounds/bungalow-wmp9-theme.git
 [submodule "client/themes/obama-2012"]
 	path = client/themes/obama-2012
-	url = git@github.com:Buddhalow/bungalow-spotify12-theme.git
+	url = git@bitbucket.org:drsounds/bungalow-spotify12-theme.git
 [submodule "services/lastfm"]
 	path = services/lastfm
 	url = git@github.com:Buddhalow/bungalow-lastfm-service
@@ -42,4 +39,4 @@
 	url = git@github.com:Buddhalow/bungalow-lastfm-plugin
 [submodule "client/themes/obama-2013"]
         path = client/themes/obama-2013
-        url = git@github.com:Buddhalow/bungalow-spotify13-theme.git
+        url = git@bitbucket.org:drsounds/bungalow-spotify13-theme.git

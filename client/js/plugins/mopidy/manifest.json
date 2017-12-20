@@ -1,0 +1,5 @@
+{
+    "id": "mopidy",
+    "name": "Mopidy plugin",
+    "type": "plugin"
+}

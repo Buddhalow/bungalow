@@ -175,8 +175,17 @@ const onHashChanged =  (e) => {
 window.addEventListener('hashchange', onHashChanged);
 
 
+var parseQuery = function(obj) {
+  var str = [];
+  for(var p in obj)
+    if (p in obj) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+}
 
-let serializeObject = function(obj) {
+
+var serializeObject = function(obj) {
   var str = [];
   for(var p in obj)
     if (p in obj) {
@@ -450,4 +459,4 @@ requirejs(
         });
     })();
         
-});1
+});

@@ -1,0 +1,8 @@
+{
+    "name": "bungalow-mopidy",
+    "id":"mopidy",
+    "bungalow": {
+        "id": "mopidy",
+        "name": "Mopidy"
+    }
+}

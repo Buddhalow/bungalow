@@ -1,4 +1,4 @@
-define(['controls/tabbar'], function (SPTabBarElement) {
+define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
 
 
     /**
@@ -29,12 +29,28 @@ define(['controls/tabbar'], function (SPTabBarElement) {
             this.views = {};
             if (this.parentNode && this.parentNode.tagName == 'SP-MAIN') {
                 let path = window.location.pathname.substr(1);
-                let uri = 'bungalow:' + path.split('/').join(':');
+                var qs = window.location.href.split('?')[1].toQuerystring();
+                if (!qs) {
+                    qs = {};
+                }
+                if (!('service' in qs)) {
+                    qs['service'] = 'bungalow';
+                }
+                let uri = qs.service + ':' + path.split('/').join(':') + '?' + serializeObject(qs);
                 this.navigate(uri, true);
             
                 window.addEventListener('popstate', (event) => {
                     let path = window.location.pathname.substr(1);
-                    let uri = 'bungalow:' + path.split('/').join(':');
+                    var qs = window.location.href.split('?')[1].toQuerystring();
+                    if (!qs) {
+                        qs = {};
+                    }
+                    if (!('service' in qs)) {
+                        qs['service'] = 'bungalow';
+                    }
+                    let uri = qs.service + ':' + path.split('/').join(':') + '?' + serializeObject(qs);
+            
+
                     this.navigate(uri, true);
                 
                 });
@@ -51,11 +67,12 @@ define(['controls/tabbar'], function (SPTabBarElement) {
          * @param {String} uri The URI to navigate to
          * @returns void
          **/
-        navigate(uri, dontPush=false) {
-            if (this.uri === uri) return;
+        navigate(url, dontPush=false) {
+            if (this.uri === url) return;
+            let uri = new Uri(url); 
             let evt = new CustomEvent('beforenavigate');
             this.dispatchEvent(evt);
-            
+             
         
             let menuItems = document.querySelectorAll('sp-menuitem');
             if (this === GlobalViewStack)
@@ -70,15 +87,15 @@ define(['controls/tabbar'], function (SPTabBarElement) {
             }   
             
             
-            if (uri === 'bungalow:login') {
+            if (url === 'bungalow:login') {
                 store.login().then(() => {});
                 return;
             }
             
-            if (uri.indexOf(':') > -1) {
-                uri = 'bungalow:' + uri.split(':').splice(1).join(':');
+            if (url.indexOf(':') > -1) {
+                url = 'bungalow:' + url.split(':').splice(1).join(':');
             }
-            let newUri = uri;
+            let newUri = url.split('?')[0];
     
             if (window.GlobalViewStack.currentView != null && newUri === window.GlobalViewStack.currentView.getAttribute('uri') && window.GlobalViewStack === this)
                 return;
@@ -138,16 +155,17 @@ define(['controls/tabbar'], function (SPTabBarElement) {
             this.setView(view);
         
             view.setAttribute('uri', newUri);
-            let url = uri.substr('bungalow:'.length).split(':').join('/');
+            let path = uri.pathname + '?' + uri.querystring;
             
             this.uri = uri;
             
             if (!dontPush) {
                 history.pushState({
-                    uri: uri,
+                    uri: newUri,
+                    query: uri.query,
                     position: window.navPosition,
                     count: window.navPosition
-                }, uri, '/' + url);
+                }, uri, uri.pathname + '?' + uri.querystring);
             } else {
                 
             }
