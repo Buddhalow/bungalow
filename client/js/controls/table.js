@@ -48,16 +48,26 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             });
         }
         async fetchNext() {
+            if (this.isFetching) return;
+            this.isFetching = true;
             var result = await this.dataSource.request('GET', this.getAttribute('uri'), {
                 limit: this.limit,
                 offset: this.offset
             });
+            if (!this.state || !this.state.object) {
+                this.state = {
+                    object: {
+                        objects: []
+                    }
+                };
+            }
             if (!!result)
             for (let row of result.objects) {
                 this.state.object.objects.push(row);
             }
             this.render();
             this.offset += this.limit;
+            this.isFetching = false;
         }
         
         get designer() {
@@ -88,6 +98,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
         }
         createdCallback() {
             super.createdCallback();
+            
             window.addEventListener('resize', this._onResize.bind(this));
             this.offset = 0;
             this.limit = 28;
@@ -117,6 +128,8 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                     this.selectAllRows();
                 }
             });
+            
+          
             
         }   
         selectAllRows() {
@@ -191,9 +204,9 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             let gondole = this.gondole;
             if (gondole && gondole.getBoundingClientRect().top < viewBounds.top + viewBounds.height) {
                 
-                if (!gondole.hasAttribute('activated'))
-                    this.fetchNext();
-                gondole.setAttribute('activated', 'true');
+                this.fetchNext();
+                    
+                
             }
         }
         clear() {
@@ -208,8 +221,8 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
         attributeChangedCallback(attrName, oldVal, newVal) {
             if (attrName == 'uri') {
                 if (newVal != null) {
-                this.reset();
-                this.fetchNext();
+                   this.reset();
+                    this.fetchNext();
                 }
             }
             if (attrName == 'showheaders') {
@@ -233,12 +246,11 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             super.render();
             if (!this.parentNode) return;
             if ( !this.designer || this.state == null || this.state.object == null || !(this.state.object.objects instanceof Array)) return;
-            this.innerHTML = '';
+            this.table.innerHTML = '';
             this.emptyLabel = document.createElement('div');
             this.emptyLabel.classList.add('sp-empty');
             this.emptyLabel.setAttribute('hidden', true);
             this.appendChild(this.emptyLabel);
-            this.table = document.createElement('table');
             this.appendChild(this.table);
             this.table.tbody = document.createElement('tbody');
             this.table.appendChild(this.table.tbody);
@@ -456,10 +468,10 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             }
             
             let evt = new CustomEvent('rendered');
-            this.gondole = document.createElement('tfoot');
-            
-            
-            this.table.appendChild(this.gondole);
+            if (!this.gondole) {
+                  this.gondole = document.createElement('div');
+                this.appendChild(this.gondole);
+            }
             this.checkNext();
             this.dispatchEvent(evt);
         }
