@@ -25,6 +25,11 @@ Cache.prototype.save = function (uri, contents) {
     fs.writeFileSync(filePath, JSON.stringify(contents));
 }
 
+Cache.prototype.invalidate = function (uri) {
+    var filePath = getFilePath(uri);
+    fs.unlinkSync(filePath);
+}
+
 
 Cache.prototype.load = function (uri) {
     var filePath = path.join(os.tmpdir(), getFileName(uri));

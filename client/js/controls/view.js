@@ -56,6 +56,9 @@ define(function () {
                 hook.setAttribute('uri', uri);
             }
         }
+        invalidate() {
+            
+        }
         afterLoad(uri) {
             var event = new CustomEvent('viewload', {detail: this});
             document.dispatchEvent(event);

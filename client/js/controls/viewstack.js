@@ -155,6 +155,30 @@ define(['controls/tabbar'], function (SPTabBarElement) {
             
         }
         
+        postToUri(uri, data) {
+            uri = 'bungalow:' + uri.split(':').slice(1).join(':');
+            let view = null;
+            let externalViews = window.GlobalViewStack.registeredViews.filter((v) => {
+                
+                console.log(v.regex);
+                console.log(uri);
+                let result = v.regex.test(uri);
+                console.log(result);
+                return result;
+            });
+            if (uri in this.views) {
+                
+                view = this.views[uri];
+                
+            } else if (externalViews.length > 0) {
+                view = document.createElement(externalViews[0].tag);
+                this.views[uri] = view;
+            }
+            if (view != null) {
+                view.insertUri(uri, data);
+            }
+        }
+        
         addView(uri, view) {
             
             this.views[uri] = view;

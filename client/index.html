@@ -67,15 +67,14 @@
     <template type="text/template" id="headerTemplate">
       <div class="container">
         <% if (!!object.image_url) { %>
-        <div style="flex: 0 0 <%=width%> ; margin-right: 12pt">
-          <sp-image width="192" height="192" src="<%=object.image_url %>"></sp-image>
+        <div class="<%=type%>_cover_image" style="flex: 0 0 <%=width%> ; margin-right: 12pt">
+          <sp-image  width="192" height="192" src="<%=object.image_url %>"></sp-image>
         </div>
         <% } %>
         <div style="flex: 2" class="header-description">
           <div style="">
-             <small style=""><%=_(object.type) %></small>
-            <h1> <%= _e(title) %>
-            </h1>
+             <small class="type"><%=_(object.type) %></small>
+            <h1 class="<%=type%>_title"><%= _e(title) %></h1>
              <sp-toolbar></sp-toolbar>      
             <p style="opacity: 0.5"><%= (object.description ? object.description.hashtagify() : '') %></p>
         

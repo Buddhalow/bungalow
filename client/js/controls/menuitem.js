@@ -3,6 +3,21 @@ define(['controls/link'], function (SPLinkElement) {
         createdCallback() {
             super.createdCallback();
             this.subitems = [];
+            this.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                var data = e.dataTransfer.getData('text');
+                e.target.classList.add('dragover');
+            })
+            this.addEventListener('drop', (e) => {
+                e.preventDefault();
+                var uri = e.dataTransfer.getData('text');
+                GlobalViewStack.postToUri(e.target.getAttribute('uri'), uri);
+                e.target.classList.remove('dragover');
+            })
+            this.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                e.target.classList.remove('dragover');
+            })
         }
         async attributeChangedCallback(attrName, oldVal, newVal) {
            
