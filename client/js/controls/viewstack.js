@@ -88,7 +88,7 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
             }   
             
             
-            let newUri = uri.toUri();
+            let newUri = uri.toUri().trimRight(':');
             
             if (window.GlobalViewStack.currentView != null && newUri === window.GlobalViewStack.currentView.getAttribute('uri') && window.GlobalViewStack === this)
                 return;

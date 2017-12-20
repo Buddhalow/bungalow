@@ -62,7 +62,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
         
         get designer() {
             if (!this._designer) {
-                this._designer = new SPTableDesigner();
+                return null;
             }
             return this._designer;
         }
@@ -75,7 +75,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             if (this.table != null)
             this.table.tbody.innerHTML = '';
             this.offset = 0;
-            this.limit = 0;
+            this.limit = 28;
         }
         get columnheaders() {
             return (this.getAttribute('columnheaders') || '').split(',');
@@ -124,8 +124,8 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
         }
         attachedCallback() {
     
-                this.parentNode.classList.add('table-background');
-    
+            this.parentNode.classList.add('table-background');
+            this.render();
         }
     
         activate() {
@@ -179,12 +179,22 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             } else {
                 this.table.thead.style.transform = 'translateY(0px)';
             }
-            let gondole = this.querySelector('sp-gondole');
-            if (gondole && gondole.getBoundingClientRect().top < viewBounds.top + viewBounds.height) {
-                if (!gondole.hasAttribute('activated'))
-                this.fetchNext();
-            }
+            this.checkNext();
         
+        }
+        checkNext() {
+            if (this.parentNode == null) return;
+            let view = this.getParentElementByClass("sp-view");
+            if (!view) return;
+            let viewBounds = view.getBoundingClientRect();
+            
+            let gondole = this.gondole;
+            if (gondole && gondole.getBoundingClientRect().top < viewBounds.top + viewBounds.height) {
+                
+                if (!gondole.hasAttribute('activated'))
+                    this.fetchNext();
+                gondole.setAttribute('activated', 'true');
+            }
         }
         clear() {
             this.table.tbody.innerHTML = '';
@@ -219,8 +229,10 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             }
         }
         render() {
+            
             super.render();
-            if (this.state == null || this.state.object == null || !(this.state.object.objects instanceof Array)) return;
+            if (!this.parentNode) return;
+            if ( !this.designer || this.state == null || this.state.object == null || !(this.state.object.objects instanceof Array)) return;
             this.innerHTML = '';
             this.emptyLabel = document.createElement('div');
             this.emptyLabel.classList.add('sp-empty');
@@ -444,7 +456,11 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             }
             
             let evt = new CustomEvent('rendered');
-          
+            this.gondole = document.createElement('tfoot');
+            
+            
+            this.table.appendChild(this.gondole);
+            this.checkNext();
             this.dispatchEvent(evt);
         }
         resize() {
@@ -484,8 +500,9 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             let thead = this.querySelector('thead');
             if (thead != null)
             if (thead.hasAttribute('hidden')) {
-            this.adjustZebra();
+                this.adjustZebra();
             }
+            this.checkNext();
         }
     }
 

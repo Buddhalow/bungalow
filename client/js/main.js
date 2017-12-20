@@ -35,6 +35,15 @@ Date.prototype.toDateInputValue = (function() {
 
 i18_registerLang('sv');
 
+
+String.prototype.trimRight = function (charToTrim) {
+  var regExp = new RegExp(charToTrim + "+$");
+  var result = this.replace(regExp, "");
+
+  return result;
+}
+
+
 HTMLElement.prototype.getParentElementByTagName = function (tagName) {
     let elm = this;
     while (elm && elm.tagName !== tagName) {

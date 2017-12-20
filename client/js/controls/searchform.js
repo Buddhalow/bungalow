@@ -10,8 +10,8 @@ define(function () {
             this.form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 let query = this.form.searchTextBox.value;
-                 if (query.indexOf('bungalow:') != 0 && query.indexOf('spotify:') != 0) {
-                    query = 'bungalow:search:' + query;
+                 if (query.indexOf(':') == -1) {
+                    query = 'spotify:search:' + query;
                 }
                 GlobalViewStack.navigate(query);
                 return false;
