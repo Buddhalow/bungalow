@@ -10,6 +10,7 @@ define(['controls/link'], function (SPLinkElement) {
             })
             this.addEventListener('drop', (e) => {
                 e.preventDefault();
+          
                 var uri = e.dataTransfer.getData('text');
                 GlobalViewStack.postToUri(e.target.getAttribute('uri'), uri);
                 e.target.classList.remove('dragover');

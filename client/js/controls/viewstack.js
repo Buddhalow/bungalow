@@ -167,7 +167,6 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
         }
         
         postToUri(uri, data) {
-            uri = 'bungalow:' + uri.split(':').slice(1).join(':');
             let view = null;
             let externalViews = window.GlobalViewStack.registeredViews.filter((v) => {
                 
@@ -188,6 +187,7 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
             if (view != null) {
                 view.insertUri(uri, data);
             }
+            view.attributeChangedCallback('uri', null, uri);
         }
         
         addView(uri, view) {

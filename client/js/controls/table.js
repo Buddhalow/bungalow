@@ -48,7 +48,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             });
         }
         async fetchNext() {
-            if (this.isFetching) return;
+            if (this.isFetching || this.hasReachedEnd) return;
             this.isFetching = true;
             var result = await this.dataSource.request('GET', this.getAttribute('uri'), {
                 limit: this.limit,
@@ -61,9 +61,14 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                     }
                 };
             }
+            var end = true;
             if (!!result)
             for (let row of result.objects) {
+                end = false;
                 this.state.object.objects.push(row);
+            }
+            if (end) {
+                this.hasReachedEnd = true;
             }
             this.render();
             this.offset += this.limit;
@@ -128,7 +133,14 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                     this.selectAllRows();
                 }
             });
-            
+            document.body.addEventListener('keyup', (event) => {
+                if (event.which == "17")
+                    this.cntrlIsPressed = false;
+                else if (event.which == 65 && this.cntrlIsPressed) {
+                    // Cntrl+  A
+                    this.selectAllRows();
+                }
+            });
           
             
         }   
@@ -480,6 +492,9 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             }
             this.checkNext();
             this.dispatchEvent(evt);
+  
+            this.adjustZebra();
+            
         }
         resize() {
             this.adjustZebra();
