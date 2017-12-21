@@ -63,6 +63,9 @@ define(function () {
             var event = new CustomEvent('viewload', {detail: this});
             document.dispatchEvent(event);
         }
+        refresh() {
+            
+        }
         addTab(tabId, name) {
             if (!this.extraTabs) {
                 this.extraTabs = [];

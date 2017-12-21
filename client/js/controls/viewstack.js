@@ -187,7 +187,7 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
             if (view != null) {
                 view.insertUri(uri, data);
             }
-            view.attributeChangedCallback('uri', null, uri);
+            view.refresh();
         }
         
         addView(uri, view) {

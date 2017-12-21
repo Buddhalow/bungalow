@@ -251,6 +251,9 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                 return false;
             }
         }
+        async insertObjectsAt(objects, position) {
+            await this.dataSource.insertObjectsAt(objects, position, this.uri);
+        }
         render() {
             
             super.render();

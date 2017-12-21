@@ -9,6 +9,9 @@ define(['plugins/bungalow/datasources/restdatasource'], function (SPRestDataSour
                 };
             }
         }
+        refresh() {
+            this.attributeChangedCallback('uri', null, this.getAttribute('uri'));
+        }
         
         get dataSource() {
             return this._dataSource;

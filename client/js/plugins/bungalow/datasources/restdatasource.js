@@ -39,14 +39,19 @@ define(['controls/datasource'], function (SPDataSource) {
                
             }
             url = url;
-            if (options instanceof Object) {
-                url += '?' + serializeObject(options);
-            }
+            
             let result = await fetch(url, {
                 method: method,
-                credentials: 'same-origin'
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
             }).then(r => r.json());
             return result;
+        }
+        
+        async insertObjectsAt(objects, position, uri) {
+            let data = {uris: objects.map(o => o.uri), position: position};
+            let result = await this.request('POST', uri, {}, data);
+           
         }
         
         get numberOfFields() {
