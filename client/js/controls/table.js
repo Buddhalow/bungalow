@@ -107,6 +107,8 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             window.addEventListener('resize', this._onResize.bind(this));
             this.offset = 0;
             this.limit = 28;
+            this.history = [];
+            this.future = [];
             this._columns = [];
             this.result = {
                 objects : []
@@ -251,8 +253,162 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                 return false;
             }
         }
-        async insertObjectsAt(objects, position) {
-            await this.dataSource.insertObjectsAt(objects, position, this.uri);
+        async reorderRows(indicies, newPosition, addToHistory=true) {
+            var affectedObjects = [];
+            var oldPositions = [];
+            indicies.map((index, i) => {
+                this.state.object.objects.move(index, newPosition);
+                oldPositions.push(index);
+                this.state.object.objects[newPosition].position = newPosition;
+                
+                var obj = this.state.object.objects[newPosition];
+                affectedObjects.push(obj);
+                obj.invalidated = true;
+                
+            })
+            this.render();
+            if (addToHistory) {
+                this.history.push(
+                    affectedObjects.map(
+                        (o, i) => {
+                            return {
+                                action: 'reorder',
+                                newPosition: oldPositions[i],
+                                indicies: [o.position]
+                            }
+                        }
+                    )
+                );
+            } else {
+                this.future.push(
+                    affectedObjects.map(
+                        (o, i) => {
+                            return {
+                                action: 'reorder',
+                                newPosition: oldPositions[i],
+                                indicies: [o.position]
+                            }
+                        }
+                    )
+                );
+            }
+          //  await this.dataSource.reorderObjects(indicies, newPosition, this.uri);
+        }
+        async doAction(objs, future=true) {
+            if (!objs) return;
+            for (let obj of objs) {
+                if (obj.action == 'insert') {
+                   await this.insertObjectsAt(obj.objects, obj.position, this.uri, future);
+                }
+                if (obj.action == 'remove') {
+                    await this.removeObjects([obj.position], this.uri, future);
+                }
+                if (obj.action == 'reorder') {
+                    await this.reorderRows(obj.indicies, obj.newPosition, this.uri, future);
+                }
+            }
+        }
+        async insertObjectsAt(objects, position, snapshot, addToHistory=true) {
+            objects = objects.map((o, i) => {
+                o.position = position + i
+            });
+            this.state.object.objects = this.state.object.objects.insertArray(objects, position);
+            this.validatePositions();
+            if (addToHistory) {
+                this.history.push(objects.map(o => {
+                    return {
+                        action: 'remove',
+                        position: o.position,
+                        object: o
+                    }
+                }));
+            } else {
+                this.future.push(objects.map(o => {
+                    return {
+                        action: 'remove',
+                        position: o.position
+                    }
+                }));
+            }
+            this.render();
+            
+          //  await this.dataSource.insertObjectsAt(objects, position, this.uri);
+            
+        }
+        validatePositions() {
+            this.state.object.objects = this.state.object.objects.map((o, i) => {
+                o.position = i;
+                return o;
+            });
+        }
+        async deleteRowsAt(indicies, addToHistory=true) {
+            var objects = indicies.map((i) => {
+                var o = this.state.object.objects[i];
+              
+                return o;
+            });
+            if (addToHistory) {
+                this.history.push(
+                    objects.map((o, i) => {
+                        return {
+                            action: 'insert',
+                            objects: objects,
+                            position: indicies[i]
+                        }
+                    })
+                );
+            } else {
+                this.history.push(
+                    objects.map((o, i) => {
+                        return {
+                            action: 'insert',
+                            objects: objects,
+                            position: indicies[i]
+                        }
+                    })
+                );
+            }
+            
+        }
+        get canReorderRows() {
+            return this.hasAttribute('canreorderrows')
+        }
+        
+        set canReorderRows(value) {
+            
+            this.setAttribute('canreorderrows', value == true);
+            if (!value) {
+                this.removeAttribute('canreorderrows');
+            }
+        }
+        get canAddRows() {
+            return this.hastribute('canaddrows')
+        }
+        set canAddRows(value) {
+            
+            this.setAttribute('canaddrows', value == true);
+            if (!value) {
+                this.removeAttribute('canaddrows');
+            }
+        }
+        get canDeleteRows() {
+            return this.hasAttribute('candeleterows')
+        }
+        set canDeleteRows(value) {
+            
+            this.setAttribute('candeleterows', value == true);
+            if (!value) {
+                this.removeAttribute('candeleterows');
+            }
+        }
+        undo() {
+            let action = this.history.pop();
+            this.doAction(action, true);
+            
+        }
+        redo() {
+            let action = this.future.pop();
+            this.doAction(action, true);
         }
         render() {
             
@@ -276,25 +432,45 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             this.table.thead.tr = document.createElement('tr'); 
             if(this.getAttribute('showcolumnheaders') == 'true')
                 this.table.thead.appendChild(this.table.thead.tr);
-            if (this.dataSource.canReorderRows || this.dataSource.canAddRows) {
+                $(this).keydown((e) => {
+                  var zKey = 90;
+                  if ((e.ctrlKey || e.metaKey) && e.keyCode == zKey && !this.cpt) {
+                      this.cpt = true;
+                      if (e.shiftKey) {
+                            this.redo();
+                      } else {
+                            this.undo();
+                      }
+                    return false;
+                  }
+                });
+                $(this).keyup((e) => {
+                    this.cpt = false;
+                });
+            if (this.canReorderRows || this.canAddRows) {
                 $(this, 'td').on('dragover', false);
                  $(this, 'td').on('drop', async (ex) => {
                      if (this.dropping) return;
                      this.dropping = true;
                      let e = ex.originalEvent;
                     $('tr').removeClass('sp-dragover');
-                     if (this.dataSource.canReorderRows || this.dataSource.canAddRows) {
+                     if (this.canReorderRows || this.canAddRows) {
                         if (e.dataTransfer.effectAllowed == 'move') {
                             
-                            await this.dataSource.reorderRows(this.selectedIndicies, this.insertPosition);
+                            await this.reorderRows(this.selectedIndicies, this.insertPosition);
                             this.dropping = false;
                         //    this.refresh();
+                        try {
                         this.selectedRows.map(tr => {
+                        
                             this.table.tbody.removeChild(tr);
                         });
                         this.selectedTrs.map(tr => {
                             this.table.tbody.insertBefore(tr, this.table.tbody.childNodes[this.insertPosition]) 
                         });
+                        } catch (e) {
+                            
+                        }
                         }
                     }   
                     
@@ -323,13 +499,13 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                     );
                     let text = this.selectedUris.join("\n");
                     event.dataTransfer.setData("text/plain",text);
-                    if (this.dataSource.canReorderRows) {
+                    if (this.canReorderRows) {
                         e.dataTransfer.effectAllowed = 'move';
                         
                         this.activity = 'reorder';
                     }
                 })
-                if (this.dataSource.canReorderRows || this.dataSource.canAddRows) {
+                if (this.canReorderRows || this.canAddRows) {
                     tr.addEventListener('dragenter', (e) => {
                         if (e.dataTransfer.effectAllowed == 'move') {
                             $('tr').removeClass('sp-dragover');

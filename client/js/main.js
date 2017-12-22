@@ -11,6 +11,19 @@ String.prototype.getUrl = function () {
 }
 
 
+Array.prototype.move = function (from, to) {
+  this.splice(to, 0, this.splice(from, 1)[0]);
+};
+
+
+Array.prototype.insertArray = function (new_values, insert_index) {
+    for (var i=0; i<new_values.length; i++) {
+        this.splice((insert_index + i), 0, new_values[i]);
+    }
+    return this;
+}
+
+
 String.prototype.hashtagify = function() {
     return this.replace(/#(\S*)/, '<sp-link uri="buddhalow:hashtag:$1">#$1</sp-link>').replace('<sp-link uri="buddhalow:hashtag:#', '<sp-link uri="buddhalow:hashtag:');
 }
