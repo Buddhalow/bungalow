@@ -254,12 +254,18 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             }
         }
         async reorderRows(indicies, newPosition, addToHistory=true) {
+            if (addToHistory)
+             this.history.push(
+                this.state.object.objects.slice(0)
+            );
             var affectedObjects = [];
             var oldPositions = [];
+            var newPositions = [];
             indicies.map((index, i) => {
                 this.state.object.objects.move(index, newPosition);
                 oldPositions.push(index);
                 this.state.object.objects[newPosition].position = newPosition;
+                newPositions.push(newPosition);
                 
                 var obj = this.state.object.objects[newPosition];
                 affectedObjects.push(obj);
@@ -267,31 +273,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                 
             })
             this.render();
-            if (addToHistory) {
-                this.history.push(
-                    affectedObjects.map(
-                        (o, i) => {
-                            return {
-                                action: 'reorder',
-                                newPosition: oldPositions[i],
-                                indicies: [o.position]
-                            }
-                        }
-                    )
-                );
-            } else {
-                this.future.push(
-                    affectedObjects.map(
-                        (o, i) => {
-                            return {
-                                action: 'reorder',
-                                newPosition: oldPositions[i],
-                                indicies: [o.position]
-                            }
-                        }
-                    )
-                );
-            }
+         
           //  await this.dataSource.reorderObjects(indicies, newPosition, this.uri);
         }
         async doAction(objs, future=true) {
@@ -309,27 +291,15 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             }
         }
         async insertObjectsAt(objects, position, snapshot, addToHistory=true) {
+            this.history.push(
+               this.state.object.objects.slice(0)
+            );
             objects = objects.map((o, i) => {
                 o.position = position + i
             });
             this.state.object.objects = this.state.object.objects.insertArray(objects, position);
             this.validatePositions();
-            if (addToHistory) {
-                this.history.push(objects.map(o => {
-                    return {
-                        action: 'remove',
-                        position: o.position,
-                        object: o
-                    }
-                }));
-            } else {
-                this.future.push(objects.map(o => {
-                    return {
-                        action: 'remove',
-                        position: o.position
-                    }
-                }));
-            }
+            
             this.render();
             
           //  await this.dataSource.insertObjectsAt(objects, position, this.uri);
@@ -342,33 +312,9 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             });
         }
         async deleteRowsAt(indicies, addToHistory=true) {
-            var objects = indicies.map((i) => {
-                var o = this.state.object.objects[i];
-              
-                return o;
-            });
-            if (addToHistory) {
-                this.history.push(
-                    objects.map((o, i) => {
-                        return {
-                            action: 'insert',
-                            objects: objects,
-                            position: indicies[i]
-                        }
-                    })
-                );
-            } else {
-                this.history.push(
-                    objects.map((o, i) => {
-                        return {
-                            action: 'insert',
-                            objects: objects,
-                            position: indicies[i]
-                        }
-                    })
-                );
-            }
-            
+            this.history.push(
+                this.state.object.objects.slice(0)
+            );
         }
         get canReorderRows() {
             return this.hasAttribute('canreorderrows')
@@ -402,13 +348,14 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             }
         }
         undo() {
-            let action = this.history.pop();
-            this.doAction(action, true);
-            
+            this.future.push(this.state.object.objects.slice(0));
+            this.state.object.objects = this.history.pop();
+            this.render();
         }
         redo() {
-            let action = this.future.pop();
-            this.doAction(action, true);
+            this.history.push(this.state.object.objects.slice(0));
+            this.state.object.objects = this.future.pop();
+            this.render();
         }
         render() {
             
@@ -432,17 +379,22 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             this.table.thead.tr = document.createElement('tr'); 
             if(this.getAttribute('showcolumnheaders') == 'true')
                 this.table.thead.appendChild(this.table.thead.tr);
-                $(this).keydown((e) => {
+                $(window).keydown((e) => {
                   var zKey = 90;
-                  if ((e.ctrlKey || e.metaKey) && e.keyCode == zKey && !this.cpt) {
-                      this.cpt = true;
-                      if (e.shiftKey) {
-                            this.redo();
-                      } else {
-                            this.undo();
+                 
+                  if ((e.ctrlKey || e.metaKey)  && !this.cpt) {
+                      if (e.keyCode == zKey) {
+                          if (e.shiftKey) {
+                                this.redo();
+                                this.cpt = true;
+                          } else {
+                                this.undo();
+                                this.cpt = true;
+                          }
                       }
                     return false;
                   }
+                  
                 });
                 $(this).keyup((e) => {
                     this.cpt = false;
