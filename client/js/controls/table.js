@@ -127,7 +127,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             this.created = true;
             
             this.table.setAttribute('tabindex', '0');
-            document.body.addEventListener('keydown', (event) => {
+            this.addEventListener('keydown', (event) => {
                 if (event.which == "17")
                     this.cntrlIsPressed = true;
                 else if (event.which == 65 && this.cntrlIsPressed) {
@@ -135,7 +135,12 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                     this.selectAllRows();
                 }
             });
-            document.body.addEventListener('keyup', (event) => {
+            $(this).keyup(function (e) {
+                if (e.keyCode == 46) {
+                    this.deleteRowsAt(this.selectedIndicies, true);
+                }
+            });
+            this.addEventListener('keyup', (event) => {
                 if (event.which == "17")
                     this.cntrlIsPressed = false;
                 else if (event.which == 65 && this.cntrlIsPressed) {
@@ -274,7 +279,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             })
             this.render();
          
-          //  await this.dataSource.reorderObjects(indicies, newPosition, this.uri);
+            await this.dataSource.replaceObjects(this.state.object.objects, this.uri);
         }
         async doAction(objs, future=true) {
             if (!objs) return;
@@ -294,27 +299,30 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             this.history.push(
                this.state.object.objects.slice(0)
             );
-            objects = objects.map((o, i) => {
-                o.position = position + i
-            });
             this.state.object.objects = this.state.object.objects.insertArray(objects, position);
             this.validatePositions();
             
             this.render();
             
-          //  await this.dataSource.insertObjectsAt(objects, position, this.uri);
+            //  await this.dataSource.insertObjectsAt(objects, position, this.uri);
+            this.dataSource.replaceObjects(this.state.object.objects, this.uri);
             
         }
         validatePositions() {
             this.state.object.objects = this.state.object.objects.map((o, i) => {
+                if (!o) return null;
                 o.position = i;
                 return o;
             });
         }
         async deleteRowsAt(indicies, addToHistory=true) {
-            this.history.push(
-                this.state.object.objects.slice(0)
+            this.state.object.objects = this.state.object.objects.filter(
+                (o, i) => {
+                    return !indicies.contains(i);
+                }
             );
+            this.dataSource.replaceObjects(this.state.object.objects, this.uri);
+            this.render();
         }
         get canReorderRows() {
             return this.hasAttribute('canreorderrows')
@@ -328,7 +336,7 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
             }
         }
         get canAddRows() {
-            return this.hastribute('canaddrows')
+            return this.hasAttribute('canaddrows')
         }
         set canAddRows(value) {
             
@@ -409,8 +417,8 @@ define(['controls/resource', 'controls/tabledesigner'], function (SPResourceElem
                      if (this.canReorderRows || this.canAddRows) {
                         if (e.dataTransfer.effectAllowed == 'move') {
                             
-                            await this.reorderRows(this.selectedIndicies, this.insertPosition);
                             this.dropping = false;
+                            await this.reorderRows(this.selectedIndicies, this.insertPosition);
                         //    this.refresh();
                         try {
                         this.selectedRows.map(tr => {

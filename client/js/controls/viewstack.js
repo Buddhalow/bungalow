@@ -166,7 +166,7 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
             
         }
         
-        postToUri(uri, data) {
+        async postToUri(uri, data) {
             let view = null;
             let externalViews = window.GlobalViewStack.registeredViews.filter((v) => {
                 
@@ -185,6 +185,8 @@ define(['controls/tabbar', 'models/uri'], function (SPTabBarElement, Uri) {
                 this.views[uri] = view;
             }
             if (view != null) {
+                await view.setUri(uri);
+                
                 view.insertUri(uri, data);
             }
             view.refresh();

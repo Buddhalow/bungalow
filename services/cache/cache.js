@@ -27,7 +27,8 @@ Cache.prototype.save = function (uri, contents) {
 
 Cache.prototype.invalidate = function (uri) {
     var filePath = getFilePath(uri);
-    fs.unlinkSync(filePath);
+    if (fs.existsSync(filePath))
+        fs.unlinkSync(filePath);
 }
 
 

@@ -66,6 +66,13 @@ define(['controls/datasource'], function (SPDataSource) {
            
         }
         
+        async replaceObjects(objects, uri) {
+            var parts = uri.split(':');
+            var snapshot_id = parts[parts.length - 1];
+            let data = {uris: objects.map((o) => o.uri)};
+            let result = await this.request('PUT', uri, {}, data);
+        }
+        
         get numberOfFields() {
             return Object.keys(this.fields).length;
         }

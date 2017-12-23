@@ -16,6 +16,17 @@ Array.prototype.move = function (from, to) {
 };
 
 
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] == obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 Array.prototype.insertArray = function (new_values, insert_index) {
     for (var i=0; i<new_values.length; i++) {
         this.splice((insert_index + i), 0, new_values[i]);

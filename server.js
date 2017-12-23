@@ -32,7 +32,7 @@ app.use(cookieSession({
 
 var path = require('path');
 
-/*
+
 // middleware which blocks requests when we're too busy
 app.use(function(req, res, next) {
     if (busyCheck.blocked) {
@@ -40,7 +40,7 @@ app.use(function(req, res, next) {
     } else {
         next();
     }
-});*/
+});
 app.use('/api', api.app);
 
 var busyCheck = busy(function(amount) {
